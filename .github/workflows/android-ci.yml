@@ -21,7 +21,7 @@ jobs:
           java-version: '11'
 
       #      - name: Setup Android SDK
-#        uses: android-actions/setup-android@v3
+      #        uses: android-actions/setup-android@v3
 
       # Cache Gradle dependencies and Gradle Wrapper
       - name: Setup Gradle Cache
@@ -34,3 +34,13 @@ jobs:
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
+
+      - name: Run Linters and Test
+        run: ./gradlew check
+
+      - name: Upload Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: Test-Reports
+          path: app/build/reports
+        if: always()
