@@ -12,15 +12,26 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Set up JDK
-        uses: actions/setup-java@v2
+      - name: Setup JDK
+        uses: actions/setup-java@v3
         with:
-          distribution: 'adopt'
-          java-version: '8'
+          distribution: 'zulu'
+          java-version: '11'
 
-      - name: Build and Test
-        run: |
-          chmod +x ./gradlew
-          ./gradlew clean build test
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      # Cache Gradle dependencies and Gradle Wrapper
+      - name: Setup Gradle Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
