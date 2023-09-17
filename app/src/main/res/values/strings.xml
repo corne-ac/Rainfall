@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Rainfall</string>
+    <string name="settings">Settings</string>
+    <string name="add">Add rainfall data</string>
+    <string name="graph">Rainfall Graph</string>
+    <string name="notifications">Notifications</string>
+    <string name="home">Home</string>
+    <string name="set_light_mode">Set light mode</string>
+    <string name="set_dark_mode">set dark mode</string>
+    <string name="prompt_language">Language Selection</string>
 </resources>

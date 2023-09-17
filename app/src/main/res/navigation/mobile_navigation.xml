@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_home">
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.corne.rainfall.ui.home.HomeStateFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <!--   <action
+               android:id="@+id/action_loginFragment_to_notesFragment"
+               app:destination="@id/notesFragment"
+               app:enterAnim="@anim/slide_in_right"
+               app:exitAnim="@anim/slide_out_left"
+               app:launchSingleTop="true"
+               app:popEnterAnim="@anim/slide_in_left"
+               app:popExitAnim="@anim/slide_out_right"
+               app:popUpTo="@id/nav_graph"
+               app:popUpToInclusive="true" />
+           <action
+               android:id="@+id/action_loginFragment_to_registerFragment"
+               app:destination="@id/registerFragment"
+               app:enterAnim="@anim/slide_in_right"
+               app:exitAnim="@anim/slide_out_left"
+               app:popEnterAnim="@anim/slide_in_left"
+               app:popExitAnim="@anim/slide_out_right"
+               app:popUpTo="@id/loginFragment" />-->
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.corne.rainfall.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+
+
+    <fragment
+        android:id="@+id/navigation_add"
+        android:name="com.corne.rainfall.ui.rain.CaptureFragment"
+        android:label="fragment_capture"
+        tools:layout="@layout/fragment_capture" />
+
+    <!--app:startDestination="@+id/navigation_home"-->
+    <!--Goal
+    <fragment
+        android:id="@+id/navigation_all_goals"
+        android:name="com.ryanblignaut.featherfinder.ui.goal.AllGoals"
+        android:label="@string/all_goals"
+        tools:layout="@layout/fragment_goal_list">
+        <action
+            android:id="@+id/action_all_goals_to_add_goal"
+            app:destination="@id/navigation_add_goal"
+            app:enterAnim="@anim/fade"
+            app:exitAnim="@anim/fade" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_add_goal"
+        android:name="com.ryanblignaut.featherfinder.ui.goal.AddGoal"
+        android:label="@string/add_goal"
+        tools:layout="@layout/fragment_goal_add" />
+
+    Home
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.ryanblignaut.featherfinder.ui.home.Home"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home" />
+
+    Map
+    <fragment
+        android:id="@+id/navigation_hotspot_info"
+        android:name="com.ryanblignaut.featherfinder.ui.map.HotspotInfo"
+        android:label="@string/hotspot_info"
+        tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/navigation_route"
+        android:name="com.ryanblignaut.featherfinder.ui.map.RouteBirding"
+        android:label="@string/route"
+        tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/navigation_nearby_hotspots"
+        android:name="com.ryanblignaut.featherfinder.ui.map.NearbyBirding"
+        android:label="@string/nearby_hotspots"
+        tools:layout="@layout/fragment_map" />
+
+    Observation
+    <fragment
+        android:id="@+id/navigation_add_observation"
+        android:name="com.ryanblignaut.featherfinder.ui.observation.ObservationAdd"
+        android:label="@string/add_observation"
+        tools:layout="@layout/fragment_observation_add" />
+    <fragment
+        android:id="@+id/navigation_observation_list"
+        android:name="com.ryanblignaut.featherfinder.ui.observation.ObservationList"
+        android:label="@string/observation_list"
+        tools:layout="@layout/fragment_observation_list" />
+    <fragment
+        android:id="@+id/navigation_observation_detail"
+        android:name="com.ryanblignaut.featherfinder.ui.observation.ObservationDetail"
+        android:label="@string/observation_detail"
+        tools:layout="@layout/fragment_observation_detail" />
+
+    <fragment
+        android:id="@+id/navigation_bird_info"
+        android:name="com.ryanblignaut.featherfinder.ui.education.BirdInfoFragment"
+        android:label="@string/bird_info"
+        tools:layout="@layout/fragment_bird_info_list" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.ryanblignaut.featherfinder.ui.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_achievement"
+        android:name="com.ryanblignaut.featherfinder.ui.achievement.ViewAchievements"
+        android:label="@string/achievements"
+        tools:layout="@layout/fragment_all_achievements" />
+
+      <fragment
+          android:id="@+id/navigation_profile"
+          android:name="com.ryanblignaut.featherfinder.ui.ProfileFragment"
+          android:label="@string/home"
+          tools:layout="@layout/fragment_profile" />
+
+      <fragment
+          android:id="@+id/navigation_bird_info"
+          android:name="com.ryanblignaut.featherfinder.ui.education.BirdInfoFragment"
+          android:label="@string/home"
+          tools:layout="@layout/fragment_bird_info" />
+-->
+</navigation>
