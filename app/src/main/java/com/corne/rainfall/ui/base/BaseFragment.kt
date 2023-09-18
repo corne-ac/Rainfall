@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.corne.rainfall.ui.components.LoadingDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
 /**
@@ -68,18 +69,14 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     // TODO: comments for these methods
     fun showProgress(isLoading: Boolean) {
-        /* if (!isLoading) {
-             LoadingDialog().dismiss()
-             return
-         }
-         if (!loadingDialog.isAdded) {
 
-             loadingDialog.show(requireActivity().supportFragmentManager, "LoadingDialog")
-         }*/
     }
 
-    fun showError(title: String, message: String) {
-
+    fun showError(title: String, message: Int) {
+        MaterialAlertDialogBuilder(requireContext()).setMessage(message).setTitle(title)
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }.show()
     }
 
 }

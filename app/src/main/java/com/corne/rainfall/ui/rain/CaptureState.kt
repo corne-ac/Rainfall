@@ -19,12 +19,20 @@ interface CaptureState : BaseState {
 @Immutable
 interface CaptureState : BaseState {
     val isLoading: Boolean
-    val error: String?
+    val error: Int?
+    val date: String?
+    val startTime: String?
+    val endTime: String?
+    val rainMm: String?
 
     companion object {
         val initialState = CaptureState(
             isLoading = false,
-            error = null
+            error = null,
+            date = null,
+            startTime = null,
+            endTime = null,
+            rainMm = null,
         )
     }
 }

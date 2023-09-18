@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TextInput">
+        <!--TODO: hint to id-->
+        <attr name="hint" format="string" />
+        <attr name="icon" format="reference" />
+        <attr name="compHeight" format="dimension" />
+        <attr name="large" format="boolean" />
+    </declare-styleable>
+</resources>

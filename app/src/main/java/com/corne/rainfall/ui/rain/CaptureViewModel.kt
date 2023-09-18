@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CaptureViewModel @Inject constructor(
-     private val rain: IRainRepository,
+    private val rain: IRainRepository,
 // Here we will be injecting the dependencies required by the ViewModel
 ) : BaseViewModel<CaptureState>() {
     override val state: StateFlow<CaptureState> =
@@ -28,27 +28,54 @@ class CaptureViewModel @Inject constructor(
     fun add() {
         currentJob?.cancel()
         currentJob = viewModelScope.launch {
-            setState { isLoading = true }
+            setState { it.isLoading = true }
             rain.addRainData(RainData(0.0, "Test")).onSuccess { onSuccess() }.onError(::onError)
         }
     }
 
-    private fun onError(errorMessage: String) {
-        // TODO: show the error message to the user.
+    private fun onError(errorMessage: Int) {
         setState {
-            isLoading = false
-            error = errorMessage
+            it.isLoading = false
+            it.error = errorMessage
         }
     }
 
     private fun onSuccess() {
         setState {
-            isLoading = false
-            error = null
+            it.isLoading = false
+            it.error = null
         }
     }
 
 
-    private fun setState(update: MutableCaptureState.() -> Unit) = stateStore.setState(update)
+    private fun setState(update: (MutableCaptureState) -> Unit) = stateStore.setState(update)
+    fun setDate(toString: String) {
+        setState {
+            it.date = toString
+        }
+        // TODO: call validation method.
+    }
+
+    fun setStartTime(startTime: String) {
+        setState {
+            it.startTime = startTime
+        }
+        // TODO: call validation method.
+    }
+
+    fun setEndTime(endTime: String) {
+        setState {
+            it.endTime = endTime
+        }
+        // TODO: call validation method.
+    }
+
+    fun setRainMm(rainMm: String) {
+        setState {
+            it.rainMm = rainMm
+        }
+        // TODO: call validation method.
+    }
+
 
 }
