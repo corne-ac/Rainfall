@@ -3,6 +3,7 @@ package com.corne.rainfall.ui.rain
 import androidx.lifecycle.viewModelScope
 import com.corne.rainfall.data.IRainRepository
 import com.corne.rainfall.data.model.RainData
+import com.corne.rainfall.data.model.RainValidator
 import com.corne.rainfall.ui.base.BaseViewModel
 import com.corne.rainfall.ui.base.StateStore
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -49,11 +50,12 @@ class CaptureViewModel @Inject constructor(
 
 
     private fun setState(update: (MutableCaptureState) -> Unit) = stateStore.setState(update)
-    fun setDate(toString: String) {
+    fun setDate(date: String) {
         setState {
-            it.date = toString
+            it.date = date
         }
         // TODO: call validation method.
+        validateRain()
     }
 
     fun setStartTime(startTime: String) {
@@ -61,6 +63,7 @@ class CaptureViewModel @Inject constructor(
             it.startTime = startTime
         }
         // TODO: call validation method.
+        validateRain()
     }
 
     fun setEndTime(endTime: String) {
@@ -68,6 +71,7 @@ class CaptureViewModel @Inject constructor(
             it.endTime = endTime
         }
         // TODO: call validation method.
+        validateRain()
     }
 
     fun setRainMm(rainMm: String) {
@@ -75,6 +79,16 @@ class CaptureViewModel @Inject constructor(
             it.rainMm = rainMm
         }
         // TODO: call validation method.
+        validateRain()
+    }
+
+    private fun validateRain() {
+
+
+        val isValid = RainValidator.isValidRain(currentState.date, currentState.startTime, currentState.endTime, currentState.rainMm)
+        setState {
+            it.error = isValid
+        }
     }
 
 

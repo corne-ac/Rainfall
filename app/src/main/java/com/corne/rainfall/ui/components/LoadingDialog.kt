@@ -19,7 +19,7 @@ class LoadingDialog : DialogFragment() {
      * A read-only property that provides access to the non-null ViewBinding instance.
      * This property must only be accessed after the fragment has been initialized and before it is destroyed.
      */
-    protected val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,

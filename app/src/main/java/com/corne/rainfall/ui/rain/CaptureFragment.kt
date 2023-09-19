@@ -13,15 +13,15 @@ class CaptureFragment :
     override val viewModel: CaptureViewModel by hiltMainNavGraphViewModels()
 
     override fun updateState(state: CaptureState) {
+
+
+
         binding.saveBtn.isEnabled = state.error == -1
         // TODO: show the loading indicator with -> state.isLoading
-//        showProgress(true)
+        showProgressLoader(state.isLoading)
 
-        val errorMessage = state.error
-        if (errorMessage != null) {
-            //TODO: show error message.
-            showError("Failed to add rain item", errorMessage)
-        }
+
+
     }
 
     fun showProgressLoader(show: Boolean) {

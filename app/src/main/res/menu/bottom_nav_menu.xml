@@ -12,6 +12,8 @@
         android:title="@string/graph"
         app:showAsAction="always" />
     <item
+        android:title=""/>
+    <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/notifications_24"
         android:title="@string/notifications"

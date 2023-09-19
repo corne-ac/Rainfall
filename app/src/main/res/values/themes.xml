@@ -16,7 +16,6 @@
         <!-- Status bar color. -->
 
         <item name="colorSurface">@color/transparent</item>
-
     </style>
 
     <style name="Theme.Rainfall" parent="Base.Theme.Rainfall" />
