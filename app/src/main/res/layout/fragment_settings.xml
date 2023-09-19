@@ -16,11 +16,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.google.android.material.button.MaterialButton
+
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/update_dark_btn"
-            android:layout_width="match_parent"
+
+            android:text="Day/Night Mode"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textAllCaps="true"
+
+
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/set_dark_mode" />
+            android:background="@drawable/button_shape"
+            android:layout_gravity="center"
+            />
+
+<!--        android:shadowColor="#69CBFF"-->
+<!--        android:shadowDx="0"-->
+<!--        android:shadowDy="0"-->
+<!--        android:shadowRadius="20"-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/language_input_layout"
