@@ -8,4 +8,5 @@
     <string name="set_light_mode">Set light mode</string>
     <string name="set_dark_mode">set dark mode</string>
     <string name="prompt_language">Language Selection</string>
+    <string name="maps">Maps</string>
 </resources>

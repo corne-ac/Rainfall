@@ -2,7 +2,9 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/rainBackground"
+    >
 
 <!--
     <com.google.android.material.appbar.AppBarLayout
@@ -71,6 +73,7 @@
         android:layout_gravity="bottom"
         android:theme="@style/Theme.Fab_Bottom_app_bar"
         app:fabCradleRoundedCornerRadius="50dp"
+        app:fabCradleMargin="10dp"
         >
         <!--        app:fabAlignmentMode="end"-->
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -87,7 +90,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/emerald"
         android:contentDescription="@string/add"
         android:src="@drawable/add_24"
         android:theme="@style/Theme.Fab_Bottom_app_bar"
