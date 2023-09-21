@@ -47,10 +47,12 @@ class MainActivity : AppCompatActivity() {
 //            val action = NavGraphDirections.actionGlobalNavigationAdd()
 //            navController.navigate(action)
 
-            navController.popBackStack()
-            val navOptions = NavOptions.Builder().setLaunchSingleTop(true).build()
-            navController.navigate(R.id.navigation_add, null, navOptions)
 
+
+//            navController.popBackStack()
+//            val navOptions = NavOptions.Builder().setLaunchSingleTop(true).build()
+//            navController.navigate(R.id.navigation_add, null, navOptions)
+                navController.navigate(R.id.action_global_navigation_add)
         }
 
 

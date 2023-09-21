@@ -41,6 +41,9 @@
         android:name="com.corne.rainfall.ui.rain.CaptureFragment"
         android:label="fragment_capture"
         tools:layout="@layout/fragment_capture" />
+    <action
+        android:id="@+id/action_global_navigation_add"
+        app:destination="@id/navigation_add" />
 
     <!--app:startDestination="@+id/navigation_home"-->
     <!--Goal
