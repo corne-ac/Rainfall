@@ -3,6 +3,9 @@ package com.corne.rainfall.ui.rain
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
+import androidx.room.Room
+import com.corne.rainfall.data.RainfallDatabase
+import com.corne.rainfall.data.model.LocationModel
 import com.corne.rainfall.databinding.FragmentCaptureBinding
 import com.corne.rainfall.ui.base.BaseStateFragment
 import com.corne.rainfall.ui.hiltMainNavGraphViewModels
@@ -15,11 +18,9 @@ class CaptureFragment :
     override fun updateState(state: CaptureState) {
 
 
-
-        binding.saveBtn.isEnabled = state.error == -1
+//        binding.saveBtn.isEnabled = state.error == -1
         // TODO: show the loading indicator with -> state.isLoading
         showProgressLoader(state.isLoading)
-
 
 
     }
@@ -33,11 +34,17 @@ class CaptureFragment :
     }
 
     override suspend fun addContentToView() {
+        binding.saveBtn.isEnabled = true
         binding.dateInput.binding.value.doAfterTextChanged { viewModel.setDate(it.toString()) }
         binding.startTimeInput.binding.value.doAfterTextChanged { viewModel.setStartTime(it.toString()) }
         binding.endTimeInput.binding.value.doAfterTextChanged { viewModel.setEndTime(it.toString()) }
         binding.rainMmInput.binding.value.doAfterTextChanged { viewModel.setRainMm(it.toString()) }
-        binding.saveBtn.setOnClickListener { viewModel.add() }
+        binding.saveBtn.setOnClickListener {
+            viewModel.add(requireContext())
+            viewModel.get(requireContext())
+
+
+        }
     }
 
     override fun createViewBinding(

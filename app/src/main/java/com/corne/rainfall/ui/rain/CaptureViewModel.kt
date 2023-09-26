@@ -1,16 +1,24 @@
 package com.corne.rainfall.ui.rain
 
+import android.content.Context
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.room.Room
 import com.corne.rainfall.data.IRainRepository
-import com.corne.rainfall.data.model.RainData
+import com.corne.rainfall.data.RainfallDatabase
+import com.corne.rainfall.data.model.LocationModel
+import com.corne.rainfall.data.model.RainfallEntryModel
 import com.corne.rainfall.data.model.RainValidator
 import com.corne.rainfall.ui.base.BaseViewModel
 import com.corne.rainfall.ui.base.StateStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,12 +34,42 @@ class CaptureViewModel @Inject constructor(
     private var currentJob: Job? = null
 
 
-    fun add() {
+    fun add(con:Context) {
         currentJob?.cancel()
         currentJob = viewModelScope.launch {
             setState { it.isLoading = true }
-            rain.addRainData(RainData(0.0, "Test")).onSuccess { onSuccess() }.onError(::onError)
+
+
+            val db = Room.databaseBuilder(
+                con,
+                RainfallDatabase::class.java, "database-name"
+            ).build()
+
+            db.rainfallDAO().insert(LocationModel(1, "Pretoria"),LocationModel(11, "Pretori`a"))
+            var loc = db.rainfallDAO().getAllLocations()
+
+
+//            println(loc.[0].name)
+//            rain.addRainData(RainfallEntryModel(0.0, "Test")).onSuccess { onSuccess() }.onError(::onError)
         }
+    }
+    fun get(con: Context): Flow<List<LocationModel>> {
+        val db = Room.databaseBuilder(
+            con,
+            RainfallDatabase::class.java, "database-name"
+        ).build()
+        var loc = db.rainfallDAO().getAllLocations()
+        currentJob?.cancel()
+        currentJob = viewModelScope.launch {
+            loc.collect{ flow ->
+                flow.forEach{
+                    println(it)
+                }
+            }
+            print("")
+//            loc.asLiveData().observe(this);
+        }
+        return loc;
     }
 
     private fun onError(errorMessage: Int) {

@@ -1,23 +1,23 @@
 package com.corne.rainfall.data
 
-import com.corne.rainfall.data.model.RainData
+import com.corne.rainfall.data.model.RainfallEntryModel
 import com.corne.rainfall.utils.NetworkResult
 import kotlinx.coroutines.flow.Flow
 
 interface IRainRepository {
-    fun getRainData(): Flow<List<RainData>>
+    fun getRainData(): Flow<List<RainfallEntryModel>>
 
-    fun addRainData(rainData: RainData): NetworkResult<String>
+    fun addRainData(rainfallEntryModel: RainfallEntryModel): NetworkResult<String>
 
-    fun deleteRainData(rainData: RainData)
+    fun deleteRainData(rainfallEntryModel: RainfallEntryModel)
 
-    fun updateRainData(rainData: RainData)
+    fun updateRainData(rainfallEntryModel: RainfallEntryModel)
 
-    fun getRainDataById(id: Int): RainData
+    fun getRainDataById(id: Int): RainfallEntryModel
 
-    fun getRainDataByName(name: String): RainData
+    fun getRainDataByName(name: String): RainfallEntryModel
 
-    fun getRainDataByAmount(amountInMl: Double): RainData
+    fun getRainDataByAmount(amountInMl: Double): RainfallEntryModel
 
 
 }
