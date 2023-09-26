@@ -7,4 +7,7 @@
         <attr name="compHeight" format="dimension" />
         <attr name="large" format="boolean" />
     </declare-styleable>
+
+    <attr name="rainBackground" format="color"/>
+
 </resources>
