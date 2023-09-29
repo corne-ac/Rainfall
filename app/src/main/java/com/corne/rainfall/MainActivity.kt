@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         with(navController) {
             appBarConfiguration = AppBarConfiguration(graph)
             binding.bottomNavigationView.setupWithNavController(this)
-            val badge = binding.bottomNavigationView.getOrCreateBadge(R.id.navigation_map)
+            val badge = binding.bottomNavigationView.getOrCreateBadge(R.id.navigation_maps)
             badge.isVisible = true
             badge.number = 99
         }
