@@ -1,6 +1,8 @@
+/*
 package com.corne.rainfall.data
 
 import com.corne.rainfall.data.model.RainData
+import com.corne.rainfall.data.storage.IRainRepository
 import com.corne.rainfall.utils.NetworkResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -10,7 +12,7 @@ class RainRepositoryImpl : IRainRepository {
         emit(listOf(RainData(1.0, "test")))
     }
 
-    override fun addRainData(rainData: RainData): NetworkResult<String> {
+    override suspend fun addRainData(rainData: RainData): NetworkResult<String> {
         // TODO here we will do the actual saving of the data
 
         return NetworkResult.success("Success")
@@ -35,4 +37,4 @@ class RainRepositoryImpl : IRainRepository {
     override fun getRainDataByAmount(amountInMl: Double): RainData {
         TODO("Not yet implemented")
     }
-}
+}*/

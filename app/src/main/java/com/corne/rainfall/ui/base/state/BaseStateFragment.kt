@@ -1,4 +1,4 @@
-package com.corne.rainfall.ui.base
+package com.corne.rainfall.ui.base.state
 
 import android.os.Bundle
 import android.view.View
@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import com.corne.rainfall.ui.base.BaseFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -16,7 +17,7 @@ import kotlinx.coroutines.flow.onEach
  * @param S The type of state managed by the associated ViewModel.
  * @param VM The type of ViewModel associated with this Fragment.
  */
-abstract class BaseStateFragment<VB : ViewBinding, S : BaseState, VM : BaseViewModel<S>> :
+abstract class BaseStateFragment<VB : ViewBinding, S : IBaseState, VM : BaseStateViewModel<S>> :
     BaseFragment<VB>() {
 
     /**

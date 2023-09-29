@@ -18,6 +18,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["room.schemaLocation"] = "$projectDir/schemas"
+            }
+        }
+
     }
 
     buildTypes {
@@ -93,6 +99,16 @@ dependencies {
     // Mutekt for mutable state flow
     implementation("dev.shreyaspatil.mutekt:mutekt-core:1.0.1")
     ksp("dev.shreyaspatil.mutekt:mutekt-codegen:1.0.1")
+
+    //ROOM API
+    val roomVersion = "2.5.2"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$roomVersion")
+    // To use Kotlin annotation processing tool (kapt)
+    ksp("androidx.room:room-compiler:$roomVersion")
+
 }
 
 kapt {

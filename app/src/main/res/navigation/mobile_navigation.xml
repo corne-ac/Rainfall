@@ -38,7 +38,7 @@
 
     <fragment
         android:id="@+id/navigation_add"
-        android:name="com.corne.rainfall.ui.rain.CaptureFragment"
+        android:name="com.corne.rainfall.ui.rainfall.capture.CaptureFragment"
         android:label="fragment_capture"
         tools:layout="@layout/fragment_capture" />
     <action

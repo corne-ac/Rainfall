@@ -1,4 +1,4 @@
-package com.corne.rainfall.data
+package com.corne.rainfall.data.preference
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -15,9 +15,9 @@ import javax.inject.Inject
 
 val Context.rainPreferenceDataStore by preferencesDataStore("rain_preference")
 
-class RainfallPreferenceManagerImpl @Inject constructor(
+class RainfallPreferenceImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>,
-) : IRainfallPreferenceManager {
+) : IRainfallPreference {
 
     override val uiModeFlow: Flow<Boolean> = dataStore.data.catch {
         it.printStackTrace()

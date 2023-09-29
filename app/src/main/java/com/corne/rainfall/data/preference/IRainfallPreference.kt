@@ -1,4 +1,4 @@
-package com.corne.rainfall.data
+package com.corne.rainfall.data.preference
 
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Singleton
@@ -8,7 +8,7 @@ import javax.inject.Singleton
  * Implementations of this interface should provide methods to retrieve and update preference modes.
  */
 @Singleton
-interface IRainfallPreferenceManager {
+interface IRainfallPreference {
     /**
      * A [Flow] representing the current UI mode preference.
      * Observers can collect this [Flow] to receive updates when the UI mode changes.

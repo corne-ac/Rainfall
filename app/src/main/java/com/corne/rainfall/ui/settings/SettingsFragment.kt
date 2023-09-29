@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.corne.rainfall.R
 import com.corne.rainfall.databinding.FragmentSettingsBinding
-import com.corne.rainfall.ui.base.BaseStateFragment
+import com.corne.rainfall.ui.base.state.BaseStateFragment
 import com.corne.rainfall.ui.hiltMainNavGraphViewModels
 import java.util.Locale
 
