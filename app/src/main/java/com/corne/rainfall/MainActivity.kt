@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         with(navController) {
             appBarConfiguration = AppBarConfiguration(graph)
             binding.bottomNavigationView.setupWithNavController(this)
-            val badge = binding.bottomNavigationView.getOrCreateBadge(R.id.navigation_notifications)
+            val badge = binding.bottomNavigationView.getOrCreateBadge(R.id.navigation_maps)
             badge.isVisible = true
             badge.number = 99
         }
@@ -60,6 +60,9 @@ class MainActivity : AppCompatActivity() {
         }
         observeDarkModePreference()
         observeOfflineModePreference()
+
+        binding.bottomNavigationView.background = null
+
     }
 
     private fun observeDarkModePreference() {

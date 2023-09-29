@@ -9,4 +9,5 @@
     <string name="set_dark_mode">set dark mode</string>
     <string name="prompt_language">Language Selection</string>
     <string name="empty_date">Date needs a value</string>
+    <string name="maps">Maps</string>
 </resources>

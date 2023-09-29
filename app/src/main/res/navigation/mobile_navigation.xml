@@ -44,6 +44,11 @@
     <action
         android:id="@+id/action_global_navigation_add"
         app:destination="@id/navigation_add" />
+    <fragment
+        android:id="@+id/navigation_maps"
+        android:name="com.corne.rainfall.ui.map.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
 
     <!--app:startDestination="@+id/navigation_home"-->
     <!--Goal

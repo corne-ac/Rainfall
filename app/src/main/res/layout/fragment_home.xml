@@ -18,9 +18,10 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/save_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_shape"/>
     </LinearLayout>
 </ScrollView>

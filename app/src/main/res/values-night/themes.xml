@@ -2,7 +2,14 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Rainfall" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/emerald</item>
+        <item name="rainBackground">@color/background_blue_night</item>
+<!--        <item name="android:background">@color/background_blue_night</item>-->
 
+
+    </style>
+
+    <style name="Theme.Fab_Bottom_app_bar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/emerald</item>
     </style>
 </resources>

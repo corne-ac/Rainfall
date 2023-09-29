@@ -4,23 +4,19 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/home_24"
-        android:title="@string/home"
-        app:showAsAction="always" />
+        android:title="@string/home"/>
     <item
         android:id="@+id/navigation_graph"
         android:icon="@drawable/monitoring_24"
-        android:title="@string/graph"
-        app:showAsAction="always" />
+        android:title="@string/graph"/>
     <item
         android:title=""/>
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/notifications_24"
-        android:title="@string/notifications"
-        app:showAsAction="always" />
+        android:id="@+id/navigation_maps"
+        android:icon="@drawable/map_24"
+        android:title="@string/maps" />
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/settings_24"
-        android:title="@string/settings"
-        app:showAsAction="ifRoom" />
+        android:title="@string/settings"/>
 </menu>

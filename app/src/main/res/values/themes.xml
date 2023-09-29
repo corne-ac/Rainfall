@@ -2,20 +2,26 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Rainfall" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorSecondary">@color/light_blue_400</item>
+        <item name="colorPrimary">@color/light_blue_400</item>
+        <item name="rainBackground">@color/white</item>
+<!--        <item name="android:background">@color/background_blue_light</item>-->
     </style>
 
-    <style name="Theme.Fab_Bottom_app_bar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#0F9D58</item>
-        <item name="colorPrimaryVariant">#0F9D58</item>
-        <item name="colorOnPrimary">#000</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/pink</item>
-        <item name="colorSecondaryVariant">@color/pink</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
 
-        <item name="colorSurface">@color/transparent</item>
+
+    <style name="Theme.Fab_Bottom_app_bar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/light_blue_600</item>
+<!--        <item name="colorPrimary">#0F9D58</item>-->
+<!--        <item name="colorPrimaryVariant">#0F9D58</item>-->
+<!--        <item name="colorOnPrimary">#000</item>-->
+<!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
+<!--        <item name="colorSecondary">@color/pink</item>-->
+<!--        <item name="colorSecondaryVariant">@color/pink</item>-->
+<!--        <item name="colorOnSecondary">@color/black</item>-->
+<!--        &lt;!&ndash; Status bar color. &ndash;&gt;-->
+
+<!--        <item name="colorSurface">@color/pink</item>-->
     </style>
 
     <style name="Theme.Rainfall" parent="Base.Theme.Rainfall" />
