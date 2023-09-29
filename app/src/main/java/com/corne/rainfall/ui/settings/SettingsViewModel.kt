@@ -1,8 +1,8 @@
 package com.corne.rainfall.ui.settings
 
 import androidx.lifecycle.viewModelScope
-import com.corne.rainfall.data.IRainfallPreferenceManager
-import com.corne.rainfall.ui.base.BaseViewModel
+import com.corne.rainfall.data.preference.IRainfallPreference
+import com.corne.rainfall.ui.base.state.BaseStateViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,8 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
 // Here we will be injecting the dependencies required by the ViewModel
-    private val preferenceManager: IRainfallPreferenceManager,
-) : BaseViewModel<SettingsState>() {
+    private val preferenceManager: IRainfallPreference,
+) : BaseStateViewModel<SettingsState>() {
     override val state: StateFlow<SettingsState> = MutableStateFlow(SettingsState()).asStateFlow()
 
     suspend fun isDarkModeEnabled() = preferenceManager.uiModeFlow.first()

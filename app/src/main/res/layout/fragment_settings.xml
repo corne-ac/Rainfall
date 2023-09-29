@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".ui.rain.CaptureFragment"
-    android:background="?attr/rainBackground">
 
+    android:background="?attr/rainBackground">
+<!--tools:context=".ui.rain.CaptureFragment"-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

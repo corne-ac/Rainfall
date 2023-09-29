@@ -4,11 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.asLiveData
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.corne.rainfall.data.IRainfallPreferenceManager
+import com.corne.rainfall.data.preference.IRainfallPreference
 import com.corne.rainfall.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -18,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     @Inject
-    lateinit var rainfallPreferenceManager: IRainfallPreferenceManager
+    lateinit var rainfallPreferenceManager: IRainfallPreference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

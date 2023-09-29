@@ -1,4 +1,4 @@
-package com.corne.rainfall.ui.base
+package com.corne.rainfall.ui.base.state
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
  *
  * @param STATE The type of state this ViewModel deals with, expected to be a subtype of 'BaseState'.
  */
-abstract class BaseViewModel<STATE : BaseState> : ViewModel() {
+abstract class BaseStateViewModel<STATE : IBaseState> : ViewModel() {
 
     /**
      * An abstract property that represents the state of the ViewModel as a StateFlow.
