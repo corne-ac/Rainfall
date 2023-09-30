@@ -8,6 +8,7 @@ import com.corne.rainfall.db.dao.LocationDAO
 import com.corne.rainfall.db.dao.RainfallDAO
 import com.corne.rainfall.db.entity.LocationEntity
 import com.corne.rainfall.db.entity.RainfallEntity
+import com.corne.rainfall.utils.Constants
 
 @Database(
     entities = [RainfallEntity::class, LocationEntity::class],
@@ -15,7 +16,7 @@ import com.corne.rainfall.db.entity.RainfallEntity
 )
 abstract class RainfallDatabase : RoomDatabase() {
     abstract fun rainEntityDao(): RainfallDAO
-    abstract fun LocationDao(): LocationDAO
+    abstract fun locationDao(): LocationDAO
 
     // Singleton prevents multiple instances of database opening at the same time.
     // In order to keep ensure this thread synchronization is needed.
@@ -28,7 +29,7 @@ abstract class RainfallDatabase : RoomDatabase() {
                 val rainfallDatabase = Room.databaseBuilder(
                     context.applicationContext,
                     RainfallDatabase::class.java,
-                    "rainfall_database"
+                    Constants.DATABASE_NAME
                 ).build()
                 INSTANCE = rainfallDatabase
                 rainfallDatabase

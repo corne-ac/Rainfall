@@ -9,25 +9,16 @@
         android:name="com.corne.rainfall.ui.home.HomeStateFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
-        <!--   <action
-               android:id="@+id/action_loginFragment_to_notesFragment"
-               app:destination="@id/notesFragment"
-               app:enterAnim="@anim/slide_in_right"
-               app:exitAnim="@anim/slide_out_left"
-               app:launchSingleTop="true"
-               app:popEnterAnim="@anim/slide_in_left"
-               app:popExitAnim="@anim/slide_out_right"
-               app:popUpTo="@id/nav_graph"
-               app:popUpToInclusive="true" />
-           <action
-               android:id="@+id/action_loginFragment_to_registerFragment"
-               app:destination="@id/registerFragment"
-               app:enterAnim="@anim/slide_in_right"
-               app:exitAnim="@anim/slide_out_left"
-               app:popEnterAnim="@anim/slide_in_left"
-               app:popExitAnim="@anim/slide_out_right"
-               app:popUpTo="@id/loginFragment" />-->
+        <action
+            android:id="@+id/action_homeFragment_to_rainfallListFragment"
+            app:destination="@id/navigation_add" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_rainfall_list"
+        android:name="com.corne.rainfall.ui.rainfall.list.ListFragment"
+        android:label="fragment_rainfall_list"
+        tools:layout="@layout/fragment_rainfall_list" />
 
     <fragment
         android:id="@+id/navigation_settings"

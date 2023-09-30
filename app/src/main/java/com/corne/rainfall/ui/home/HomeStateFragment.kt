@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.anychart.AnyChart
 import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.DataEntry
@@ -16,6 +17,7 @@ import com.anychart.enums.Anchor
 import com.anychart.enums.HoverMode
 import com.anychart.enums.Position
 import com.anychart.enums.TooltipPositionMode
+import com.corne.rainfall.R
 import com.corne.rainfall.databinding.FragmentHomeBinding
 import com.corne.rainfall.ui.base.BaseFragment
 
@@ -67,6 +69,10 @@ class HomeStateFragment : BaseFragment<FragmentHomeBinding>() {
 
         binding.saveBtn.setOnClickListener {
             saveChartAsImage(anyChartView, "chart.png")
+        }
+
+        binding.rainfallCaptured.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_rainfallListFragment)
         }
 
     }

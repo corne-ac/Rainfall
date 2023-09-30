@@ -4,30 +4,12 @@ class FormItem(
     private val valueStored: String? = null,
     private val validationTest: ((String?) -> Int?)? = null,
 ) {
-
-    /*    var isValid = false
-        private var errorMessage: Int? = null*/
-
-    /*    fun validate() {
-            if (valueStored == null) {
-                isValid = false
-                return
-            }
-            validationTest?.let { it(valueStored) }?.let {
-                errorMessage = it
-                isValid = false
-
-            } ?: run {
-                errorMessage = null
-                isValid = true
-            }
-        }*/
     var isValid: Boolean = false
         private set
     var errorMessage: Int? = null
         get
 
-    fun validate() {
+    private fun validate() {
         isValid = valueStored != null && validationTest?.invoke(valueStored) == null
         errorMessage = if (!isValid) validationTest?.invoke(valueStored) else null
     }

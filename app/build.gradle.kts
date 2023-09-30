@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -5,8 +8,12 @@ plugins {
     id("com.google.devtools.ksp")
     kotlin("kapt")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-
+    id("org.jetbrains.dokka")
 }
+
+
+val localProperties = Properties()
+localProperties.load(FileInputStream(rootProject.file("local.properties")))
 
 android {
     namespace = "com.corne.rainfall"
@@ -35,6 +42,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "FIRE_API_KEY", localProperties.getProperty("FIRE_API_KEY"))
+
         }
     }
 
@@ -54,6 +63,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
     kotlinOptions {
         jvmTarget = "1.8"

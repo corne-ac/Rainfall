@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class LocationModel(
-    @PrimaryKey val locationUID : Int,
-    @ColumnInfo(name = "name") val name: String
-    )
+    @PrimaryKey val locationUID: Int,
+    @ColumnInfo(name = "name") val name: String,
+)
