@@ -14,19 +14,20 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewModel>() {
     override val viewModel: MapViewModel by hiltMainNavGraphViewModels()
     private lateinit var googleMap: SupportMapFragment
 
     private val callback = OnMapReadyCallback { googleMap ->
-
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
         viewModel.getFireData(
-            BuildConfig.FIRE_API_KEY, "MODIS_NRT", "ZAF", 1, "2023-09-29", googleMap
+            BuildConfig.FIRE_API_KEY, "MODIS_NRT", "ZAF", 1, today, googleMap
         )
+        googleMap.setInfoWindowAdapter(FireMarkerInfoAdapter(requireContext()))
     }
 
     private fun addMarkersToMap(
@@ -35,9 +36,15 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
     ) {
         for (fireLocationItem in fireList) {
             val latLng = LatLng(fireLocationItem.lat, fireLocationItem.long)
-            googleMap.addMarker(MarkerOptions().position(latLng).title("Fire Location"))
+
+            googleMap.addMarker(MarkerOptions()
+                .position(latLng)
+                .title("Fire Location")
+            )?.tag = fireLocationItem
         }
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(fireList.last().lat, fireList.last().long)))
     }
+
 
     override suspend fun addContentToView() {
         googleMap = binding.map.getFragment()
