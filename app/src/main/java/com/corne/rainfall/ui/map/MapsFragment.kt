@@ -2,16 +2,20 @@ package com.corne.rainfall.ui.map
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.corne.rainfall.BuildConfig
+import com.corne.rainfall.R
 import com.corne.rainfall.data.model.FireLocationItemModel
 import com.corne.rainfall.databinding.FragmentMapsBinding
 import com.corne.rainfall.ui.base.state.BaseStateFragment
 import com.corne.rainfall.ui.hiltMainNavGraphViewModels
+import com.corne.rainfall.utils.BitmapHelper
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import java.text.SimpleDateFormat
@@ -34,12 +38,17 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
         fireList: MutableList<FireLocationItemModel>,
         googleMap: GoogleMap,
     ) {
+        val fireIcon: BitmapDescriptor by lazy {
+            BitmapHelper.vectorToBitmap(requireContext(), R.drawable.fire_24)
+        }
+
         for (fireLocationItem in fireList) {
             val latLng = LatLng(fireLocationItem.lat, fireLocationItem.long)
 
             googleMap.addMarker(MarkerOptions()
                 .position(latLng)
                 .title("Fire Location")
+                .icon(fireIcon)
             )?.tag = fireLocationItem
         }
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(fireList.last().lat, fireList.last().long)))
