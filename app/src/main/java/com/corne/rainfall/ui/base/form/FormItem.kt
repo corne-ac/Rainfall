@@ -18,5 +18,8 @@ class FormItem(
         return FormItem(value, validationTest).also(FormItem::validate)
     }
 
+    fun getValue(): String? {
+        return valueStored
+    }
 
 }

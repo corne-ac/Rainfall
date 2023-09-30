@@ -1,6 +1,6 @@
 package com.corne.rainfall.ui.rainfall.list
 
-import com.corne.rainfall.data.model.RainData
+import com.corne.rainfall.data.model.RainfallData
 import com.corne.rainfall.ui.base.state.IBaseState
 import dev.shreyaspatil.mutekt.core.annotations.GenerateMutableModel
 import javax.annotation.concurrent.Immutable
@@ -10,7 +10,7 @@ import javax.annotation.concurrent.Immutable
 interface ListState : IBaseState {
     val isLoading: Boolean
     val error: Int?
-    val items: List<RainData>
+    val items: List<RainfallData>
 
     companion object {
         val initialState = ListState(

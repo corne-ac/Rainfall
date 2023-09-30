@@ -1,20 +1,20 @@
 package com.corne.rainfall.data.storage
 
-import com.corne.rainfall.data.model.RainData
+import com.corne.rainfall.data.model.RainfallData
 import com.corne.rainfall.utils.NetworkResult
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Singleton
 
 @Singleton
 interface IRainRepository {
-    fun getRainfallInLocation(locationId: Int): Flow<List<RainData>>
-    fun getAllRainfallData(): Flow<List<RainData>>
+    fun getRainfallInLocation(locationId: Int): Flow<NetworkResult<List<RainfallData>>>
+    fun getAllRainfallData(): Flow<NetworkResult<List<RainfallData>>>
 
-    suspend fun getRainDataBuId(rainfallId: Int): NetworkResult<RainData>
-    suspend fun addRainData(rainData: RainData): NetworkResult<String>
+    suspend fun getRainDataBuId(rainfallId: Int): NetworkResult<RainfallData>
+    suspend fun addRainData(rainfallData: RainfallData): NetworkResult<String>
 
-    fun deleteRainData(rainData: RainData)
+    fun deleteRainData(rainfallData: RainfallData)
 
-    fun updateRainData(rainData: RainData)
+    fun updateRainData(rainfallData: RainfallData)
 
 }

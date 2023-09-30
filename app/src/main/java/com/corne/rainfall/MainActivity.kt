@@ -12,6 +12,14 @@ import com.corne.rainfall.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+/**
+ * A class that represents the main activity of the Rainfall app.
+ *
+ * This activity serves as the entry point of the application's user interface. It hosts
+ * the navigation graph and sets up the navigation controller for the app.
+ *
+ * The activity is annotated with [AndroidEntryPoint], enabling Hilt for dependency injection.
+ */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -19,17 +27,21 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var rainfallPreferenceManager: IRainfallPreference
 
-
+    /**
+     * Initializes the activity and sets up the user interface and navigation components.
+     *
+     * @param savedInstanceState The saved instance state passed in.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Setup the navigation controller.
         val navHostFragment = binding.navHostFragmentActivityMain.getFragment<NavHostFragment>()
-//        val navHostFragment =
-//            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         val navController = navHostFragment.navController
 
+        // Configure the app bar behavior.
         with(navController) {
             appBarConfiguration = AppBarConfiguration(graph)
             binding.bottomNavigationView.setupWithNavController(this)
@@ -38,33 +50,29 @@ class MainActivity : AppCompatActivity() {
             badge.number = 99
         }
 
+        // Set up a click listener for the FAB.
         binding.fab.setOnClickListener {
-//            navController.popBackStack()
-//            navController.navigate(R.id.navigation_add)
-            /*   Navigation.findNavController(this, R.id.nav_host_fragment_activity_main)
-                   .navigate(R.id.navigation_add);*/
-//            val action = NavGraphDirections.actionGlobalNavigationAdd()
-//            navController.navigate(action)
-
-
-
-//            navController.popBackStack()
-//            val navOptions = NavOptions.Builder().setLaunchSingleTop(true).build()
-//            navController.navigate(R.id.navigation_add, null, navOptions)
-                navController.navigate(R.id.action_global_navigation_add)
+            navController.navigate(R.id.action_global_navigation_add)
         }
 
-
+        // Set up a listener for destination changes. We might want to hide the nav bar when on certain page.
         navController.addOnDestinationChangedListener { _, destination, _ ->
             println(destination.id)
         }
+
+        // Observe and handle dark mode preference changes.
         observeDarkModePreference()
+
+        // Observe offline mode preference changes.
         observeOfflineModePreference()
 
+        //Remove the background of the bottom navigation view.
         binding.bottomNavigationView.background = null
-
     }
 
+    /**
+     * Observes and handles changes in the dark mode preference.
+     */
     private fun observeDarkModePreference() {
         rainfallPreferenceManager.uiModeFlow.asLiveData().observe(this) {
             val mode = when (it) {
@@ -75,6 +83,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Observes and handles changes in the offline mode preference.
+     */
     public fun observeOfflineModePreference() {
 //        AppCompatDelegate.setApplicationLocales()
     }

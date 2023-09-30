@@ -1,15 +1,16 @@
 package com.corne.rainfall.ui.rainfall.list
 
 import androidx.lifecycle.viewModelScope
+import com.corne.rainfall.data.model.RainfallData
 import com.corne.rainfall.data.storage.IRainRepository
 import com.corne.rainfall.di.LocalRainfallRepository
 import com.corne.rainfall.ui.base.state.BaseStateViewModel
-import com.corne.rainfall.ui.base.state.StateStore
+import com.corne.rainfall.ui.map.IMapState
+import com.corne.rainfall.ui.map.mutable
+import com.corne.rainfall.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,10 +18,13 @@ import javax.inject.Inject
 class ListViewModel @Inject constructor(
     @LocalRainfallRepository private val rain: IRainRepository,
 ) : BaseStateViewModel<ListState>() {
-    override val state: StateFlow<ListState> =
-        MutableStateFlow(ListState.initialState).asStateFlow()
-    private val stateStore = StateStore(ListState.initialState.mutable())
-
+    /*
+        override val state: StateFlow<ListState> =
+            MutableStateFlow(ListState.initialState).asStateFlow()
+        private val stateStore = StateStore(ListState.initialState.mutable())
+    */
+    private val stateStore = ListState.initialState.mutable()
+    override val state: StateFlow<ListState> = stateStore.asStateFlow()
     private var currentJob: Job? = null
 
 
@@ -32,13 +36,26 @@ class ListViewModel @Inject constructor(
         currentJob = viewModelScope.launch {
             // Set the state to loading.
             setState { it.isLoading = true }
-
             // Call the repository to get the rainfall data.
-            rain.getRainfallInLocation(1)
-            // TODO: what to do with the result?
+            rain.getRainfallInLocation(1).collect(::processRainfallResult)
         }
     }
 
-    private fun setState(update: (MutableListState) -> Unit) = stateStore.setState(update)
+    private fun processRainfallResult(lst: NetworkResult<List<RainfallData>>) {
+        when (lst) {
+            is NetworkResult.Success -> setState {
+                it.isLoading = false
+                it.items = lst.data
+            }
+
+            is NetworkResult.Error -> setState {
+                it.isLoading = false
+                it.error = lst.message
+            }
+        }
+    }
+
+
+    private fun setState(update: (MutableListState) -> Unit) = stateStore.update(update)
 
 }

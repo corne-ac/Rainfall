@@ -12,11 +12,13 @@ interface RainfallDAO {
     @Query("SELECT * FROM rainfall")
     fun getAllRainData(): Flow<List<RainfallEntity>>
 
+    @Query("SELECT * FROM rainfall WHERE locationUID = :locationId")
+    fun getRainDataByLocation(locationId: Int): Flow<List<RainfallEntity>>
+
     @Query("SELECT * FROM rainfall WHERE uid = :rainfallId")
     suspend fun getRainDataById(rainfallId: Int): RainfallEntity
 
     @Insert
     suspend fun addRainData(rainfallEntity: RainfallEntity)
-
 
 }

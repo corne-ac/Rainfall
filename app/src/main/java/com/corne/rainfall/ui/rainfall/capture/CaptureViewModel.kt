@@ -1,6 +1,7 @@
 package com.corne.rainfall.ui.rainfall.capture
 
 import androidx.lifecycle.viewModelScope
+import com.corne.rainfall.data.model.RainfallData
 import com.corne.rainfall.data.storage.IRainRepository
 import com.corne.rainfall.di.LocalRainfallRepository
 import com.corne.rainfall.ui.base.form.FormItem
@@ -11,32 +12,46 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
 class CaptureViewModel @Inject constructor(
     @LocalRainfallRepository private val rain: IRainRepository,
 // Here we will be injecting the dependencies required by the ViewModel
-) : BaseStateViewModel<CaptureState>() {/* private val stateStore = StateStore(CaptureState.initialState.mutable())
-     override val state: StateFlow<CaptureState> = stateStore.state*/
+) : BaseStateViewModel<CaptureState>() {
 
-    private val stateStore = MutableCaptureState(false, -1, mutableMapOf())
-    override val state: StateFlow<CaptureState> = stateStore.asStateFlow()
+        private val stateStore = MutableCaptureState(false, -1, mutableMapOf())
+        override val state: StateFlow<CaptureState> = stateStore.asStateFlow()
+ /*   override val state: StateFlow<CaptureState> =
+        MutableStateFlow(CaptureState.initialState).asStateFlow()
+    private val stateStore = StateStore(CaptureState.initialState.mutable())
+*/
 
     private var currentJob: Job? = null
 
     fun add() {
         currentJob?.cancel()
         currentJob = viewModelScope.launch {
-            val value = state.value
-
-            /*    val rainData = RainData(
-                    value.date, value.startTime, value.endTime, value.rainMm, value.notes
-                )*/
-
-//            rain.addRainData(rainData).onSuccess { onSuccess() }.onError(::onError)
-
+            val stateValue = state.value
             setState { isLoading = true }
+
+            val date = SimpleDateFormat(
+                "dd/MM/yyyy", Locale.ENGLISH
+            ).parse(stateValue.formValues[CaptureForm.DATE]!!.getValue()!!)!!
+            val r = RainfallData(
+                date,
+                stateValue.formValues[CaptureForm.START_TIME]!!.getValue()!!,
+                stateValue.formValues[CaptureForm.END_TIME]!!.getValue()!!,
+                stateValue.formValues[CaptureForm.RAIN_MM]!!.getValue()!!.toDouble(),
+                stateValue.formValues[CaptureForm.NOTES]?.getValue()
+            )
+
+            rain.addRainData(r).onSuccess {
+                onSuccess()
+            }.onError(::onError)
+
 
         }
 
@@ -66,10 +81,9 @@ class CaptureViewModel @Inject constructor(
         }
     }
 
-    fun isFormValid(): Boolean {
-       /* state.value.formValues.forEach {
-            it.value.validate()
-        }*/
+    fun isFormValid(): Boolean {/* state.value.formValues.forEach {
+             it.value.validate()
+         }*/
         return state.value.formValues.all { it.value.isValid }
     }
 

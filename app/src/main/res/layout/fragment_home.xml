@@ -12,11 +12,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.anychart.AnyChartView
-            android:id="@+id/any_chart_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/save_btn"
@@ -30,5 +25,10 @@
             android:layout_height="wrap_content"
             android:text="@string/rainfall_captured" />
 
+        <com.anychart.AnyChartView
+            android:id="@+id/any_chart_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
     </LinearLayout>
 </ScrollView>

@@ -11,7 +11,7 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_rainfallListFragment"
-            app:destination="@id/navigation_add" />
+            app:destination="@id/navigation_rainfall_list" />
     </fragment>
 
     <fragment

@@ -12,25 +12,34 @@ class ListFragment :
     override val viewModel: ListViewModel by hiltMainNavGraphViewModels()
 
     override fun updateState(state: ListState) {
-
-
-//        binding.saveBtn.isEnabled = state.error == -1
         // TODO: show the loading indicator with -> state.isLoading
-        showProgressLoader(state.isLoading)
 
+        state.error?.let {
 
-    }
+        }
+        // TODO: show the loading
+        state.isLoading
 
-    fun showProgressLoader(show: Boolean) {
-        if (show) {
+        if (state.items.isEmpty()) {
+            // Show the message
+        }
 
-        } else {
-
+        binding.rainfallList.adapter = RainfallListAdapter(state.items) {
+            println(it)
         }
     }
 
+
     override suspend fun addContentToView() {
+     /*   binding.rainfallList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            requireContext(),
+            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+            false
+        )
+*/
         viewModel.getRainfallData()
+
+
     }
 
     override fun createViewBinding(

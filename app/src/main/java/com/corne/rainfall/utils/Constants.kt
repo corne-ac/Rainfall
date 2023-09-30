@@ -14,5 +14,5 @@ object Constants {
     /**
      * The name of the local room database used for storing rainfall data.
      */
-    const val DATABASE_NAME = "rainfall_database"
+    const val DATABASE_NAME = "rainfall_database.sqlite"
 }
