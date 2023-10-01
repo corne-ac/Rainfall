@@ -2,6 +2,7 @@ package com.corne.rainfall.ui.map
 
 import androidx.lifecycle.viewModelScope
 import com.corne.rainfall.data.api.IFireApiProvider
+import com.corne.rainfall.data.preference.IRainfallPreference
 import com.corne.rainfall.ui.base.state.BaseStateViewModel
 import com.google.android.gms.maps.GoogleMap
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,10 +14,23 @@ import javax.inject.Inject
 @HiltViewModel
 class MapViewModel @Inject constructor(
     private val fireApi: IFireApiProvider,
+    private val rainfallPreference: IRainfallPreference,
 ) : BaseStateViewModel<IMapState>() {
     private val stateStore = IMapState.initialState.mutable()
     override val state: StateFlow<IMapState> = stateStore.asStateFlow()
     private var currentJob: Job? = null
+
+    fun getDarkModePreference() {
+        currentJob?.cancel()
+        currentJob = viewModelScope.launch {
+            rainfallPreference.uiModeFlow.collect {
+                setState {
+                    isDarkMode = it
+                }
+            }
+        }
+    }
+
     fun getFireData(
         apiKey: String,
         type: String,
@@ -52,6 +66,7 @@ class MapViewModel @Inject constructor(
             }
         }
     }
+
 
     private fun setState(update: MutableIMapState.() -> Unit) = stateStore.update(update)
 }

@@ -19,15 +19,9 @@ import javax.inject.Inject
 @HiltViewModel
 class CaptureViewModel @Inject constructor(
     @LocalRainfallRepository private val rain: IRainRepository,
-// Here we will be injecting the dependencies required by the ViewModel
 ) : BaseStateViewModel<CaptureState>() {
-
-        private val stateStore = MutableCaptureState(false, -1, mutableMapOf())
-        override val state: StateFlow<CaptureState> = stateStore.asStateFlow()
- /*   override val state: StateFlow<CaptureState> =
-        MutableStateFlow(CaptureState.initialState).asStateFlow()
-    private val stateStore = StateStore(CaptureState.initialState.mutable())
-*/
+    private val stateStore = CaptureState.initialState.mutable()
+    override val state: StateFlow<CaptureState> = stateStore.asStateFlow()
 
     private var currentJob: Job? = null
 
@@ -81,9 +75,7 @@ class CaptureViewModel @Inject constructor(
         }
     }
 
-    fun isFormValid(): Boolean {/* state.value.formValues.forEach {
-             it.value.validate()
-         }*/
+    fun isFormValid(): Boolean {
         return state.value.formValues.all { it.value.isValid }
     }
 

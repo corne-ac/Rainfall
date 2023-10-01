@@ -13,13 +13,15 @@ interface IMapState : IBaseState {
     val error: Int?
     val items: List<FireLocationItemModel>
     val googleMap: GoogleMap?
+    val isDarkMode: Boolean
 
     companion object {
         val initialState = IMapState(
             isLoading = false,
             error = null,
             items = emptyList(),
-            googleMap = null
+            googleMap = null,
+            isDarkMode = false
         )
     }
 }
