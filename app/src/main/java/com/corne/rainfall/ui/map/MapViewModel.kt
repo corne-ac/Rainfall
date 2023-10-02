@@ -1,6 +1,7 @@
 package com.corne.rainfall.ui.map
 
 import androidx.lifecycle.viewModelScope
+import com.corne.rainfall.api.WeatherApiService
 import com.corne.rainfall.data.api.IFireApiProvider
 import com.corne.rainfall.data.preference.IRainfallPreference
 import com.corne.rainfall.ui.base.state.BaseStateViewModel
@@ -15,6 +16,7 @@ import javax.inject.Inject
 class MapViewModel @Inject constructor(
     private val fireApi: IFireApiProvider,
     private val rainfallPreference: IRainfallPreference,
+    private val weatherApiService: WeatherApiService
 ) : BaseStateViewModel<IMapState>() {
     private val stateStore = IMapState.initialState.mutable()
     override val state: StateFlow<IMapState> = stateStore.asStateFlow()
@@ -29,6 +31,9 @@ class MapViewModel @Inject constructor(
                 }
             }
         }
+    }
+    fun getWeatherApiService() : WeatherApiService {
+        return weatherApiService
     }
 
     fun getFireData(
