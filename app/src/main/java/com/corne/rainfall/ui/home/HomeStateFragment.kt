@@ -71,9 +71,9 @@ class HomeStateFragment : BaseFragment<FragmentHomeBinding>() {
             saveChartAsImage(anyChartView, "chart.png")
         }
 
-        binding.rainfallCaptured.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_rainfallListFragment)
-        }
+//        binding.rainfallCaptured.setOnClickListener {
+//            findNavController().navigate(R.id.action_homeFragment_to_rainfallListFragment)
+//        }
 
     }
 

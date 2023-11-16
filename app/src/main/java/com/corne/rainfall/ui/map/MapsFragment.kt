@@ -93,6 +93,9 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
             BitmapHelper.vectorToBitmap(requireContext(), R.drawable.fire_24)
         }
 
+        //TODO: User Feedback
+        if (fireList.isEmpty()) return
+
         for (fireLocationItem in fireList) {
             val latLng = LatLng(fireLocationItem.lat, fireLocationItem.long)
 
@@ -127,55 +130,3 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
         container: ViewGroup?,
     ): FragmentMapsBinding = FragmentMapsBinding.inflate(inflater, container, false)
 }
-
-//    private fun displayWeatherMap(googleMap: GoogleMap) {
-//        val layer = "clouds_new"
-//        val z = "0" //Info n Z, X, Y usage: https://openweathermap.org/faq#zoom_levels
-//        val x = "0"
-//        val y = "0"
-//        val apiKey = BuildConfig.WEATHER_API_KEY
-//
-//        val call = weatherApiService.getWeatherLayer(layer, z, x, y, apiKey)
-//
-//        call.enqueue(object : Callback<ResponseBody> {
-//            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-//                if (response.isSuccessful) {
-//                    val weatherLayer = response.body()
-//                    val bitmap = BitmapFactory.decodeStream(weatherLayer!!.byteStream())
-//                    val bounds = LatLngBounds(
-//                        LatLng(-90.0, -180.0),  // South-west corner (bottom-left)
-//                        LatLng(90.0, 180.0)    // North-east corner (top-right)
-//                    )
-//
-//                    val newarkLatLng = LatLng(40.714086, -74.228697)
-//                    val newarkMap = GroundOverlayOptions()
-//                        .image(
-//                            BitmapHelper.vectorToBitmap(
-//                                requireContext(),
-//                                R.drawable.ic_launcher_background
-//                            )
-//                        )
-//                        .position(newarkLatLng, 80600f, 60500f)
-//                    val gg = googleMap.addGroundOverlay(newarkMap)
-//                    gg?.isVisible = true
-//                    gg!!.zIndex = 100f
-////                    val groundOverlayOptions = GroundOverlayOptions()
-////                        .image(BitmapDescriptorFactory.fromBitmap(bitmap))
-////                        .positionFromBounds(bounds)
-////
-////                    val groundOverlay = googleMap.addGroundOverlay(groundOverlayOptions)
-////                    groundOverlay!!.zIndex = 100f
-//
-//                } else {
-//                    // Handle unsuccessful response
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-//                // Handle network error
-//                t.printStackTrace()
-//                val i = 1
-//            }
-//        })
-//    }
-

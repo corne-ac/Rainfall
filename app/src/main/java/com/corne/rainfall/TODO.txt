@@ -1,0 +1,3 @@
+- Choose better colours for the home page cards
+- Home page cards arent sized well
+- Selectable location for fires
