@@ -36,6 +36,4 @@ abstract class RainfallDatabase : RoomDatabase() {
             }
         }
     }
-
-
 }

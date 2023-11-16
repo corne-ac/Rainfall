@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rainfall_list"
+    android:id="@+id/list_constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:context=".ui.rainfall.capture.CaptureFragment">
+    tools:context=".ui.rainfall.capture.CaptureFragment"
+    android:background="@color/light_gray" >
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rainfall_list"
+        tools:listitem="@layout/fragment_rainfall_list_item" />
 
-</androidx.recyclerview.widget.RecyclerView>
+    <ImageButton
+        android:id="@+id/btnLoadObs"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:backgroundTint="@color/light_blue_400"
+        android:padding="10dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/list_constraint"
+        app:layout_constraintEnd_toEndOf="@+id/list_constraint"
+        app:srcCompat="@drawable/filter_alt_24"
+        android:layout_margin="15dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
