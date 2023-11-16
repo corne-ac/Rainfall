@@ -39,6 +39,10 @@ class CaptureFragment :
                 CaptureForm.RAIN_MM -> showError(
                     value.errorMessage, binding.rainMmInput.binding.valueInputLayout
                 )
+
+                CaptureForm.NOTES -> showError(
+                    value.errorMessage, binding.rainMmInput.binding.valueInputLayout
+                )
             }
         }
     }
@@ -74,6 +78,9 @@ class CaptureFragment :
         }
         binding.rainMmInput.binding.value.doAfterTextChanged {
             viewModel.updateState(CaptureForm.RAIN_MM, it.toString())
+        }
+        binding.rainMmInput.binding.value.doAfterTextChanged {
+            viewModel.updateState(CaptureForm.NOTES, it.toString())
         }
         binding.saveBtn.setOnClickListener { viewModel.add() }
     }

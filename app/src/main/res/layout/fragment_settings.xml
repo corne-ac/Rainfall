@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginHorizontal="20dp">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/test_dark"
@@ -22,29 +23,36 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/update_dark_btn"
 
-            android:text="Day/Night Mode"
+            android:text="Toggle Day/Night Mode"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textAllCaps="true"
-
-
+            android:layout_marginBottom="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_shape"
             android:layout_gravity="center"
             />
 
-<!--        android:shadowColor="#69CBFF"-->
-<!--        android:shadowDx="0"-->
-<!--        android:shadowDy="0"-->
-<!--        android:shadowRadius="20"-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_400"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Language Selection"
+            android:textSize="18sp"
+            android:textColor="@color/gray_600"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/language_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_language">
+            android:hint="@string/prompt_language"
+            android:paddingBottom="20dp">
 
             <AutoCompleteTextView
                 android:id="@+id/language_dropdown"
@@ -55,6 +63,41 @@
                 tools:ignore="LabelFor" />
 
         </com.google.android.material.textfield.TextInputLayout>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_400"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fire Location Selection"
+            android:textSize="18sp"
+            android:textColor="@color/gray_600" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fire_location_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Fire Locations Selection"
+            android:paddingBottom="20dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/fire_location_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:labelFor="@id/language_input_layout"
+                tools:ignore="LabelFor" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_400"/>
 
     </LinearLayout>
 </ScrollView>
