@@ -55,4 +55,35 @@ interface IRainfallPreference {
     suspend fun setLanguageMode(locale: String)
 
 
+    /**
+     * A [Flow] representing the current default location preference.
+     * Observers can collect this [Flow] to receive updates when the default location changes.
+     * The [Flow] emits [Int] values indicating the default location.
+     */
+    val defaultLocationFlow: Flow<Int>
+
+    /**
+     * Suspended function to set the application's default location preference.
+     * This function allows the caller to set the default location based on the provided [locationId] parameter.
+     *
+     * @param locationId An [Int] parameter indicating the default location to be set.
+     */
+    suspend fun setDefaultLocation(locationId: Int)
+
+    /**
+     * A [Flow] representing the current default graph preference.
+     * Observers can collect this [Flow] to receive updates when the default graph changes.
+     * The [Flow] emits [Boolean] values indicating whether the default graph is bar (true) or line (false).
+     */
+    val defaultGraphFlow: Flow<Boolean>
+
+    /**
+     * Suspended function to set the application's default graph preference.
+     * This function allows the caller to set the default graph based on the provided [isBar] parameter.
+     *
+     * @param isBar A [Boolean] parameter indicating whether to set the default graph to bar (true) or line (false).
+     */
+    suspend fun setDefaultGraph(isBar: Boolean)
+
+
 }

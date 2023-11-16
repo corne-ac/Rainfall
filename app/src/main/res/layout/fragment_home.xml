@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".ui.rainfall.capture.CaptureFragment">
+    tools:context=".ui.home.HomeStateFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,6 +24,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rainfall_captured" />
+
+        <Button
+            android:id="@+id/rainfall_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rainfall_list" />
 
         <com.anychart.AnyChartView
             android:id="@+id/any_chart_view"

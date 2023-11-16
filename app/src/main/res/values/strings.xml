@@ -1,15 +1,20 @@
 <resources>
-    <string name="app_name">Rainfall</string>
-    <string name="settings">Settings</string>
     <string name="add">Add rainfall data</string>
-    <string name="graph">Rainfall Graph</string>
-    <string name="notifications">Notifications</string>
-    <string name="home">Home</string>
-    <string name="set_light_mode">Set light mode</string>
-    <string name="set_dark_mode">set dark mode</string>
-    <string name="prompt_language">Language Selection</string>
+    <string name="app_name">Rainfall</string>
     <string name="empty_date">Date needs a value</string>
-    <string name="maps">Maps</string>
-    <string name="rainfall_captured">Rainfall captured</string>
+    <string name="empty_end_time">End Time needs a value</string>
+    <string name="empty_start_time">Start time needs a value</string>
     <string name="fire_loading">Fire risks data is loading.</string>
+    <string name="graph">Rainfall Graph</string>
+    <string name="home">Home</string>
+    <string name="maps">Maps</string>
+    <string name="maps_offline_mode">Maps can only be used when online.</string>
+    <string name="notifications">Notifications</string>
+    <string name="prompt_language">Language Selection</string>
+    <string name="rainfall_captured">Rainfall captured</string>
+    <string name="rainfall_list">Rainfall list</string>
+    <string name="set_dark_mode">set dark mode</string>
+    <string name="set_light_mode">Set light mode</string>
+    <string name="settings">Settings</string>
+    <string name="export_graph">Export graph</string>
 </resources>

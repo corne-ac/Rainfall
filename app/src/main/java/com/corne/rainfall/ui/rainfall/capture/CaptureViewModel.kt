@@ -67,12 +67,14 @@ class CaptureViewModel @Inject constructor(
 
 
     fun setUpForm() {
+        // @formatter:off
         state.value.formValues.apply {
             put(CaptureForm.DATE, FormItem(validationTest = DataValidator::dateValidation))
-            put(CaptureForm.START_TIME, FormItem())
-            put(CaptureForm.END_TIME, FormItem())
+            put(CaptureForm.START_TIME, FormItem(validationTest = DataValidator::startTimeValidation))
+            put(CaptureForm.END_TIME, FormItem(validationTest = DataValidator::endTimeValidation))
             put(CaptureForm.RAIN_MM, FormItem())
         }
+        // @formatter:on
     }
 
     fun isFormValid(): Boolean {

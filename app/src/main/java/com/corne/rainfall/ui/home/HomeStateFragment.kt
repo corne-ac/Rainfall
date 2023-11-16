@@ -74,6 +74,10 @@ class HomeStateFragment : BaseFragment<FragmentHomeBinding>() {
         binding.rainfallCaptured.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_rainfallListFragment)
         }
+        binding.rainfallList.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_rainfallListFragment)
+        }
+
 
     }
 

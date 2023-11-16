@@ -5,8 +5,10 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.util.Log
 import com.corne.rainfall.BuildConfig
 import com.corne.rainfall.api.WeatherApiService
+import com.corne.rainfall.utils.Constants.MAP_TILE_SIZE_IN_DP
 import com.google.android.gms.maps.model.Tile
 import com.google.android.gms.maps.model.TileProvider
 import okhttp3.ResponseBody
@@ -14,65 +16,75 @@ import retrofit2.Response
 import java.io.ByteArrayOutputStream
 
 
-class WeatherTileProvider(context: Context, val weatherApiService: WeatherApiService) :
+class WeatherTileProvider(context: Context, private val weatherApiService: WeatherApiService) :
     TileProvider {
     private val scaleFactor: Float
     private val borderTile: Bitmap
-    companion object {
-        private const val TILE_SIZE_DP = 256
-    }
+
     init {
-        /* Scale factor based on density, with a 0.6 multiplier to increase tile generation
-         * speed */
+        // Calculate scaleFactor based on screen density.
         scaleFactor = context.resources.displayMetrics.density * 0.6f
+        // Create a borderTile bitmap with a stroke style
+        borderTile = createTile()
+    }
+
+    /**
+     * Creates a border tile bitmap with a stroke style.
+     *
+     * @return The created border tile bitmap.
+     */
+    private fun createTile(): Bitmap {
         val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         borderPaint.style = Paint.Style.STROKE
-        borderTile = Bitmap.createBitmap(
-            (TILE_SIZE_DP * scaleFactor).toInt(),
-            (TILE_SIZE_DP * scaleFactor).toInt(), Bitmap.Config.ARGB_8888
+        val tile = Bitmap.createBitmap(
+            (MAP_TILE_SIZE_IN_DP * scaleFactor).toInt(),
+            (MAP_TILE_SIZE_IN_DP * scaleFactor).toInt(),
+            Bitmap.Config.ARGB_8888
         )
-        val canvas = Canvas(borderTile)
+        val canvas = Canvas(tile)
+
         canvas.drawRect(
             0f,
             0f,
-            TILE_SIZE_DP * scaleFactor,
-            TILE_SIZE_DP * scaleFactor,
+            MAP_TILE_SIZE_IN_DP * scaleFactor,
+            MAP_TILE_SIZE_IN_DP * scaleFactor,
             borderPaint
         )
+
+        return tile
     }
 
 
     override fun getTile(x: Int, y: Int, zoom: Int): Tile {
-
-        val layer = "clouds_new"
+        val layer = WeatherRenderType.CLOUDS.type
         val apiKey = BuildConfig.WEATHER_API_KEY
+        // Create the call
+        val call = weatherApiService.getWeatherLayer(layer, zoom, x, y, apiKey)
+        val weatherResponse: Response<ResponseBody> = call.execute()
 
-        var tempImg: ByteArray = ByteArray(0)
-
-        val call = weatherApiService.getWeatherLayer(
-            layer,
-            zoom.toString(),
-            x.toString(),
-            y.toString(),
-            apiKey
-        )
-        val c: Response<ResponseBody> = call.execute()
-
-        if (c.isSuccessful) {
-            val weatherLayer = c.body()
+        val imageBytes = if (weatherResponse.isSuccessful) {
+            // Get the body, containing the image from the response.
+            val weatherLayer = weatherResponse.body()
+            // Convert the image to a bitmap.
             val bitmap: Bitmap = BitmapFactory.decodeStream(weatherLayer!!.byteStream())
+            // Convert the bitmap to a byte array.
             val stream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream)
-            tempImg = stream.toByteArray()
-
+            stream.toByteArray()
         } else {
-            // Handle unsuccessful response
+            // Handle unsuccessful response.
+            Log.e(
+                "WeatherTileProvider",
+                "Could not getTile info for x: $x y: $y zoom: $zoom http response code: ${weatherResponse.code()}"
+            )
+            // For now we just return an empty tile.
+            ByteArray(0)
         }
-
-
+        //
         return Tile(
-            (TILE_SIZE_DP * scaleFactor).toInt(),
-            (TILE_SIZE_DP * scaleFactor).toInt(), tempImg
+            (MAP_TILE_SIZE_IN_DP * scaleFactor).toInt(),
+            (MAP_TILE_SIZE_IN_DP * scaleFactor).toInt(),
+            imageBytes
         )
     }
 
