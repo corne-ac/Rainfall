@@ -99,5 +99,23 @@
             android:layout_height="1dp"
             android:background="@color/gray_400"/>
 
+
+<!-- this part should always be at the bottom -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Powered By"
+            android:textSize="18sp"
+            android:textColor="@color/gray_600"
+            android:paddingTop="50dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/pnb_text"
+        android:scaleType="fitCenter" />
+
     </LinearLayout>
 </ScrollView>

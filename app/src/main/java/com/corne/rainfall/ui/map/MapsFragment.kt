@@ -34,9 +34,16 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
 
     private val callback = OnMapReadyCallback { googleMap ->
         if (darkModePreference) changeMapStyle(googleMap)
-        //TODO: Do relevant call depending on user choice
-        displayFireMap(googleMap)
-        displayWeatherMap(googleMap)
+
+        binding.btnFireRisk.setOnClickListener {
+            googleMap.clear()
+            displayFireMap(googleMap)
+        }
+
+        binding.btnCloudCoverage.setOnClickListener {
+            googleMap.clear()
+            displayWeatherMap(googleMap)
+        }
     }
 
     private fun displayWeatherMap(googleMap: GoogleMap) {

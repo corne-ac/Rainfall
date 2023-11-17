@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list_constraint"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    tools:context=".ui.rainfall.capture.CaptureFragment"
+    android:background="@color/light_gray" >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/notification_list"
+        tools:listitem="@layout/fragment_notification_item" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/close_24"
+        app:iconGravity="textStart"
+        android:text="Clear"
+        android:textSize="17sp"
+        android:layout_margin="15dp"
+        android:backgroundTint="@color/light_blue_600"
+        app:layout_constraintBottom_toBottomOf="@+id/list_constraint"
+        app:layout_constraintEnd_toEndOf="@+id/list_constraint"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
