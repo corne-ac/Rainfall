@@ -27,7 +27,7 @@
             android:text="Placeholder save??"/>
 
         <ImageButton
-            android:id="@+id/btnHelp"
+            android:id="@+id/help_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"
@@ -47,13 +47,13 @@
             android:layout_marginVertical="10dp">
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/locations_spinner"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="5" />
 
             <ImageButton
-                android:id="@+id/btnAdd"
+                android:id="@+id/add_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
@@ -115,6 +115,7 @@
 
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:id="@+id/weather_warnings"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_row="0"
@@ -152,6 +153,7 @@
 
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/notifications"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_row="1"
@@ -187,6 +189,7 @@
 
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:id="@+id/fire_risks"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_row="1"

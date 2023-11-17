@@ -53,7 +53,8 @@
                 android:id="@+id/date_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hint="Date" />
+                app:hint="Date"
+                style="?textInputStyle"/>
 
             <com.corne.rainfall.ui.components.TextInput
                 android:id="@+id/end_time_input"
