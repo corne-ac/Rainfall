@@ -79,6 +79,7 @@
             android:columnCount="2">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/rainfall_captured"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_row="0"
