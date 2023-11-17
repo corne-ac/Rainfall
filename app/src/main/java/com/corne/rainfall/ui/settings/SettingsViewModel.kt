@@ -28,5 +28,4 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch { preferenceManager.setLanguageMode(language) }
     }
 
-
 }

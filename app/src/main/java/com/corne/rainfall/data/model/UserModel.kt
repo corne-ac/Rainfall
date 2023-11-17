@@ -1,4 +1,8 @@
 package com.corne.rainfall.data.model
 
-class WeatherModel {
+class UserModel {
+
+    // Preference
+
+
 }

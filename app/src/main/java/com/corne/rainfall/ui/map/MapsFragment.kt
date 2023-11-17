@@ -1,14 +1,12 @@
 package com.corne.rainfall.ui.map
 
 import android.content.res.Resources
-import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.corne.rainfall.BuildConfig
 import com.corne.rainfall.R
-import com.corne.rainfall.api.WeatherApiService
 import com.corne.rainfall.data.model.FireLocationItemModel
 import com.corne.rainfall.databinding.FragmentMapsBinding
 import com.corne.rainfall.ui.base.state.BaseStateFragment
@@ -19,21 +17,13 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.GroundOverlayOptions
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.TileOverlayOptions
-import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import javax.inject.Inject
 
 class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewModel>() {
 
@@ -50,7 +40,8 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
     }
 
     private fun displayWeatherMap(googleMap: GoogleMap) {
-        val weatherTileProvider = WeatherTileProvider(requireContext(), viewModel.getWeatherApiService())
+        val weatherTileProvider =
+            WeatherTileProvider(requireContext(), viewModel.getWeatherApiService())
         googleMap.addTileOverlay(TileOverlayOptions().tileProvider(weatherTileProvider))
     }
 
@@ -63,8 +54,8 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
     }
 
     private fun changeMapStyle(googleMap: GoogleMap) {
-// Customise the styling of the base map using a JSON object defined.
-// Recommended by maps api https://developers.google.com/maps/documentation/android-sdk/styling#raw-resource
+        // Customise the styling of the base map using a JSON object defined.
+        // Recommended by maps api https://developers.google.com/maps/documentation/android-sdk/styling#raw-resource
         try {
             val success = googleMap.setMapStyle(
                 MapStyleOptions.loadRawResourceStyle(
@@ -82,7 +73,7 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
     override suspend fun addContentToView() {
         googleMap = binding.map.getFragment()
         viewModel.getDarkModePreference()
-        googleMap.getMapAsync(callback)
+        viewModel.checkOfflineStatus()
     }
 
     private fun addMarkersToMap(
@@ -92,9 +83,6 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
         val fireIcon: BitmapDescriptor by lazy {
             BitmapHelper.vectorToBitmap(requireContext(), R.drawable.fire_24)
         }
-
-        //TODO: User Feedback
-        if (fireList.isEmpty()) return
 
         for (fireLocationItem in fireList) {
             val latLng = LatLng(fireLocationItem.lat, fireLocationItem.long)
@@ -106,6 +94,9 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
                     .icon(fireIcon)
             )?.tag = fireLocationItem
         }
+
+        if (fireList.isEmpty()) return
+
         googleMap.moveCamera(
             CameraUpdateFactory.newLatLng(
                 LatLng(
@@ -120,9 +111,21 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
     override fun updateState(state: IMapState) {
         binding.progressBar.isVisible = state.isLoading
         darkModePreference = state.isDarkMode
+        state.isOffline?.let {
+            if (it) {
+                binding.offlineMode.isVisible = true
+                binding.offlineMode.text = getString(R.string.maps_offline_mode)
+            } else {
+                binding.offlineMode.isVisible = false
+                googleMap.getMapAsync(callback)
+            }
+        }
+
         state.googleMap?.let {
             addMarkersToMap(state.items.toMutableList(), it)
         }
+
+
     }
 
     override fun createViewBinding(

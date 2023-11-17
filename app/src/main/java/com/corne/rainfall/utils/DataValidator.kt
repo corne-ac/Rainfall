@@ -30,4 +30,21 @@ object DataValidator {
         }
     }
 
+    fun startTimeValidation(it: String?): Int? {
+        return when {
+            it == null -> null
+            isEmpty(it) -> R.string.empty_start_time
+            else -> null
+        }
+    }
+
+    fun endTimeValidation(it: String?): Int? {
+        return when {
+            it == null -> null
+            isEmpty(it) -> R.string.empty_end_time
+            else -> null
+        }
+    }
+
+
 }

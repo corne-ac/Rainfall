@@ -16,7 +16,7 @@ import javax.inject.Inject
 class MapViewModel @Inject constructor(
     private val fireApi: IFireApiProvider,
     private val rainfallPreference: IRainfallPreference,
-    private val weatherApiService: WeatherApiService
+    private val weatherApiService: WeatherApiService,
 ) : BaseStateViewModel<IMapState>() {
     private val stateStore = IMapState.initialState.mutable()
     override val state: StateFlow<IMapState> = stateStore.asStateFlow()
@@ -32,7 +32,20 @@ class MapViewModel @Inject constructor(
             }
         }
     }
-    fun getWeatherApiService() : WeatherApiService {
+
+    fun checkOfflineStatus() {
+        currentJob?.cancel()
+        currentJob = viewModelScope.launch {
+            rainfallPreference.offlineModeFlow.collect {
+                setState {
+                    isOffline = it
+                }
+            }
+        }
+    }
+
+
+    fun getWeatherApiService(): WeatherApiService {
         return weatherApiService
     }
 

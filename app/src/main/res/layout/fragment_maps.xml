@@ -87,6 +87,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fire_loading" />
+
+        <TextView
+            android:id="@+id/offlineMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="offlineMode" />
     </LinearLayout>
 
 

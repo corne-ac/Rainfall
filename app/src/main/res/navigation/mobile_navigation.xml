@@ -41,6 +41,13 @@
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
 
+    <fragment
+        android:id="@+id/navigation_graph"
+        android:name="com.corne.rainfall.ui.graph.RainGraphFragment"
+        android:label="fragment_graph"
+        tools:layout="@layout/fragment_home" />
+
+
     <!--app:startDestination="@+id/navigation_home"-->
     <!--Goal
     <fragment

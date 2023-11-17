@@ -16,8 +16,7 @@ class RainfallLocalRepo @Inject constructor(
 ) : IRainRepository {
     override fun getRainfallInLocation(locationId: Int): Flow<NetworkResult<List<RainfallData>>> =
         rainfallDao.getRainDataByLocation(locationId)
-            .map { rainfall -> rainfall.map(toRainfallData) }
-            .transform { rainfall ->
+            .map { rainfall -> rainfall.map(toRainfallData) }.transform { rainfall ->
                 emit(NetworkResult.Success(rainfall))
             }.catch {
                 emit(NetworkResult.success(emptyList()))
@@ -42,9 +41,8 @@ class RainfallLocalRepo @Inject constructor(
         )
     }
 
-    private fun toRainfallEntity(rainfallData: RainfallData, id: Int, locId: Int): RainfallEntity {
+    private fun toRainfallEntity(rainfallData: RainfallData, locId: Int): RainfallEntity {
         return RainfallEntity(
-            id,
             locId,
             rainfallData.date.time,
             rainfallData.endTime,
@@ -66,7 +64,7 @@ class RainfallLocalRepo @Inject constructor(
 
     override suspend fun addRainData(rainfallData: RainfallData): NetworkResult<String> {
         rainfallDao.addRainData(
-            toRainfallEntity(rainfallData, 1, 1)
+            toRainfallEntity(rainfallData, 1)
         )
         return NetworkResult.Success("Success")
     }

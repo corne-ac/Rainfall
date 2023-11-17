@@ -1,8 +1,10 @@
 package com.corne.rainfall.di
 
 import android.app.Application
-import com.corne.rainfall.db.dao.RainfallDAO
 import com.corne.rainfall.db.RainfallDatabase
+import com.corne.rainfall.db.dao.LocationDAO
+import com.corne.rainfall.db.dao.NotificationDAO
+import com.corne.rainfall.db.dao.RainfallDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,5 +25,16 @@ class DatabaseModule {
         return db.rainEntityDao()
     }
 
+    @Singleton
+    @Provides
+    fun providesLocationDao(db: RainfallDatabase): LocationDAO {
+        return db.locationDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providesNotificationDao(db: RainfallDatabase): NotificationDAO {
+        return db.notificationDAO()
+    }
 
 }
