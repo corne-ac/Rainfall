@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.provider.MediaStore
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,11 +55,26 @@ class RainGraphFragment : BaseStateFragment<FragmentGraphBinding, IGraphState, G
         list: List<ValueDataEntry>,
     ) {
         val frameLayout = binding.frameLayout
+        // Clear the previous graph.
+        frameLayout.removeAllViews()
         // Fun times the anyChartView can only call setChart once so in our case we must create a new one each time.
         val anyChartView = AnyChartView(requireContext())
         frameLayout.addView(anyChartView)
+
+
         val cartesian = if (state.isGraphBar) AnyChart.column() else AnyChart.line()
-        if (state.isGraphBar) cartesian.column(list) else cartesian.line(list)
+        val base = if (state.isGraphBar) cartesian.column(list) else cartesian.line(list)
+        cartesian.background().enabled(true);
+
+
+        val primaryColor = getFromTheme(com.google.android.material.R.attr.colorPrimary)
+        if (primaryColor != null) base.color(String.format("#%06X", 0xFFFFFF and primaryColor))
+
+        val surfaceColor = getFromTheme(com.google.android.material.R.attr.colorSurface)
+        if (surfaceColor != null) cartesian.background()
+            .fill(String.format("#%06X", 0xFFFFFF and surfaceColor));
+
+
         // Setup the base chart
         cartesian.animation(true)
         cartesian.title("Rainfall for the last 7 days")
@@ -71,6 +87,18 @@ class RainGraphFragment : BaseStateFragment<FragmentGraphBinding, IGraphState, G
         cartesian.credits().enabled(false)
         // Set the chart on the view
         anyChartView.setChart(cartesian)
+    }
+
+    private fun getFromTheme(
+        res: Int,
+    ): Int? {
+        val typedValue = TypedValue()
+        val theme = requireContext().theme
+        val attributeResolved = theme.resolveAttribute(
+            res, typedValue, true
+        )
+        if (attributeResolved) return typedValue.data
+        return null
     }
 
     override suspend fun addContentToView() {
