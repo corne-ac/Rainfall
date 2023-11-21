@@ -8,6 +8,14 @@
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
+    <color name="light_gray">#D3D3D3</color>
+    <color name="green">#00b300</color>
+    <color name="orange">#ffa500</color>
+
+<!--    Notification Colours     -->
+    <color name="priority_high">#ea7e7e</color>
+    <color name="priority_medium">#FFDA66</color>
+    <color name="priority_low">#98E695</color>
 
 
 

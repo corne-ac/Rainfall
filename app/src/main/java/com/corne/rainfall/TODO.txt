@@ -1,0 +1,6 @@
+- Choose better colours for the home page cards
+- Home page cards arent sized well
+- Selectable location for fires
+- Map Have way for user to enable both overlays
+- Consider Alternate for Weather Warnings maybe
+- Add Rainfall log Autofill current date/time

@@ -26,6 +26,11 @@ class HomeStateFragment : BaseFragment<FragmentHomeBinding>() {
     override suspend fun addContentToView() {
         val anyChartView: AnyChartView = binding.anyChartView
 
+        binding.rainfallCaptured.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_rainfallListFragment) }
+        binding.notifications.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_notifications_list) }
+        binding.fireRisks.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_notifications_list) }
+        binding.weatherWarnings.setOnClickListener {  }
+
         val data: MutableList<DataEntry> = ArrayList()
         data.add(ValueDataEntry("Rouge", 80540))
         data.add(ValueDataEntry("Foundation", 94190))

@@ -14,20 +14,21 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rainfall_list"
-        tools:listitem="@layout/fragment_rainfall_list_item" />
+        android:id="@+id/notification_list"
+        tools:listitem="@layout/fragment_notification_item" />
 
-    <ImageButton
-        android:id="@+id/btnLoadObs"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/button_shape"
-        android:backgroundTint="@color/light_blue_400"
-        android:padding="10dp"
-        android:visibility="visible"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:icon="@drawable/close_24"
+        app:iconGravity="textStart"
+        android:text="Clear"
+        android:textSize="17sp"
+        android:layout_margin="15dp"
+        android:backgroundTint="@color/light_blue_600"
         app:layout_constraintBottom_toBottomOf="@+id/list_constraint"
-        app:layout_constraintEnd_toEndOf="@+id/list_constraint"
-        app:srcCompat="@drawable/filter_alt_24"
-        android:layout_margin="15dp"/>
+        app:layout_constraintEnd_toEndOf="@+id/list_constraint"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

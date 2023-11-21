@@ -15,7 +15,7 @@ class RainfallListAdapter(
 
     inner class ViewHolder(binding: FragmentRainfallListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val heading: TextView = binding.headerTextView
+//        val heading: TextView = binding.headerTextView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
@@ -28,8 +28,8 @@ class RainfallListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.heading.text = item.mm.toString()
-        holder.heading.setOnClickListener { onClickFunction(item) }
+//        holder.heading.text = item.mm.toString()
+//        holder.heading.setOnClickListener { onClickFunction(item) }
     }
 
 }

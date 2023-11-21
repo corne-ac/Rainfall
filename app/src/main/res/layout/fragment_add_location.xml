@@ -12,12 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal|center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Rainfall Log"
+            android:text="Add Location"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
@@ -28,18 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="@color/light_blue_400"
-            android:layout_marginHorizontal="50dp"/>
-
-
-        <!-- Consider making adapter for spinner items added to have bigger text + bold -->
-        <Spinner
-            android:id="@+id/location_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:textSize="22sp"
-            android:textStyle="bold"/>
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginBottom="20dp"/>
 
 
         <!--Text fields-->
@@ -50,35 +40,10 @@
             android:layout_marginHorizontal="50dp">
 
             <com.corne.rainfall.ui.components.TextInput
-                android:id="@+id/date_input"
+                android:id="@+id/location_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hint="Date"
-                style="?textInputStyle"/>
-
-            <com.corne.rainfall.ui.components.TextInput
-                android:id="@+id/end_time_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:hint="Start Time" />
-
-            <com.corne.rainfall.ui.components.TextInput
-                android:id="@+id/start_time_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:hint="End Time" />
-
-            <com.corne.rainfall.ui.components.TextInput
-                android:id="@+id/rain_mm_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:hint="Rain amount in mm" />
-
-            <com.corne.rainfall.ui.components.TextInput
-                android:id="@+id/rain_notes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:hint="Notes..." />
+                app:hint="Location Name" />
 
         </LinearLayout>
 
@@ -93,6 +58,7 @@
             android:text="Add"
             android:textSize="17sp"
             android:backgroundTint="@color/emerald"
-            android:paddingHorizontal="50dp"/>
+            android:paddingHorizontal="50dp"
+            android:layout_marginBottom="100dp"/>
     </LinearLayout>
 </ScrollView>
