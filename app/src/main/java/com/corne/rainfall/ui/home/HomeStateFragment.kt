@@ -23,13 +23,13 @@ class HomeStateFragment : BaseFragment<FragmentHomeBinding>() {
         val data = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
 
         // Create an ArrayAdapter using the string array and a default spinner layout
-//        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, data)
 
         // Specify the layout to use when the list of choices appears
 //        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         // Apply the adapter to the spinner
-//        binding.locationsSpinner.adapter = adapter
+        binding.locationsSpinner.adapter = adapter
     }
 
     override fun createViewBinding(

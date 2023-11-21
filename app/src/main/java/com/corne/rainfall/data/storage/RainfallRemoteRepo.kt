@@ -1,10 +1,10 @@
 package com.corne.rainfall.data.storage
 
+import com.corne.rainfall.data.model.LocationModel
 import com.corne.rainfall.data.model.RainfallData
 import com.corne.rainfall.utils.NetworkResult
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
-
 class RainfallRemoteRepo @Inject constructor() : IRainRepository {
     override fun getRainfallInLocation(locationId: Int): Flow<NetworkResult<List<RainfallData>>> {
         TODO("Not yet implemented")
@@ -27,6 +27,10 @@ class RainfallRemoteRepo @Inject constructor() : IRainRepository {
     }
 
     override fun updateRainData(rainfallData: RainfallData) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAllLocations(): Flow<NetworkResult<List<LocationModel>>> {
         TODO("Not yet implemented")
     }
 }
