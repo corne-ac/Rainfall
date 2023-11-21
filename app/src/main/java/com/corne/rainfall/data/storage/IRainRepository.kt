@@ -19,5 +19,5 @@ interface IRainRepository {
     fun updateRainData(rainfallData: RainfallData)
 
     fun getAllLocations(): Flow<NetworkResult<List<LocationModel>>>
-
+    suspend fun addLocation(locationModel: LocationModel): NetworkResult<String>
 }

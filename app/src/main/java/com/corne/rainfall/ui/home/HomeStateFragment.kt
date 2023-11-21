@@ -6,30 +6,47 @@ import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import com.corne.rainfall.R
 import com.corne.rainfall.databinding.FragmentHomeBinding
-import com.corne.rainfall.ui.base.BaseFragment
+import com.corne.rainfall.ui.base.state.BaseStateFragment
+import com.corne.rainfall.ui.hiltMainNavGraphViewModels
 
 
-class HomeStateFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeStateFragment : BaseStateFragment<FragmentHomeBinding, IHomeState, HomeViewModel>() {
+    override val viewModel: HomeViewModel by hiltMainNavGraphViewModels()
+
+
+    override fun updateState(state: IHomeState) {
+
+
+        if (state.isLoading){
+            return
+        }
+
+        // Sample data for the spinner
+        if (state.allLocationsList.isNotEmpty()) {
+            // Create an ArrayAdapter using the string array and a default spinner layout
+            val adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                state.allLocationsList.map { it.name }
+            )
+
+            // Apply the adapter to the spinner
+            binding.locationsSpinner.adapter = adapter
+        }
+    }
+
     override suspend fun addContentToView() {
-
+        viewModel.loadUserLocationData()
 
         binding.rainfallCaptured.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_rainfallListFragment) }
         binding.notifications.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_notifications_list) }
         binding.fireRisks.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_notifications_list) }
         binding.weatherWarnings.setOnClickListener { }
+        binding.addLocation.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_home_to_navigation_add_location)
+        }
 
 
-        // Sample data for the spinner
-        val data = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, data)
-
-        // Specify the layout to use when the list of choices appears
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        // Apply the adapter to the spinner
-        binding.locationsSpinner.adapter = adapter
     }
 
     override fun createViewBinding(

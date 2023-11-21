@@ -1,5 +1,6 @@
 package com.corne.rainfall.ui.home
 
+import androidx.lifecycle.viewModelScope
 import com.corne.rainfall.data.preference.IRainfallPreference
 import com.corne.rainfall.data.storage.IRainRepository
 import com.corne.rainfall.di.LocalRainfallRepository
@@ -8,6 +9,7 @@ import com.corne.rainfall.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,28 +22,30 @@ class HomeViewModel @Inject constructor(
     private var currentJob: Job? = null
 
     suspend fun loadUserLocationData() {
-        setState {
-            isLoading = true
-        }
+        currentJob?.cancel()
+        currentJob = viewModelScope.launch {
 
-
-        rainfallPreference.defaultLocationFlow.collect { locId ->
             setState {
-                isLoading = false
-                defaultLocation = locId
+                isLoading = true
             }
-        }
-
-        rain.getAllLocations().collect { locResult ->
-            when (locResult) {
-                is NetworkResult.Success -> setState {
+         /*   rainfallPreference.defaultLocationFlow.collect { locId ->
+                setState {
                     isLoading = false
-                    allLocationsList = locResult.data
+                    defaultLocation = locId
                 }
+            }*/
 
-                is NetworkResult.Error -> setState {
-                    isLoading = false
-                    error = locResult.message
+            rain.getAllLocations().collect { locResult ->
+                when (locResult) {
+                    is NetworkResult.Success -> setState {
+                        isLoading = false
+                        allLocationsList = locResult.data
+                    }
+
+                    is NetworkResult.Error -> setState {
+                        isLoading = false
+                        error = locResult.message
+                    }
                 }
             }
         }

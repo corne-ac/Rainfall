@@ -18,6 +18,10 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_fire_risk_info"
             app:destination="@id/navigation_fire_risk_info" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_add_location"
+            app:destination="@id/navigation_add_location" />
+
     </fragment>
 
     <fragment
@@ -56,13 +60,19 @@
     <fragment
         android:id="@+id/navigation_notifications_list"
         android:name="com.corne.rainfall.ui.notification.list.notificationListFragment"
-        tools:layout="@layout/fragment_notification_list"
-        android:label="notificationListFragment" />
+        android:label="notificationListFragment"
+        tools:layout="@layout/fragment_notification_list" />
     <fragment
         android:id="@+id/navigation_fire_risk_info"
         android:name="com.corne.rainfall.ui.fire.fireRiskInfoFragment"
         android:label="fragment_fire_risk_info"
         tools:layout="@layout/fragment_fire_risk_info" />
+
+    <fragment
+        android:id="@+id/navigation_add_location"
+        android:name="com.corne.rainfall.ui.location.AddLocationFragment"
+        android:label="fragment_add_location"
+        tools:layout="@layout/fragment_add_location" />
 
 
     <!--app:startDestination="@+id/navigation_home"-->

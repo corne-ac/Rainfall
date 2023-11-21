@@ -81,6 +81,14 @@ class RainfallLocalRepo @Inject constructor(
                 emit(NetworkResult.success(emptyList()))
             }
 
+    override suspend fun addLocation(locationModel: LocationModel): NetworkResult<String> {
+        locationDao.addLocation(
+            userId = 1,
+            name = locationModel.name
+        )
+        return NetworkResult.Success("Success")
+    }
+
     private val toLocationModel: (LocationEntity) -> LocationModel = { locationEntity ->
         LocationModel(
             locationEntity.uid, locationEntity.name

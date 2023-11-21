@@ -9,4 +9,9 @@ import kotlinx.coroutines.flow.Flow
 interface LocationDAO {
     @Query("SELECT * FROM location")
     fun getAllNotificationsForUser(): Flow<List<LocationEntity>>
+
+    // Add location
+    @Query("INSERT INTO location (name, userId) VALUES (:name, :userId)")
+    suspend fun addLocation(name: String, userId: Int)
+
 }
