@@ -8,13 +8,14 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:context=".ui.rainfall.capture.CaptureFragment"
-    android:background="@color/light_gray" >
+    tools:context=".ui.rainfall.capture.CaptureFragment" >
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rainfall_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rainfall_list"
+        tools:layout_editor_absoluteX="-14dp"
+        tools:layout_editor_absoluteY="-101dp"
         tools:listitem="@layout/fragment_rainfall_list_item" />
 
     <ImageButton
@@ -23,11 +24,12 @@
         android:layout_height="50dp"
         android:background="@drawable/button_shape"
         android:backgroundTint="@color/light_blue_400"
-        android:padding="10dp"
+
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/list_constraint"
         app:layout_constraintEnd_toEndOf="@+id/list_constraint"
         app:srcCompat="@drawable/filter_alt_24"
-        android:layout_margin="15dp"/>
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="70dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

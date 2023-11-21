@@ -33,17 +33,42 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
 
     private var darkModePreference: Boolean = false
 
+    private var fireShow = false
+    private var weatherShow = false
+
     private val callback = OnMapReadyCallback { googleMap ->
         if (darkModePreference) changeMapStyle(googleMap)
 
         binding.btnFireRisk.setOnClickListener {
-            googleMap.clear()
-            displayFireMap(googleMap)
+            fireShow = !fireShow
+            updateMapVisibility(googleMap)
         }
 
         binding.btnCloudCoverage.setOnClickListener {
-            googleMap.clear()
+            weatherShow = !weatherShow
+            updateMapVisibility(googleMap)
+        }
+    }
+
+    private fun updateMapVisibility(googleMap: GoogleMap) {
+        googleMap.clear()
+
+        if (fireShow) {
+            displayFireMap(googleMap)
+            // Set active background color for btnFireRisk
+            binding.btnFireRisk.setBackgroundColor(resources.getColor(R.color.fire_red, null))
+        } else {
+            // Set inactive background color for btnFireRisk
+            binding.btnFireRisk.setBackgroundColor(resources.getColor(R.color.gray_400, null))
+        }
+
+        if (weatherShow) {
             displayWeatherMap(googleMap)
+            // Set active background color for btnCloudCoverage
+            binding.btnCloudCoverage.setBackgroundColor(resources.getColor(R.color.light_blue_600, null))
+        } else {
+            // Set inactive background color for btnCloudCoverage
+            binding.btnCloudCoverage.setBackgroundColor(resources.getColor(R.color.gray_400, null))
         }
     }
 
