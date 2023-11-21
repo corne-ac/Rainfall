@@ -13,38 +13,38 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="10dp"
-        android:gravity="end">
-
-        <Button
-            android:id="@+id/save_btn"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Placeholder save??"/>
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
 
-        <ImageButton
-            android:id="@+id/help_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:srcCompat="@drawable/_question_mark_24"
-            android:background="@drawable/button_shape"
-            android:backgroundTint="@android:color/holo_blue_light"
-            android:padding="10dp"
-            android:layout_marginHorizontal="10dp"
-            android:contentDescription="Help Button" />
+            <Button
+                android:id="@+id/save_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Placeholder save??" />
 
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/help_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/button_shape"
+                android:backgroundTint="@android:color/holo_blue_light"
+                android:contentDescription="Help Button"
+                android:padding="10dp"
+                android:visibility="visible"
+                app:srcCompat="@drawable/_question_mark_24" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginVertical="10dp">
+            android:layout_marginVertical="10dp"
+            android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/locations_spinner"
@@ -56,96 +56,92 @@
                 android:id="@+id/add_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:srcCompat="@drawable/add_24"
+                android:layout_marginHorizontal="10dp"
                 android:background="@drawable/button_shape"
                 android:backgroundTint="@color/light_blue_600"
+                android:contentDescription="Add Button"
                 android:padding="10dp"
-                android:layout_marginHorizontal="10dp"
-                android:contentDescription="Add Button" />
-
-
+                android:visibility="visible"
+                app:srcCompat="@drawable/add_24" />
 
         </LinearLayout>
-
-
-
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:columnCount="2"
             android:paddingBottom="60dp"
-            android:rowCount="2"
-            android:columnCount="2">
+            android:rowCount="2">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/rainfall_captured"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_row="0"
-                android:layout_column="0"
-                android:layout_gravity="fill"
                 android:layout_rowWeight="1"
+                android:layout_column="0"
                 android:layout_columnWeight="1"
+                android:layout_gravity="fill"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="8dp"
+                android:backgroundTint="@android:color/holo_blue_light"
                 android:elevation="8dp"
-                android:backgroundTint="@android:color/holo_blue_light">
+                app:cardCornerRadius="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical|center_horizontal"
                     android:gravity="center"
-                    android:layout_gravity="center_vertical|center_horizontal">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/list_bulleted_24"/>
+                        android:src="@drawable/list_bulleted_24" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="RAIN LOGS"
-                        android:textStyle="bold"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/weather_warnings"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_row="0"
-                android:layout_column="1"
-                android:layout_gravity="fill"
                 android:layout_rowWeight="1"
+                android:layout_column="1"
                 android:layout_columnWeight="1"
+                android:layout_gravity="fill"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="8dp"
+                android:backgroundTint="@color/orange"
                 android:elevation="8dp"
-                android:backgroundTint="@color/orange">
+                app:cardCornerRadius="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical|center_horizontal"
                     android:gravity="center"
-                    android:layout_gravity="center_vertical|center_horizontal">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/warning_amber_24"/>
+                        android:src="@drawable/warning_amber_24" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="WEATHER WARNINGS"
-                        android:textStyle="bold"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -157,90 +153,90 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_row="1"
-                android:layout_column="0"
-                android:layout_gravity="fill"
                 android:layout_rowWeight="1"
+                android:layout_column="0"
                 android:layout_columnWeight="1"
+                android:layout_gravity="fill"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="8dp"
+                android:backgroundTint="@color/green"
                 android:elevation="8dp"
-                android:backgroundTint="@color/green">
+                app:cardCornerRadius="8dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical|center_horizontal"
                     android:gravity="center"
-                    android:layout_gravity="center_vertical|center_horizontal">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/notifications_none_24"/>
+                        android:src="@drawable/notifications_none_24" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="NOTIFICATIONS"
-                        android:textStyle="bold"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/fire_risks"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_row="1"
-                android:layout_column="1"
-                android:layout_gravity="fill"
                 android:layout_rowWeight="1"
+                android:layout_column="1"
                 android:layout_columnWeight="1"
+                android:layout_gravity="fill"
                 android:layout_margin="8dp"
-                app:cardCornerRadius="8dp"
+                android:backgroundTint="@android:color/holo_red_light"
                 android:elevation="8dp"
-                android:backgroundTint="@android:color/holo_red_light">
+                app:cardCornerRadius="8dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical|center_horizontal"
                     android:gravity="center"
-                    android:layout_gravity="center_vertical|center_horizontal">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/fire_24"/>
+                        android:src="@drawable/fire_24" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="FIRE RISKS"
-                        android:textStyle="bold"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
 
-
         </GridLayout>
 
-        <Button
-            android:id="@+id/rainfall_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rainfall_list" />
+        <!--   <Button
+               android:id="@+id/rainfall_list"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/rainfall_list" />
 
-        <com.anychart.AnyChartView
-            android:id="@+id/any_chart_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
+           <com.anychart.AnyChartView
+               android:id="@+id/any_chart_view"
+               android:layout_width="match_parent"
+               android:layout_height="0dp"
+               android:layout_weight="1" />
+   -->
 
     </LinearLayout>
 </ScrollView>

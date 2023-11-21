@@ -39,7 +39,7 @@ class FireApiProviderImpl @Inject constructor(
         location: String,
         days: Int,
         date: String,
-    ): Flow<NetworkResult<List<FireLocationItemModel>>> = flow {
+    ): Flow<NetworkResult<List<NetworkResult<FireLocationItemModel>>>> = flow {
         val fireData = fireService.getFirmsData(apiKey, type, location, days, date)
         if (!fireData.isSuccessful) {
 
@@ -56,6 +56,7 @@ class FireApiProviderImpl @Inject constructor(
         // TODO: CsvParser.parseCsvData() should return a NetworkResult and we should emit that here
         val data = CsvParser.parseCsvData(fireDataString).toList()
         emit(NetworkResult.Success(data))
+
     }.catch {
         // TODO: error message I18N
         emit(NetworkResult.Error(0))

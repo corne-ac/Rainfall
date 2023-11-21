@@ -28,5 +28,5 @@ interface IFireApiProvider {
         location: String,
         days: Int,
         date: String,
-    ): Flow<NetworkResult<List<FireLocationItemModel>>>
+    ): Flow<NetworkResult<List<NetworkResult<FireLocationItemModel>>>>
 }

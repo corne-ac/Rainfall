@@ -76,7 +76,7 @@ class CaptureFragment :
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             //set text of textinput
             val format = "dd/mm/yyyy"
-            val sdf = SimpleDateFormat(format, Locale("UK"))
+            val sdf = SimpleDateFormat(format, Locale.getDefault())
             binding.dateInput.binding.value.setText(sdf.format(calendar.time))
         }
 
@@ -150,7 +150,7 @@ class CaptureFragment :
         binding.rainMmInput.binding.value.doAfterTextChanged {
             viewModel.updateState(CaptureForm.RAIN_MM, it.toString())
         }
-        binding.rainMmInput.binding.value.doAfterTextChanged {
+        binding.rainNotes.binding.value.doAfterTextChanged {
             viewModel.updateState(CaptureForm.NOTES, it.toString())
         }
         binding.saveBtn.setOnClickListener { viewModel.add() }

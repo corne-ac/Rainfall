@@ -1,5 +1,6 @@
 package com.corne.rainfall.data.storage
 
+import com.corne.rainfall.data.model.LocationModel
 import com.corne.rainfall.data.model.RainfallData
 import com.corne.rainfall.utils.NetworkResult
 import kotlinx.coroutines.flow.Flow
@@ -16,5 +17,7 @@ interface IRainRepository {
     fun deleteRainData(rainfallData: RainfallData)
 
     fun updateRainData(rainfallData: RainfallData)
+
+    fun getAllLocations(): Flow<NetworkResult<List<LocationModel>>>
 
 }

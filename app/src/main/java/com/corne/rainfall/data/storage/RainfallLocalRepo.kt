@@ -1,7 +1,10 @@
 package com.corne.rainfall.data.storage
 
+import com.corne.rainfall.data.model.LocationModel
 import com.corne.rainfall.data.model.RainfallData
+import com.corne.rainfall.db.dao.LocationDAO
 import com.corne.rainfall.db.dao.RainfallDAO
+import com.corne.rainfall.db.entity.LocationEntity
 import com.corne.rainfall.db.entity.RainfallEntity
 import com.corne.rainfall.utils.NetworkResult
 import kotlinx.coroutines.flow.Flow
@@ -13,6 +16,7 @@ import javax.inject.Inject
 
 class RainfallLocalRepo @Inject constructor(
     private val rainfallDao: RainfallDAO,
+    private val locationDao: LocationDAO,
 ) : IRainRepository {
     override fun getRainfallInLocation(locationId: Int): Flow<NetworkResult<List<RainfallData>>> =
         rainfallDao.getRainDataByLocation(locationId)
@@ -31,15 +35,6 @@ class RainfallLocalRepo @Inject constructor(
             emit(NetworkResult.success(emptyList()))
         }
 
-    private val toRainfallData: (RainfallEntity) -> RainfallData = { rainfallEntity ->
-        RainfallData(
-            Date(rainfallEntity.date),
-            rainfallEntity.startTime,
-            rainfallEntity.endTime,
-            rainfallEntity.mm,
-            rainfallEntity.startTime
-        )
-    }
 
     private fun toRainfallEntity(rainfallData: RainfallData, locId: Int): RainfallEntity {
         return RainfallEntity(
@@ -75,5 +70,29 @@ class RainfallLocalRepo @Inject constructor(
 
     override fun updateRainData(rainfallData: RainfallData) {
         TODO("Not yet implemented")
+    }
+
+
+    override fun getAllLocations(): Flow<NetworkResult<List<LocationModel>>> =
+        locationDao.getAllNotificationsForUser().map { locations -> locations.map(toLocationModel) }
+            .transform { rainfall ->
+                emit(NetworkResult.Success(rainfall))
+            }.catch {
+                emit(NetworkResult.success(emptyList()))
+            }
+
+    private val toLocationModel: (LocationEntity) -> LocationModel = { locationEntity ->
+        LocationModel(
+            locationEntity.uid, locationEntity.name
+        )
+    }
+    private val toRainfallData: (RainfallEntity) -> RainfallData = { rainfallEntity ->
+        RainfallData(
+            Date(rainfallEntity.date),
+            rainfallEntity.startTime,
+            rainfallEntity.endTime,
+            rainfallEntity.mm,
+            rainfallEntity.startTime
+        )
     }
 }

@@ -12,6 +12,7 @@ import com.corne.rainfall.databinding.FragmentMapsBinding
 import com.corne.rainfall.ui.base.state.BaseStateFragment
 import com.corne.rainfall.ui.hiltMainNavGraphViewModels
 import com.corne.rainfall.utils.BitmapHelper
+import com.corne.rainfall.utils.NetworkResult
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -84,34 +85,43 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
     }
 
     private fun addMarkersToMap(
-        fireList: MutableList<FireLocationItemModel>,
+        fireList: MutableList<NetworkResult<FireLocationItemModel>>,
         googleMap: GoogleMap,
     ) {
+
         val fireIcon: BitmapDescriptor by lazy {
-            BitmapHelper.vectorToBitmap(requireContext(), R.drawable.fire_24)
+
+            BitmapHelper.vectorToBitmap(requireContext(), R.drawable.fire_24, R.color.fire_red)
         }
 
-        for (fireLocationItem in fireList) {
-            val latLng = LatLng(fireLocationItem.lat, fireLocationItem.long)
+        var lastItem: FireLocationItemModel? = null
 
-            googleMap.addMarker(
-                MarkerOptions()
-                    .position(latLng)
-                    .title("Fire Location")
-                    .icon(fireIcon)
-            )?.tag = fireLocationItem
+        for (fireLocationItem in fireList) {
+            if (fireLocationItem is NetworkResult.Error) continue
+            fireLocationItem.onSuccess {
+                val latLng = LatLng(it.lat, it.long)
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .position(latLng)
+                        .title("Fire Location")
+                        .icon(fireIcon)
+                )?.tag = it
+                lastItem = it
+            }
+
         }
 
         if (fireList.isEmpty()) return
-
-        googleMap.moveCamera(
-            CameraUpdateFactory.newLatLng(
-                LatLng(
-                    fireList.last().lat,
-                    fireList.last().long
+        lastItem?.let {
+            googleMap.moveCamera(
+                CameraUpdateFactory.newLatLng(
+                    LatLng(
+                        it.lat,
+                        it.long
+                    )
                 )
             )
-        )
+        }
     }
 
 
