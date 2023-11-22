@@ -3,18 +3,22 @@ package com.corne.rainfall.ui.map
 import androidx.lifecycle.viewModelScope
 import com.corne.rainfall.api.WeatherApiService
 import com.corne.rainfall.data.api.IFireApiProvider
+import com.corne.rainfall.data.conection.ConnectedState
+import com.corne.rainfall.data.conection.IConnectedObserver
 import com.corne.rainfall.data.preference.IRainfallPreference
 import com.corne.rainfall.ui.base.state.BaseStateViewModel
 import com.google.android.gms.maps.GoogleMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MapViewModel @Inject constructor(
     private val fireApi: IFireApiProvider,
+    private val connectedObserver: IConnectedObserver,
     private val rainfallPreference: IRainfallPreference,
     private val weatherApiService: WeatherApiService,
 ) : BaseStateViewModel<IMapState>() {
@@ -22,28 +26,30 @@ class MapViewModel @Inject constructor(
     override val state: StateFlow<IMapState> = stateStore.asStateFlow()
     private var currentJob: Job? = null
 
-    fun getDarkModePreference() {
+    fun updateForMap() {
         currentJob?.cancel()
         currentJob = viewModelScope.launch {
-            rainfallPreference.uiModeFlow.collect {
+
+            setState {
+                isLoading = true
+            }
+
+            combine(
+                rainfallPreference.offlineModeFlow,
+                connectedObserver.connectionState,
+                rainfallPreference.uiModeFlow
+            ) { offline, connected, darkMode ->
+                Triple(offline, connected, darkMode)
+            }.collect { (offline, connected, darkMode) ->
                 setState {
-                    isDarkMode = it
+                    isOfflinePresence = offline
+                    isConnected = connected == ConnectedState.Available
+                    isDarkMode = darkMode
+                    isLoading = false
                 }
             }
         }
     }
-
-    fun checkOfflineStatus() {
-        currentJob?.cancel()
-        currentJob = viewModelScope.launch {
-            rainfallPreference.offlineModeFlow.collect {
-                setState {
-                    isOffline = it
-                }
-            }
-        }
-    }
-
 
     fun getWeatherApiService(): WeatherApiService {
         return weatherApiService
@@ -87,4 +93,5 @@ class MapViewModel @Inject constructor(
 
 
     private fun setState(update: MutableIMapState.() -> Unit) = stateStore.update(update)
+
 }

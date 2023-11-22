@@ -31,10 +31,9 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
     override val viewModel: MapViewModel by hiltMainNavGraphViewModels()
     private lateinit var googleMap: SupportMapFragment
 
-    private var darkModePreference: Boolean = false
 
     private val callback = OnMapReadyCallback { googleMap ->
-        if (darkModePreference) changeMapStyle(googleMap)
+//        if (darkModePreference) changeMapStyle(googleMap)
 
         binding.btnFireRisk.setOnClickListener {
             googleMap.clear()
@@ -80,8 +79,7 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
 
     override suspend fun addContentToView() {
         googleMap = binding.map.getFragment()
-        viewModel.getDarkModePreference()
-        viewModel.checkOfflineStatus()
+        viewModel.updateForMap()
     }
 
     private fun addMarkersToMap(
@@ -101,10 +99,7 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
             fireLocationItem.onSuccess {
                 val latLng = LatLng(it.lat, it.long)
                 googleMap.addMarker(
-                    MarkerOptions()
-                        .position(latLng)
-                        .title("Fire Location")
-                        .icon(fireIcon)
+                    MarkerOptions().position(latLng).title("Fire Location").icon(fireIcon)
                 )?.tag = it
                 lastItem = it
             }
@@ -116,8 +111,7 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
             googleMap.moveCamera(
                 CameraUpdateFactory.newLatLng(
                     LatLng(
-                        it.lat,
-                        it.long
+                        it.lat, it.long
                     )
                 )
             )
@@ -126,23 +120,36 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
 
 
     override fun updateState(state: IMapState) {
-        binding.progressBar.isVisible = state.isLoading
-        darkModePreference = state.isDarkMode
-        state.isOffline?.let {
-            if (it) {
-                binding.offlineMode.isVisible = true
-                binding.offlineMode.text = getString(R.string.maps_offline_mode)
-            } else {
-                binding.offlineMode.isVisible = false
-                googleMap.getMapAsync(callback)
-            }
+        // TODO: improve this loading with a bg
+        // TODO: hide just the loading spinner and show the rest of the view
+//        binding.progressBar.isVisible = state.isLoading
+
+        binding.offlineMode.isVisible = false
+
+        // First we check the users permissions, if they have disabled online access then show.
+        if (state.isOfflinePresence != null && !state.isOfflinePresence!!) {
+            // Show offline mode message and stop.
+            binding.offlineMode.isVisible = true
+            binding.offlineMode.text = getString(R.string.maps_offline_mode)
+            return
         }
+
+        // If the user allows online access but there is no internet connection then show.
+        if (state.isConnected != null && !state.isConnected!!) {
+
+            binding.offlineMode.isVisible = true
+            binding.offlineMode.text = getString(R.string.maps_offline_mode)
+
+            return
+        }
+
+        binding.offlineMode.isVisible = false
+        googleMap.getMapAsync(callback)
 
         state.googleMap?.let {
             addMarkersToMap(state.items.toMutableList(), it)
+            if (state.isDarkMode) changeMapStyle(it)
         }
-
-
     }
 
     override fun createViewBinding(

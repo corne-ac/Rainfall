@@ -15,7 +15,8 @@ interface IMapState : IBaseState {
     val items: List<NetworkResult<FireLocationItemModel>>
     val googleMap: GoogleMap?
     val isDarkMode: Boolean
-    val isOffline: Boolean?
+    val isOfflinePresence: Boolean?
+    val isConnected: Boolean?
 
     companion object {
         val initialState = IMapState(
@@ -24,7 +25,8 @@ interface IMapState : IBaseState {
             items = emptyList(),
             googleMap = null,
             isDarkMode = false,
-            isOffline = null,
+            isOfflinePresence = null,
+            isConnected = null
         )
     }
 }
