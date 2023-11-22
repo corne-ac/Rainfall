@@ -3,8 +3,6 @@ package com.corne.rainfall.ui.settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import com.corne.rainfall.R
 import com.corne.rainfall.databinding.FragmentSettingsBinding
 import com.corne.rainfall.ui.base.state.BaseStateFragment
 import com.corne.rainfall.ui.hiltMainNavGraphViewModels
@@ -47,6 +45,12 @@ class SettingsFragment :
         runDarkUpdate()
         runLanguageUpdate()
         runBackupUpdate()
+
+        binding.exportCloudBtn.setOnClickListener {
+            viewModel.exportData()
+        }
+
+
     }
 
     /**
@@ -96,7 +100,8 @@ class SettingsFragment :
         if (!usingCloudBackup) binding.cloudBackupLayout.visibility = View.GONE
 
         binding.onlineBackupToggle.setOnClickListener {
-            if (binding.onlineBackupToggle.isChecked) binding.cloudBackupLayout.visibility = View.VISIBLE
+            if (binding.onlineBackupToggle.isChecked) binding.cloudBackupLayout.visibility =
+                View.VISIBLE
             else binding.cloudBackupLayout.visibility = View.GONE
         }
 

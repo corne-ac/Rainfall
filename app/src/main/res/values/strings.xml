@@ -8,6 +8,7 @@
     <string name="graph">Rainfall Graph</string>
     <string name="home">Home</string>
     <string name="maps">Maps</string>
+    <string name="maps_offline_mode_set">Maps can only be used when online.\n You have got online feature disabled in settings.</string>
     <string name="maps_offline_mode">Maps can only be used when online.</string>
     <string name="notifications">Notifications</string>
     <string name="prompt_language">Language Selection</string>

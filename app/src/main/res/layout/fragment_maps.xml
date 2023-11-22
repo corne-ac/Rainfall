@@ -10,11 +10,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.map.MapsFragment" />-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/map_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center_vertical|center_horizontal">
 
     <androidx.fragment.app.FragmentContainerView
@@ -27,29 +26,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingBottom="60dp"
         app:layout_constraintBottom_toBottomOf="@+id/map"
-        app:layout_constraintEnd_toEndOf="@+id/map"
-        android:paddingBottom="60dp">
+        app:layout_constraintEnd_toEndOf="@+id/map">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardLoadNearby"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/gray_400"
             app:cardCornerRadius="100dp"
             app:layout_constraintBottom_toTopOf="@+id/cardLoadObs"
-            android:backgroundTint="@color/gray_400"
-            app:strokeWidth="0dp"
-            android:layout_margin="10dp">
+            app:strokeWidth="0dp">
 
             <ImageButton
                 android:id="@+id/btnFireRisk"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:visibility="visible"
-                app:srcCompat="@drawable/fire_24"
                 android:background="@color/transparent"
                 android:padding="10dp"
-                />
+                android:visibility="visible"
+                app:srcCompat="@drawable/fire_24" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -57,56 +55,64 @@
             android:id="@+id/cardLoadObs"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            app:cardCornerRadius="100dp"
-            app:strokeWidth="0dp"
+            android:layout_margin="10dp"
             android:backgroundTint="@color/gray_400"
-            android:layout_margin="10dp">
+            app:cardCornerRadius="100dp"
+            app:strokeWidth="0dp">
 
             <ImageButton
                 android:id="@+id/btnCloudCoverage"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:visibility="visible"
-                app:srcCompat="@drawable/cloud_hollow_24"
                 android:background="@color/transparent"
-                android:padding="10dp" />
+                android:padding="10dp"
+                android:visibility="visible"
+                app:srcCompat="@drawable/cloud_hollow_24" />
 
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
 
-
     <androidx.cardview.widget.CardView
-        android:id="@+id/progressBar"
+        android:id="@+id/containerCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@color/white"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/white">
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="true" />
-
-<!--        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fire_loading" />-->
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/offlineMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="offlineMode" />
-    </androidx.cardview.widget.CardView>
 
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressBarCircular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <!--        <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fire_loading" />-->
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -65,7 +65,12 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
         if (weatherShow) {
             displayWeatherMap(googleMap)
             // Set active background color for btnCloudCoverage
-            binding.btnCloudCoverage.setBackgroundColor(resources.getColor(R.color.light_blue_600, null))
+            binding.btnCloudCoverage.setBackgroundColor(
+                resources.getColor(
+                    R.color.light_blue_600,
+                    null
+                )
+            )
         } else {
             // Set inactive background color for btnCloudCoverage
             binding.btnCloudCoverage.setBackgroundColor(resources.getColor(R.color.gray_400, null))
@@ -146,30 +151,25 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
 
 
     override fun updateState(state: IMapState) {
-        // TODO: improve this loading with a bg
-        // TODO: hide just the loading spinner and show the rest of the view
-//        binding.progressBar.isVisible = state.isLoading
 
+        binding.progressBarCircular.isVisible = state.isLoading
         binding.offlineMode.isVisible = false
 
-        // First we check the users permissions, if they have disabled online access then show.
-      /*  if (state.isOfflinePresence != null && !state.isOfflinePresence!!) {
-            // Show offline mode message and stop.
+        if (state.isOfflinePref != null && state.isOfflinePref!!) {
+            binding.containerCard.isVisible = true
             binding.offlineMode.isVisible = true
-            binding.offlineMode.text = getString(R.string.maps_offline_mode)
+            binding.offlineMode.text = getString(R.string.maps_offline_mode_set)
             return
         }
-*/
+
         // If the user allows online access but there is no internet connection then show.
         if (state.isConnected != null && !state.isConnected!!) {
-
+            binding.containerCard.isVisible = true
             binding.offlineMode.isVisible = true
             binding.offlineMode.text = getString(R.string.maps_offline_mode)
-
             return
         }
 
-        binding.offlineMode.isVisible = false
         googleMap.getMapAsync(callback)
 
         state.googleMap?.let {

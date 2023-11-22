@@ -42,7 +42,7 @@ class MapViewModel @Inject constructor(
                 Triple(offline, connected, darkMode)
             }.collect { (offline, connected, darkMode) ->
                 setState {
-                    isOfflinePresence = offline
+                    isOfflinePref = offline
                     isConnected = connected == ConnectedState.Available
                     isDarkMode = darkMode
                     isLoading = false

@@ -1,7 +1,11 @@
 package com.corne.rainfall
 
 import android.app.Application
+import android.util.Log
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
 /**
  * [RainfallApp] is a custom [Application] class for the Rainfall app.
@@ -14,5 +18,16 @@ import dagger.hilt.android.HiltAndroidApp
  * and perform other necessary tasks when the app starts.
  */
 @HiltAndroidApp
-class RainfallApp : Application()
+class RainfallApp : Application(), Configuration.Provider {
+    @Inject
+    lateinit var workerFactory: HiltWorkerFactory
+
+    override fun getWorkManagerConfiguration() =
+        Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .setMinimumLoggingLevel(Log.DEBUG)
+            .build()
+
+}
+
 

@@ -2,6 +2,7 @@ package com.corne.rainfall.di
 
 import com.corne.rainfall.data.storage.IRainRepository
 import com.corne.rainfall.data.storage.RainfallLocalRepo
+import com.corne.rainfall.data.storage.RainfallRemoteRepo
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,18 +14,11 @@ import javax.inject.Qualifier
 interface RepositoryModule {
     @Binds
     @LocalRainfallRepository
-    fun provideRemoteRainRepo(local: RainfallLocalRepo): IRainRepository
+    fun provideLocalRainRepo(local: RainfallLocalRepo): IRainRepository
 
-//    @Binds
-//    @RemoteRainfallRepository
-//    fun notyRemoteNoteRepository(remoteRepository: RainfallRemoteRepo): NotyNoteRepository
-    /*  @Singleton
-      @Provides
-      fun provideLocalRainRepo(
-      ): IRainRepository {
-          return RainfallLocalRepo(context)
-      }*/
-
+    @Binds
+    @RemoteRainfallRepository
+    fun provideRemoteRainRepo(remoteRepository: RainfallRemoteRepo): IRainRepository
 
 }
 
@@ -32,8 +26,6 @@ interface RepositoryModule {
 @Retention(AnnotationRetention.RUNTIME)
 annotation class LocalRainfallRepository
 
-/*
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
 annotation class RemoteRainfallRepository
-*/
