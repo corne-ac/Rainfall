@@ -1,7 +1,9 @@
 package com.corne.rainfall.ui.settings
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.corne.rainfall.R
 import com.corne.rainfall.databinding.FragmentSettingsBinding
 import com.corne.rainfall.ui.base.state.BaseStateFragment
@@ -44,6 +46,7 @@ class SettingsFragment :
     override suspend fun addContentToView() {
         runDarkUpdate()
         runLanguageUpdate()
+        runBackupUpdate()
     }
 
     /**
@@ -72,12 +75,31 @@ class SettingsFragment :
      */
     private suspend fun runDarkUpdate() {
         val darkModeEnabled = viewModel.isDarkModeEnabled()
-        val buttonTextRes = if (darkModeEnabled) R.string.set_light_mode else R.string.set_dark_mode
-
-        binding.updateDarkBtn.setText(buttonTextRes)
-        binding.updateDarkBtn.setOnClickListener {
-            viewModel.setDarkMode(!darkModeEnabled)
+        if (darkModeEnabled) binding.nightToggle.isChecked = true
+        binding.nightToggle.setOnClickListener {
+            if (binding.nightToggle.isChecked) viewModel.setDarkMode(true)
+            else viewModel.setDarkMode(false)
         }
+    }
+
+    /**
+     * Updates the Backup setting.
+     *
+     * This function is called to update the backup setting.
+     * It is a suspend function, so it can perform long-running operations.
+     */
+    private suspend fun runBackupUpdate() {
+        //Guess have to add some stuff to viewmodel to check
+        //backup last date local and online, also check account
+
+        val usingCloudBackup = false
+        if (!usingCloudBackup) binding.cloudBackupLayout.visibility = View.GONE
+
+        binding.onlineBackupToggle.setOnClickListener {
+            if (binding.onlineBackupToggle.isChecked) binding.cloudBackupLayout.visibility = View.VISIBLE
+            else binding.cloudBackupLayout.visibility = View.GONE
+        }
+
     }
 
     /**

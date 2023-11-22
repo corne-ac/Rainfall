@@ -61,11 +61,13 @@ class HomeStateFragment : BaseStateFragment<FragmentHomeBinding, IHomeState, Hom
 
         binding.rainfallCaptured.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_rainfallListFragment) }
         binding.notifications.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_notifications_list) }
-        binding.fireRisks.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_notifications_list) }
+        binding.fireRisks.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_fire_risk_info) }
         binding.weatherWarnings.setOnClickListener { }
         binding.addLocation.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_navigation_add_location)
         }
+        binding.helpButton.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_help) }
+
 
 
     }

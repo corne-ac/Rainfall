@@ -50,7 +50,7 @@ class CaptureFragment :
                 )
 
                 CaptureForm.NOTES -> showError(
-                    value.errorMessage, binding.rainMmInput.binding.valueInputLayout
+                    value.errorMessage, binding.rainNotes.binding.valueInputLayout
                 )
             }
         }

@@ -20,29 +20,56 @@
 
 
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/update_dark_btn"
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/update_dark_btn"-->
 
-            android:text="Toggle Day/Night Mode"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textAllCaps="true"
-            android:layout_marginBottom="20dp"
-            android:layout_width="wrap_content"
+<!--            android:text="Toggle Day/Night Mode"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textAllCaps="true"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/button_shape"-->
+<!--            android:layout_gravity="center"-->
+<!--            />-->
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_shape"
-            android:layout_gravity="center"
-            />
+            android:text="SETTINGS"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:textStyle="bold"/>
+
+
+
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="3dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="15dp"
             android:background="@color/gray_400"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Language Selection"
+            android:text="@string/preferences"
+            android:textSize="20sp"
+            android:paddingBottom="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/gray_600"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/night_toggle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:paddingStart="15dp"
+            android:text="Night Mode"
             android:textSize="18sp"
             android:textColor="@color/gray_600"/>
 
@@ -69,13 +96,6 @@
             android:layout_height="1dp"
             android:background="@color/gray_400"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fire Location Selection"
-            android:textSize="18sp"
-            android:textColor="@color/gray_600" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fire_location_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
@@ -98,6 +118,151 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray_400"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Backup"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/gray_600"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/online_backup_toggle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:paddingStart="15dp"
+            android:textStyle="bold"
+            android:text="Cloud Backup"
+            android:textSize="18sp"
+            android:textColor="@color/gray_600"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cloud_backup_layout"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Account"
+                    android:paddingStart="15dp"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/gray_600"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Not Logged In"
+                    android:paddingStart="15dp"
+                    android:textSize="18sp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/gray_600"/>
+
+            </LinearLayout>
+
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login/Create Account"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Import"
+                    android:layout_gravity="center"/>
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="export"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Cloud Backup: --/--/----"
+                android:textSize="15sp"
+                android:textColor="@color/gray_600"
+                android:layout_gravity="center"
+                android:paddingBottom="10dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Local Backup"
+            android:paddingStart="15dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/gray_600"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Import"
+                android:layout_gravity="center"/>
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="export"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last Local Backup: --/--/----"
+            android:textSize="15sp"
+            android:textColor="@color/gray_600"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_400"/>
+
+
 
 
 <!-- this part should always be at the bottom -->

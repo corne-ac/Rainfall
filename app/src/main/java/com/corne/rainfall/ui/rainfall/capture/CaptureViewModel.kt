@@ -39,7 +39,7 @@ class CaptureViewModel @Inject constructor(
                 stateValue.formValues[CaptureForm.START_TIME]!!.getValue()!!,
                 stateValue.formValues[CaptureForm.END_TIME]!!.getValue()!!,
                 stateValue.formValues[CaptureForm.RAIN_MM]!!.getValue()!!.toDouble(),
-                stateValue.formValues[CaptureForm.NOTES]!!.getValue()
+                stateValue.formValues[CaptureForm.NOTES]!!.getValue()!!
             )
 
             rain.addRainData(r).onSuccess {
@@ -73,6 +73,7 @@ class CaptureViewModel @Inject constructor(
             put(CaptureForm.START_TIME, FormItem(validationTest = DataValidator::startTimeValidation))
             put(CaptureForm.END_TIME,   FormItem(validationTest = DataValidator::endTimeValidation))
             put(CaptureForm.RAIN_MM,    FormItem())
+            put(CaptureForm.NOTES,    FormItem())
         }
         // @formatter:on
     }

@@ -19,6 +19,9 @@
             android:id="@+id/action_navigation_home_to_navigation_fire_risk_info"
             app:destination="@id/navigation_fire_risk_info" />
         <action
+            android:id="@+id/action_navigation_home_to_navigation_help"
+            app:destination="@id/navigation_help" />
+        <action
             android:id="@+id/action_navigation_home_to_navigation_add_location"
             app:destination="@id/navigation_add_location" />
 
@@ -67,6 +70,11 @@
         android:name="com.corne.rainfall.ui.fire.fireRiskInfoFragment"
         android:label="fragment_fire_risk_info"
         tools:layout="@layout/fragment_fire_risk_info" />
+    <fragment
+        android:id="@+id/navigation_help"
+        android:name="com.corne.rainfall.ui.help.helpFragment"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help" />
 
     <fragment
         android:id="@+id/navigation_add_location"
