@@ -9,6 +9,7 @@ import com.corne.rainfall.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,6 +22,17 @@ class HomeViewModel @Inject constructor(
     override val state: StateFlow<IHomeState> = stateStore.asStateFlow()
     private var currentJob: Job? = null
 
+    fun saveDefaultLocation(locationId: Int) {
+        currentJob?.cancel()
+        currentJob = viewModelScope.launch {
+            rainfallPreference.setDefaultLocation(locationId)
+            setState {
+                defaultLocation = locationId - 1
+            }
+
+        }
+    }
+
     suspend fun loadUserLocationData() {
         currentJob?.cancel()
         currentJob = viewModelScope.launch {
@@ -28,18 +40,19 @@ class HomeViewModel @Inject constructor(
             setState {
                 isLoading = true
             }
-         /*   rainfallPreference.defaultLocationFlow.collect { locId ->
-                setState {
-                    isLoading = false
-                    defaultLocation = locId
-                }
-            }*/
 
-            rain.getAllLocations().collect { locResult ->
-                when (locResult) {
+            val flow1 = rainfallPreference.defaultLocationFlow
+            val flow2 = rain.getAllLocations()
+
+
+            flow1.combine(flow2) { isGraphBar, rainfallResult ->
+                Pair(isGraphBar, rainfallResult)
+            }.collect {
+                when (val locResult = it.second) {
                     is NetworkResult.Success -> setState {
                         isLoading = false
                         allLocationsList = locResult.data
+                        defaultLocation = it.first
                     }
 
                     is NetworkResult.Error -> setState {
@@ -48,6 +61,42 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             }
+
+       /*     flow1.collect { locId ->
+                setState {
+                    isLoading = false
+                    defaultLocation = locId
+                }
+            }
+
+            flow1.combine(rain.getAllLocations()) { locId, locResult ->
+                when (locResult) {
+                    is NetworkResult.Success -> setState {
+                        isLoading = false
+                        allLocationsList = locResult.data
+                        defaultLocation = locId
+                    }
+
+                    is NetworkResult.Error -> setState {
+                        isLoading = false
+                        error = locResult.message
+                    }
+                }
+            }*/
+
+            /* rain.getAllLocations().collect { locResult ->
+                 when (locResult) {
+                     is NetworkResult.Success -> setState {
+                         isLoading = false
+                         allLocationsList = locResult.data
+                     }
+
+                     is NetworkResult.Error -> setState {
+                         isLoading = false
+                         error = locResult.message
+                     }
+                 }
+             }*/
         }
 
     }
