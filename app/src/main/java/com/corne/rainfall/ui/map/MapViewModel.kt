@@ -93,5 +93,10 @@ class MapViewModel @Inject constructor(
 
 
     private fun setState(update: MutableIMapState.() -> Unit) = stateStore.update(update)
+    fun setMap(googleMap: GoogleMap) {
+        setState {
+            this.googleMap = googleMap
+        }
+    }
 
 }

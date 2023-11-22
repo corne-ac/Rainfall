@@ -37,6 +37,7 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
 
     private val callback = OnMapReadyCallback { googleMap ->
 //        if (darkModePreference) changeMapStyle(googleMap)
+        viewModel.setMap(googleMap)
 
         binding.btnFireRisk.setOnClickListener {
             fireShow = !fireShow
@@ -152,13 +153,13 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
         binding.offlineMode.isVisible = false
 
         // First we check the users permissions, if they have disabled online access then show.
-        if (state.isOfflinePresence != null && !state.isOfflinePresence!!) {
+      /*  if (state.isOfflinePresence != null && !state.isOfflinePresence!!) {
             // Show offline mode message and stop.
             binding.offlineMode.isVisible = true
             binding.offlineMode.text = getString(R.string.maps_offline_mode)
             return
         }
-
+*/
         // If the user allows online access but there is no internet connection then show.
         if (state.isConnected != null && !state.isConnected!!) {
 
@@ -173,7 +174,9 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
 
         state.googleMap?.let {
             addMarkersToMap(state.items.toMutableList(), it)
-            if (state.isDarkMode) changeMapStyle(it)
+            if (state.isDarkMode) {
+                changeMapStyle(it)
+            }
         }
     }
 
