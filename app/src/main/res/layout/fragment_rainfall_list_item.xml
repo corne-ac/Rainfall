@@ -17,9 +17,10 @@
         android:orientation="horizontal" android:layout_margin="7dp" >
 
         <ImageView
+            android:id="@+id/icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/cloud_hollow_24"
+            android:src="@drawable/cloud_24"
             android:layout_marginEnd="10dp"
             android:layout_gravity="center" />
 
@@ -29,6 +30,7 @@
             android:orientation="vertical" >
 
             <TextView
+                android:id="@+id/rainfall_Amm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5 mm"
@@ -36,11 +38,13 @@
                 android:textSize="18sp"/>
 
             <TextView
+                android:id="@+id/DateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="12/12/2023   00:00 -> 00:00" />
 
             <TextView
+                android:id="@+id/note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Note: Lorem Ipsum..." />

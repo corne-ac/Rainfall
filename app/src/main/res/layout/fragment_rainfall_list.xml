@@ -10,13 +10,45 @@
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     tools:context=".ui.rainfall.capture.CaptureFragment" >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rainfall_list"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="-14dp"
-        tools:layout_editor_absoluteY="-101dp"
-        tools:listitem="@layout/fragment_rainfall_list_item" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="10dp"
+            android:text="Rainfall Logs"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rainfall_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="-14dp"
+            tools:layout_editor_absoluteY="-101dp"
+            tools:listitem="@layout/fragment_rainfall_list_item" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="10dp"
+        android:text="Logs is empty. Start by adding a rain log."
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
 
     <ImageButton
         android:id="@+id/btnLoadObs"

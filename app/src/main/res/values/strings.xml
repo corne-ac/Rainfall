@@ -24,4 +24,5 @@
     <string name="weather_warnings">WEATHER WARNINGS</string>
     <string name="notifications_upper">NOTIFICATIONS</string>
     <string name="fire_risks">FIRE RISKS</string>
+    <string name="preferences">Preferences</string>
 </resources>
