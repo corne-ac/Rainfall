@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "980345977372",
+    "project_id": "rainfall-397b9",
+    "storage_bucket": "rainfall-397b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980345977372:android:126e15e8a29aef350c7dd9",
+        "android_client_info": {
+          "package_name": "com.corne.rainfall"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnw-WMu8QLYeSw3VLd9Fvv03mP_6r1nzc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
