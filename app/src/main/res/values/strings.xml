@@ -26,4 +26,6 @@
     <string name="notifications_upper">NOTIFICATIONS</string>
     <string name="fire_risks">FIRE RISKS</string>
     <string name="preferences">Preferences</string>
+    <string name="preferences_error">Cant get prefs</string>
+    <string name="online_mode">Online Mode</string>
 </resources>

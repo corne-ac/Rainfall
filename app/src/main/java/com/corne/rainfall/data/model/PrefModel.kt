@@ -6,4 +6,5 @@ data class PrefModel(
     val offline: Boolean = false,
     val location: Int = -1,
     val graphType: Boolean = false,
+    val lastUpdated: Long?,
 )

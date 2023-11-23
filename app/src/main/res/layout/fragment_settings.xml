@@ -55,6 +55,17 @@
             android:textColor="@color/gray_600"
             android:textSize="18sp" />
 
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/online_toggle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:text="@string/online_mode"
+            android:textColor="@color/gray_600"
+            android:textSize="18sp" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/language_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"

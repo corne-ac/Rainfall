@@ -1,6 +1,7 @@
 package com.corne.rainfall.ui.settings
 
 import com.corne.rainfall.ui.base.state.IBaseState
+import dev.shreyaspatil.mutekt.core.annotations.GenerateMutableModel
 import javax.annotation.concurrent.Immutable
 
 /**
@@ -11,8 +12,17 @@ import javax.annotation.concurrent.Immutable
  * @property isLoading A boolean indicating whether the Settings screen is currently loading data.
  * @property error A nullable string that contains an error message if an error occurred.
  */
+@GenerateMutableModel
 @Immutable
-class SettingsState : IBaseState {
-    var isLoading: Boolean = false
-    var error: String? = null
+interface ISettingsState : IBaseState {
+    val isLoading: Boolean
+    val error: String?
+
+    companion object {
+        val initialState = ISettingsState(
+            isLoading = false,
+            error = null,
+        )
+    }
+
 }

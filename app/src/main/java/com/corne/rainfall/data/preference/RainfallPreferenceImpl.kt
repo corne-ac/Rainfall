@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -46,7 +47,7 @@ class RainfallPreferenceImpl @Inject constructor(
 
     override suspend fun setOfflineMode(enable: Boolean) {
         dataStore.edit { preferences ->
-            preferences[IS_DARK_MODE_ENABLED] = enable
+            preferences[IS_OFFLINE_MODE_ENABLED] = enable
         }
     }
 
@@ -80,6 +81,27 @@ class RainfallPreferenceImpl @Inject constructor(
         }
     }
 
+    override val lastUpdatedDateFlow: Flow<Long?> = dataStore.data.catch {
+        it.printStackTrace()
+        emit(emptyPreferences())
+    }.map { preference -> preference[LAST_UPDATED_CLOUD] }
+
+    override suspend fun setLastUpdatedDate(timestamp: Long) {
+        dataStore.edit { preferences ->
+            preferences[LAST_UPDATED_CLOUD] = timestamp
+        }
+    }
+
+    override val lastLocalExportDateFlow: Flow<Long?> = dataStore.data.catch {
+        it.printStackTrace()
+        emit(emptyPreferences())
+    }.map { preference -> preference[LAST_LOCAL_EXPORT_DATE] }
+
+    override suspend fun setLastLocalExportDate(timestamp: Long) {
+        dataStore.edit { preferences ->
+            preferences[LAST_LOCAL_EXPORT_DATE] = timestamp
+        }
+    }
 
     companion object {
         val IS_DARK_MODE_ENABLED = booleanPreferencesKey("dark_mode")
@@ -87,5 +109,7 @@ class RainfallPreferenceImpl @Inject constructor(
         val LANGUAGE_MODE = stringPreferencesKey("language_mode")
         val DEFAULT_LOCATION = intPreferencesKey("default_location")
         val DEFAULT_GRAPH_TYPE = booleanPreferencesKey("default_graph_type")
+        val LAST_UPDATED_CLOUD = longPreferencesKey("default_last_updated")
+        val LAST_LOCAL_EXPORT_DATE = longPreferencesKey("last_local_export_date")
     }
 }

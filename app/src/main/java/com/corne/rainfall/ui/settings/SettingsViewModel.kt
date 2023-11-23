@@ -7,11 +7,11 @@ import com.corne.rainfall.data.task.IRainTaskManager
 import com.corne.rainfall.db.RainfallDatabase
 import com.corne.rainfall.ui.base.state.BaseStateViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.util.Date
 import javax.inject.Inject
 
 /**
@@ -27,9 +27,12 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val preferenceManager: IRainfallPreference,
     private val rainTaskManager: IRainTaskManager,
+) : BaseStateViewModel<ISettingsState>() {
+    private val stateStore = ISettingsState.initialState.mutable()
+    override val state: StateFlow<ISettingsState> = stateStore.asStateFlow()
 
-    ) : BaseStateViewModel<SettingsState>() {
-    override val state: StateFlow<SettingsState> = MutableStateFlow(SettingsState()).asStateFlow()
+    private var currentJob: Job? = null
+
 
     /**
      * Checks if dark mode is enabled.
@@ -39,6 +42,7 @@ class SettingsViewModel @Inject constructor(
      * @return A boolean indicating whether dark mode is enabled.
      */
     suspend fun isDarkModeEnabled() = preferenceManager.uiModeFlow.first()
+
 
     /**
      * Sets the dark mode setting.
@@ -50,6 +54,28 @@ class SettingsViewModel @Inject constructor(
     fun setDarkMode(enable: Boolean) {
         viewModelScope.launch { preferenceManager.setDarkMode(enable) }
     }
+
+
+    /**
+     * Checks if offline mode is enabled.
+     *
+     * This function uses the preference manager to get the current value of the offline mode setting.
+     *
+     * @return A boolean indicating whether offline mode is enabled.
+     */
+    suspend fun isOfflineModeEnabled() = preferenceManager.offlineModeFlow.first()
+
+    /**
+     * Sets the offline mode setting.
+     *
+     * This function uses the preference manager to set the value of the offline mode setting.
+     *
+     * @param enable A boolean indicating whether to enable offline mode.
+     */
+    fun setOfflineMode(enable: Boolean) {
+        viewModelScope.launch { preferenceManager.setOfflineMode(enable) }
+    }
+
 
     /**
      * Gets the current language setting.
@@ -80,11 +106,16 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun exportDataLocal(ctx: Context) {
+        viewModelScope.launch { preferenceManager.setLastLocalExportDate(Date().time) }
         RainfallDatabase.INSTANCE?.backupDatabase(ctx)
     }
 
     fun importDataLocal(ctx: Context) {
         RainfallDatabase.INSTANCE?.restoreDatabase(ctx)
     }
+
+
+    private fun setState(update: MutableISettingsState.() -> Unit) = stateStore.update(update)
+
 
 }

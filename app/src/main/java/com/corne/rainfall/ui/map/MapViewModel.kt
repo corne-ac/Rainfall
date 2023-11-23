@@ -67,7 +67,7 @@ class MapViewModel @Inject constructor(
         currentJob?.cancel()
 
         // Launch a coroutine in viewModelScope
-        currentJob = viewModelScope.launch {
+            currentJob = viewModelScope.launch {
             setState {
                 isLoading = true
             }

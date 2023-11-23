@@ -14,7 +14,7 @@ import com.corne.rainfall.ui.hiltMainNavGraphViewModels
 
 class HomeStateFragment : BaseStateFragment<FragmentHomeBinding, IHomeState, HomeViewModel>() {
     override val viewModel: HomeViewModel by hiltMainNavGraphViewModels()
-
+    private var firstRun = true
 
     override fun updateState(state: IHomeState) {
 
@@ -31,25 +31,34 @@ class HomeStateFragment : BaseStateFragment<FragmentHomeBinding, IHomeState, Hom
                 state.allLocationsList.map { it.name })
             binding.locationsSpinner.adapter = adapter
 
-            binding.locationsSpinner.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?,
-                        view: View?,
-                        position: Int,
-                        id: Long,
-                    ) {
-                        viewModel.saveDefaultLocation(state.allLocationsList[position].locationUID)
-                    }
-
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                        TODO("Not yet implemented")
-                    }
+            fun onItemSelectedListener() = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    viewModel.saveDefaultLocation(state.allLocationsList[position].locationUID)
                 }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+            }
+
+            binding.locationsSpinner.onItemSelectedListener = onItemSelectedListener()
 
             if (state.defaultLocation != null) {
                 state.allLocationsList.find { it.locationUID == state.defaultLocation!! }?.let {
-                    binding.locationsSpinner.setSelection(adapter.getPosition(it.name))
+                    binding.locationsSpinner.onItemSelectedListener = null
+                    var add = 1
+                    if (firstRun) {
+                        add = 0
+                        firstRun = false
+                    }
+                    binding.locationsSpinner.setSelection(adapter.getPosition(it.name) + add)
+                    binding.locationsSpinner.onItemSelectedListener = onItemSelectedListener()
+
                 }
             }
         }
@@ -57,6 +66,7 @@ class HomeStateFragment : BaseStateFragment<FragmentHomeBinding, IHomeState, Hom
     }
 
     override suspend fun addContentToView() {
+        firstRun = true
         viewModel.loadUserLocationData()
 
         binding.rainfallCaptured.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_rainfallListFragment) }
@@ -67,7 +77,6 @@ class HomeStateFragment : BaseStateFragment<FragmentHomeBinding, IHomeState, Hom
             findNavController().navigate(R.id.action_navigation_home_to_navigation_add_location)
         }
         binding.helpButton.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_help) }
-
 
 
     }

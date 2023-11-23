@@ -85,5 +85,37 @@ interface IRainfallPreference {
      */
     suspend fun setDefaultGraph(isBar: Boolean)
 
+    /**
+     * A [Flow] representing the last updated date.
+     * Observers can collect this [Flow] to receive updates when the last updated date changes.
+     * The [Flow] emits [Long] values indicating the timestamp of the last update.
+     * The [Flow] can be null if there is no last updated date yet.
+     */
+    val lastUpdatedDateFlow: Flow<Long?>
+
+    /**
+     * Suspended function to set the application's last updated date.
+     * This function allows the caller to set the last updated date based on the provided [timestamp] parameter.
+     *
+     * @param timestamp A [Long] parameter indicating the timestamp of the last update.
+     */
+    suspend fun setLastUpdatedDate(timestamp: Long)
+
+    /**
+     * A [Flow] representing the last local export date.
+     * Observers can collect this [Flow] to receive updates when the last local export date changes.
+     * The [Flow] emits [Long] values indicating the timestamp of the last local export.
+     * The [Flow] can be null if there is no last local export date yet.
+     */
+    val lastLocalExportDateFlow: Flow<Long?>
+
+    /**
+     * Suspended function to set the application's last local export date.
+     * This function allows the caller to set the last local export date based on the provided [timestamp] parameter.
+     *
+     * @param timestamp A [Long] parameter indicating the timestamp of the last local export.
+     */
+    suspend fun setLastLocalExportDate(timestamp: Long)
+
 
 }

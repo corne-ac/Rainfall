@@ -15,7 +15,7 @@ import java.util.Locale
  * It extends the BaseStateFragment with a state of type SettingsState and a ViewModel of type SettingsViewModel.
  */
 class SettingsFragment :
-    BaseStateFragment<FragmentSettingsBinding, SettingsState, SettingsViewModel>() {
+    BaseStateFragment<FragmentSettingsBinding, ISettingsState, SettingsViewModel>() {
 
     /**
      * The ViewModel for this fragment.
@@ -31,7 +31,16 @@ class SettingsFragment :
      *
      * @param state The new state.
      */
-    override fun updateState(state: SettingsState) {
+    override fun updateState(state: ISettingsState) {
+
+        /*   if (state.isLoading) {
+               binding.loadingLayout.visibility = View.VISIBLE
+               binding.settingsLayout.visibility = View.GONE
+           } else {
+               binding.loadingLayout.visibility = View.GONE
+               binding.settingsLayout.visibility = View.VISIBLE
+           }
+           */
 
     }
 
@@ -43,6 +52,7 @@ class SettingsFragment :
      */
     override suspend fun addContentToView() {
         runDarkUpdate()
+        runOfflineUpdate()
         runLanguageUpdate()
         runBackupUpdate()
 
@@ -87,11 +97,34 @@ class SettingsFragment :
      * It is a suspend function, so it can perform long-running operations.
      */
     private suspend fun runDarkUpdate() {
+        /*   val darkModeEnabled = viewModel.isDarkModeEnabled()
+           if (darkModeEnabled) binding.nightToggle.isChecked = true
+           binding.nightToggle.setOnClickListener {
+               if (binding.nightToggle.isChecked) viewModel.setDarkMode(true)
+               else viewModel.setDarkMode(false)
+           }
+   */
         val darkModeEnabled = viewModel.isDarkModeEnabled()
-        if (darkModeEnabled) binding.nightToggle.isChecked = true
-        binding.nightToggle.setOnClickListener {
-            if (binding.nightToggle.isChecked) viewModel.setDarkMode(true)
-            else viewModel.setDarkMode(false)
+        val nightToggle = binding.nightToggle
+        nightToggle.isChecked = darkModeEnabled
+        nightToggle.setOnClickListener {
+            viewModel.setDarkMode(nightToggle.isChecked)
+        }
+    }
+
+    /**
+     * Updates the offline mode setting.
+     *
+     * This function is called to update the offline mode setting.
+     * It is a suspend function, so it can perform long-running operations.
+     */
+    private suspend fun runOfflineUpdate() {
+        val onlineEnabled = viewModel.isOfflineModeEnabled()
+        val onlineToggle = binding.onlineToggle
+        onlineToggle.isChecked = onlineEnabled
+        onlineToggle.setOnClickListener {
+            viewModel.setOfflineMode(onlineToggle.isChecked)
+//            viewModel.setOfflineMode(onlineToggle.isChecked)
         }
     }
 
@@ -102,7 +135,7 @@ class SettingsFragment :
      * It is a suspend function, so it can perform long-running operations.
      */
     private suspend fun runBackupUpdate() {
-        //Guess have to add some stuff to viewmodel to check
+        //Guess have to add some stuff to view-model to check
         //backup last date local and online, also check account
 
         val usingCloudBackup = false
