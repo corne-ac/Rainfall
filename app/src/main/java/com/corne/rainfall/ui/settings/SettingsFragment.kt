@@ -47,7 +47,16 @@ class SettingsFragment :
         runBackupUpdate()
 
         binding.exportCloudBtn.setOnClickListener {
-            viewModel.exportData()
+            viewModel.exportDataCloud()
+        }
+        binding.importLocalBtn.setOnClickListener {
+            // Here we will import the database file
+            viewModel.importDataLocal(requireContext())
+        }
+
+        binding.exportLocalBtn.setOnClickListener {
+            // Here we will export the database file
+            viewModel.exportDataLocal(requireContext())
         }
 
 

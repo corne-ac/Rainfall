@@ -1,8 +1,10 @@
 package com.corne.rainfall.ui.settings
 
+import android.content.Context
 import androidx.lifecycle.viewModelScope
 import com.corne.rainfall.data.preference.IRainfallPreference
 import com.corne.rainfall.data.task.IRainTaskManager
+import com.corne.rainfall.db.RainfallDatabase
 import com.corne.rainfall.ui.base.state.BaseStateViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +27,8 @@ import javax.inject.Inject
 class SettingsViewModel @Inject constructor(
     private val preferenceManager: IRainfallPreference,
     private val rainTaskManager: IRainTaskManager,
-) : BaseStateViewModel<SettingsState>() {
+
+    ) : BaseStateViewModel<SettingsState>() {
     override val state: StateFlow<SettingsState> = MutableStateFlow(SettingsState()).asStateFlow()
 
     /**
@@ -68,12 +71,20 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch { preferenceManager.setLanguageMode(language) }
     }
 
-    fun exportData() {
+    fun exportDataCloud() {
         rainTaskManager.exportData()
     }
 
     fun importData() {
         rainTaskManager.importData()
+    }
+
+    fun exportDataLocal(ctx: Context) {
+        RainfallDatabase.INSTANCE?.backupDatabase(ctx)
+    }
+
+    fun importDataLocal(ctx: Context) {
+        RainfallDatabase.INSTANCE?.restoreDatabase(ctx)
     }
 
 }

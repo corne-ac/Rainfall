@@ -3,47 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
+    android:background="?attr/rainBackground"
 
-    android:background="?attr/rainBackground">
-<!--tools:context=".ui.rain.CaptureFragment"-->
+    android:fillViewport="true">
+    <!--tools:context=".ui.rain.CaptureFragment"-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="20dp">
+        android:layout_marginHorizontal="20dp"
+        android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/test_dark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-
-
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/update_dark_btn"-->
-
-<!--            android:text="Toggle Day/Night Mode"-->
-<!--            android:textColor="#FFFFFF"-->
-<!--            android:textSize="20sp"-->
-<!--            android:textAllCaps="true"-->
-<!--            android:layout_marginBottom="20dp"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@drawable/button_shape"-->
-<!--            android:layout_gravity="center"-->
-<!--            />-->
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SETTINGS"
-            android:textSize="30sp"
             android:gravity="center"
             android:paddingBottom="10dp"
-            android:textStyle="bold"/>
-
-
+            android:text="SETTINGS"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
 
         <View
@@ -51,27 +33,27 @@
             android:layout_height="3dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="15dp"
-            android:background="@color/gray_400"/>
+            android:background="@color/gray_400" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/preferences"
-            android:textSize="20sp"
             android:paddingBottom="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/gray_600"/>
+            android:text="@string/preferences"
+            android:textColor="@color/gray_600"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/night_toggle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="20dp"
-            android:paddingStart="15dp"
             android:text="Night Mode"
-            android:textSize="18sp"
-            android:textColor="@color/gray_600"/>
+            android:textColor="@color/gray_600"
+            android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/language_input_layout"
@@ -90,11 +72,11 @@
                 tools:ignore="LabelFor" />
 
         </com.google.android.material.textfield.TextInputLayout>
-        
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/gray_400"/>
+            android:background="@color/gray_400" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fire_location_layout"
@@ -117,33 +99,33 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/gray_400"/>
+            android:background="@color/gray_400" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Backup"
-            android:textStyle="bold"
-            android:textSize="20sp"
             android:paddingBottom="10dp"
-            android:textColor="@color/gray_600"/>
+            android:text="Backup"
+            android:textColor="@color/gray_600"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/online_backup_toggle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="20dp"
-            android:paddingStart="15dp"
-            android:textStyle="bold"
             android:text="Cloud Backup"
+            android:textColor="@color/gray_600"
             android:textSize="18sp"
-            android:textColor="@color/gray_600"/>
+            android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/cloud_backup_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/cloud_backup_layout"
             android:orientation="vertical">
 
             <LinearLayout
@@ -154,134 +136,134 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Account"
                     android:paddingStart="15dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
                     android:paddingBottom="10dp"
-                    android:textColor="@color/gray_600"/>
+                    android:text="Account"
+                    android:textColor="@color/gray_600"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Not Logged In"
                     android:paddingStart="15dp"
-                    android:textSize="18sp"
                     android:paddingBottom="10dp"
-                    android:textColor="@color/gray_600"/>
+                    android:text="Not Logged In"
+                    android:textColor="@color/gray_600"
+                    android:textSize="18sp" />
 
             </LinearLayout>
-
 
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login/Create Account"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:text="Login/Create Account" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Import"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:text="Import" />
 
                 <View
                     android:layout_width="10dp"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
                 <Button
                     android:id="@+id/export_cloud_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="export"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:text="export" />
 
             </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last Cloud Backup: --/--/----"
-                android:textSize="15sp"
-                android:textColor="@color/gray_600"
                 android:layout_gravity="center"
-                android:paddingBottom="10dp"/>
+                android:paddingBottom="10dp"
+                android:text="Last Cloud Backup: --/--/----"
+                android:textColor="@color/gray_600"
+                android:textSize="15sp" />
 
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Local Backup"
             android:paddingStart="15dp"
-            android:textStyle="bold"
-            android:textSize="18sp"
             android:paddingBottom="10dp"
-            android:textColor="@color/gray_600"/>
+            android:text="Local Backup"
+            android:textColor="@color/gray_600"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <Button
+                android:id="@+id/import_local_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Import"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:text="Import" />
 
             <View
                 android:layout_width="10dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <Button
+                android:id="@+id/export_local_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="export"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:text="export" />
 
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Last Local Backup: --/--/----"
-            android:textSize="15sp"
-            android:textColor="@color/gray_600"
             android:layout_gravity="center"
-            android:paddingBottom="10dp"/>
+            android:paddingBottom="10dp"
+            android:text="Last Local Backup: --/--/----"
+            android:textColor="@color/gray_600"
+            android:textSize="15sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/gray_400"/>
+            android:background="@color/gray_400" />
 
 
-
-
-<!-- this part should always be at the bottom -->
+        <!-- this part should always be at the bottom -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
+            android:paddingTop="50dp"
             android:text="Powered By"
-            android:textSize="18sp"
+            android:textAlignment="center"
             android:textColor="@color/gray_600"
-            android:paddingTop="50dp" />
+            android:textSize="18sp" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/pnb_text"
-        android:scaleType="fitCenter" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pnb_text" />
 
     </LinearLayout>
 </ScrollView>

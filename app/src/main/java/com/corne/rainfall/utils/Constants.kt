@@ -21,4 +21,9 @@ object Constants {
 
     const val MAP_TILE_SIZE_IN_DP = 256
 
+    const val BACKUP_SUFFIX = "-bkp"
+    const val WAL_FILE_SUFFIX = "-wal"
+    const val SHM_FILE_SUFFIX = "-shm"
+
+
 }
