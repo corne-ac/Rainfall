@@ -21,7 +21,7 @@ class AddLocationViewModel @Inject constructor(
 ) : BaseStateViewModel<AddLocationState>() {
     private val stateStore = AddLocationState.initialState.mutable()
     override val state: StateFlow<AddLocationState> = stateStore.asStateFlow()
-
+    private var onSuccessCallback: (() -> Unit)? = null
     private var currentJob: Job? = null
 
     fun add() {
@@ -60,8 +60,12 @@ class AddLocationViewModel @Inject constructor(
             isLoading = false
             error = null
         }
+        onSuccessCallback?.invoke()
     }
 
+    fun setOnSuccessCallback(callback: () -> Unit) {
+        onSuccessCallback = callback
+    }
 
     fun setUpForm() {
         state.value.formValues.apply {

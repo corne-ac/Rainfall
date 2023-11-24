@@ -62,7 +62,7 @@
             android:paddingStart="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="20dp"
-            android:text="@string/online_mode"
+            android:text="@string/offline_mode"
             android:textColor="@color/gray_600"
             android:textSize="18sp" />
 
@@ -274,7 +274,8 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/pnb_text" />
+            android:src="@drawable/pnb_text"
+            android:layout_marginBottom="100dp"/>
 
     </LinearLayout>
 </ScrollView>

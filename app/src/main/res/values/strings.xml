@@ -28,4 +28,6 @@
     <string name="preferences">Preferences</string>
     <string name="preferences_error">Cant get prefs</string>
     <string name="online_mode">Online Mode</string>
+    <string name="offline_mode">Offline Mode</string>
+    <string name="current_location">Current Location:</string>
 </resources>

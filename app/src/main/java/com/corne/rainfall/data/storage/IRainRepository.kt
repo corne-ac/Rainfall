@@ -13,7 +13,7 @@ interface IRainRepository {
     fun getAllRainfallData(): Flow<NetworkResult<List<RainfallData>>>
 
     suspend fun getRainDataBuId(rainfallId: UUID): NetworkResult<RainfallData>
-    suspend fun addRainData(rainfallData: RainfallData): NetworkResult<String>
+    suspend fun addRainData(rainfallData: RainfallData,locId:UUID ): NetworkResult<String>
 
     fun deleteRainData(rainfallData: RainfallData)
 

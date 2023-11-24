@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import com.corne.rainfall.BuildConfig
 import com.corne.rainfall.R
@@ -31,7 +32,7 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
     override val viewModel: MapViewModel by hiltMainNavGraphViewModels()
     private lateinit var googleMap: SupportMapFragment
 
-
+    private var markersAdded = false
     private var fireShow = false
     private var weatherShow = false
 
@@ -51,7 +52,7 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
     }
 
     private fun updateMapVisibility(googleMap: GoogleMap) {
-        googleMap.clear()
+        clearMap(googleMap)
 
         if (fireShow) {
             displayFireMap(googleMap)
@@ -59,6 +60,8 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
             binding.btnFireRisk.setBackgroundColor(resources.getColor(R.color.fire_red, null))
         } else {
             // Set inactive background color for btnFireRisk
+            markersAdded = false
+
             binding.btnFireRisk.setBackgroundColor(resources.getColor(R.color.gray_400, null))
         }
 
@@ -75,6 +78,12 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
             // Set inactive background color for btnCloudCoverage
             binding.btnCloudCoverage.setBackgroundColor(resources.getColor(R.color.gray_400, null))
         }
+    }
+
+    private fun clearMap(googleMap: GoogleMap) {
+        googleMap.clear()
+        viewModel.setEmptyItems()
+        markersAdded = false
     }
 
     private fun displayWeatherMap(googleMap: GoogleMap) {
@@ -118,6 +127,8 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
         googleMap: GoogleMap,
     ) {
 
+        if (markersAdded) return
+
         val fireIcon: BitmapDescriptor by lazy {
 
             BitmapHelper.vectorToBitmap(requireContext(), R.drawable.fire_24, R.color.fire_red)
@@ -147,6 +158,7 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
                 )
             )
         }
+        markersAdded = true
     }
 
 
