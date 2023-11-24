@@ -12,7 +12,7 @@ interface CaptureState : IBaseState {
     val isLoading: Boolean
     val error: Int?
     val formValues: MutableMap<IKey, FormItem>
-    val defaultLocation: UUID?
+    val locationUid: UUID?
     val allLocationsList: List<LocationModel>
 
     companion object {
@@ -20,7 +20,7 @@ interface CaptureState : IBaseState {
             isLoading = false,
             error = null,
             formValues = mutableMapOf(),
-            defaultLocation = null,
+            locationUid = null,
             allLocationsList = emptyList()
         )
     }

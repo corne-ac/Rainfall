@@ -29,6 +29,11 @@ class CaptureViewModel @Inject constructor(
     private val stateStore = CaptureState.initialState.mutable()
     override val state: StateFlow<CaptureState> = stateStore.asStateFlow()
     private var currentJob: Job? = null
+
+    suspend fun getDefaultLocation() = rainfallPreference.defaultLocationFlow.first()
+
+
+
     private var onSuccessCallback: (() -> Unit)? = null
     private var onFailCallback: (() -> Unit)? = null
 
@@ -42,10 +47,8 @@ class CaptureViewModel @Inject constructor(
                 "dd/MM/yyyy", Locale.ENGLISH
             ).parse(stateValue.formValues[CaptureForm.DATE]!!.getValue()!!)!!
 
-            //TODO: add location thing to top of page
-
             val r = RainfallData(
-                rainfallPreference.defaultLocationFlow.first()!!,
+                state.value.locationUid!!,
                 date,
                 stateValue.formValues[CaptureForm.START_TIME]!!.getValue()!!,
                 stateValue.formValues[CaptureForm.END_TIME]!!.getValue()!!,
@@ -53,9 +56,8 @@ class CaptureViewModel @Inject constructor(
                 stateValue.formValues[CaptureForm.NOTES]!!.getValue()!!
             )
 
-            val locId: UUID = state.value.defaultLocation!!
 
-            rain.addRainData(r, locId).onSuccess {
+            rain.addRainData(r, state.value.locationUid!!).onSuccess {
                 onSuccess()
             }.onError(::onError)
 
@@ -87,6 +89,7 @@ class CaptureViewModel @Inject constructor(
     fun setOnFailCallback(callback: () -> Unit) {
         onFailCallback = callback
     }
+
 
     fun setUpForm() {
         // @formatter:off
@@ -136,7 +139,7 @@ class CaptureViewModel @Inject constructor(
                     is NetworkResult.Success -> setState {
                         isLoading = false
                         allLocationsList = locResult.data
-                        defaultLocation = it.first
+                        locationUid = it.first
                     }
 
                     is NetworkResult.Error -> setState {
@@ -147,6 +150,12 @@ class CaptureViewModel @Inject constructor(
             }
         }
 
+    }
+
+    fun updateLocation(locationUID: UUID) {
+        setState {
+            locationUid = locationUID
+        }
     }
 
 }

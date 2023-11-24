@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
+import com.corne.rainfall.data.model.LocationModel
 import com.corne.rainfall.databinding.FragmentCaptureBinding
 import com.corne.rainfall.ui.base.state.BaseStateFragment
 import com.corne.rainfall.ui.hiltMainNavGraphViewModels
@@ -19,32 +20,82 @@ import com.google.android.material.textfield.TextInputLayout
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.UUID
 
 
 class CaptureFragment :
     BaseStateFragment<FragmentCaptureBinding, CaptureState, CaptureViewModel>() {
     override val viewModel: CaptureViewModel by hiltMainNavGraphViewModels()
-    private var count = 0
+    private var currentlySelected: UUID? = null
     private val calendar: Calendar = Calendar.getInstance()
     private lateinit var locationAdapter: LocationListItemAdapter
     private var firstRun = true
 
 
     override fun updateState(state: CaptureState) {
-        count++
-        println("We have set the state to loading$count")
-
         binding.saveBtn.isEnabled = viewModel.isFormValid()
-
         viewModel.setOnSuccessCallback {
             findNavController().popBackStack()
-            Toast.makeText(requireContext(), "Successfully added Rain Log!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Successfully added Rain Log!", Toast.LENGTH_SHORT)
+                .show()
         }
 
         viewModel.setOnFailCallback {
-            Toast.makeText(requireContext(), "Something went wrong. ${viewModel.state.value.error}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Something went wrong. ${viewModel.state.value.error}",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
+        setUpFormState(state)
+        setUpPopupFields()
+
+        //Spinner
+        if (state.allLocationsList.isNotEmpty()) {
+
+            val adapter =
+                LocationListItemAdapter(requireContext(), state.allLocationsList.map { it.name })
+            binding.locationSpinner.adapter = adapter
+
+
+            val selectedIndex =
+                state.allLocationsList.indexOfFirst { it.locationUID == state.locationUid }
+
+            // Set the selection in the Spinner
+            if (selectedIndex != -1) {
+                binding.locationSpinner.setSelection(selectedIndex)
+            }
+
+
+            fun onItemSelectedListener() = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedLocation: LocationModel = state.allLocationsList[position]
+                    viewModel.updateLocation(selectedLocation.locationUID)
+                    /*Log.d("RAIN_TAG_C", position.toString())
+                    Log.d("RAIN_TAG_C", state.allLocationsList.size.toString())
+                    Log.d("RAIN_TAG_C", state.allLocationsList[position].locationUID.toString())
+
+                    //Set one to user for rainfall saving?
+                    viewModel.updateLocation(state.allLocationsList[position].locationUID)*/
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+            }
+
+            binding.locationSpinner.onItemSelectedListener = onItemSelectedListener()
+        }
+
+    }
+
+    private fun setUpFormState(state: CaptureState) {
         state.formValues.forEach {
             val value = it.value
             when (it.key) {
@@ -69,7 +120,9 @@ class CaptureFragment :
                 )
             }
         }
+    }
 
+    private fun setUpPopupFields() {
         binding.dateInput.binding.value.inputType = 0
         binding.dateInput.binding.value.isFocusable = false
         binding.dateInput.binding.value.setOnClickListener { showDatePicker() }
@@ -81,50 +134,6 @@ class CaptureFragment :
         binding.endTimeInput.binding.value.inputType = 0
         binding.endTimeInput.binding.value.isFocusable = false
         binding.endTimeInput.binding.value.setOnClickListener { showTimePicker(binding.endTimeInput.binding.value) }
-
-        //Spinner
-        if (state.allLocationsList.isNotEmpty()) {
-//            val adapter = ArrayAdapter(requireContext(),
-//                android.R.layout.simple_spinner_item,
-//                state.allLocationsList.map { it.name })
-
-            val adapter = LocationListItemAdapter(requireContext(), state.allLocationsList.map { it.name })
-
-            binding.locationSpinner.adapter = adapter
-
-            fun onItemSelectedListener() = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    //Set one to user for rainfall saving?
-//                    viewModel.saveDefaultLocation(state.allLocationsList[position].locationUID)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    TODO("Not yet implemented")
-                }
-            }
-
-            binding.locationSpinner.onItemSelectedListener = onItemSelectedListener()
-
-            if (state.defaultLocation != null) {
-                state.allLocationsList.find { it.locationUID == state.defaultLocation!! }?.let {
-                    binding.locationSpinner.onItemSelectedListener = null
-                    var add = 1
-                    if (firstRun) {
-                        add = 0
-                        firstRun = false
-                    }
-                    binding.locationSpinner.setSelection(adapter.getPosition(it.name) + add)
-                    binding.locationSpinner.onItemSelectedListener = onItemSelectedListener()
-
-                }
-            }
-        }
-
     }
 
     private fun showDatePicker() {
@@ -157,7 +166,7 @@ class CaptureFragment :
     private fun showTimePicker(value: TextInputEditText) {
         val timePicker = TimePickerDialog(
             requireContext(),
-            TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+            { _, hourOfDay, minute ->
                 // when user sets the time in the time picker dialog, update the calendar instance
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 calendar.set(Calendar.MINUTE, minute)
@@ -197,6 +206,8 @@ class CaptureFragment :
         viewModel.setUpForm()
         viewModel.loadUserLocationData()
 
+
+
         binding.dateInput.binding.value.doAfterTextChanged {
             viewModel.updateState(CaptureForm.DATE, it.toString())
         }
@@ -213,10 +224,7 @@ class CaptureFragment :
             viewModel.updateState(CaptureForm.NOTES, it.toString())
         }
         binding.saveBtn.setOnClickListener { viewModel.add() }
-
-
     }
-
 
 
     override fun createViewBinding(

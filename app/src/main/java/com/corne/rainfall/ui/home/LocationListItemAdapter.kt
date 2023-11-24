@@ -34,7 +34,7 @@ class LocationListItemAdapter(private val context: Context, private var items: L
         val locationName: TextView = view.findViewById(R.id.location_name)
         var temp = position;
         if (items.size <= position)
-            temp -= 1;
+            temp -= 1
         locationName.text = items[temp]
         return view
     }
