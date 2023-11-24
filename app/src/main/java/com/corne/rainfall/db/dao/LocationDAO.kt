@@ -1,6 +1,7 @@
 package com.corne.rainfall.db.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import com.corne.rainfall.db.entity.LocationEntity
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +12,11 @@ interface LocationDAO {
     fun getAllNotificationsForUser(): Flow<List<LocationEntity>>
 
     // Add location
-    @Query("INSERT INTO location (name, userId) VALUES (:name, :userId)")
+   /* @Query("INSERT INTO location (name, userId) VALUES (:name, :userId)")
     suspend fun addLocation(name: String, userId: Int)
+*/
+    @Insert
+    suspend fun addLocation(location: LocationEntity)
+
 
 }

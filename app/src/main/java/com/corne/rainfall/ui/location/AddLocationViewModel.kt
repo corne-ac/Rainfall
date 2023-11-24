@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,7 +33,7 @@ class AddLocationViewModel @Inject constructor(
 
             rain.addLocation(
                 LocationModel(
-                    -1,
+                    UUID.randomUUID(),
                     stateValue.formValues[ILocationForm.NAME]!!.getValue()!!
                 )
             ).let {

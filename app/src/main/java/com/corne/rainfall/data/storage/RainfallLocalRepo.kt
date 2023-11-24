@@ -11,14 +11,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.transform
-import java.util.Date
+import java.util.UUID
 import javax.inject.Inject
 
 class RainfallLocalRepo @Inject constructor(
     private val rainfallDao: RainfallDAO,
     private val locationDao: LocationDAO,
 ) : IRainRepository {
-    override fun getRainfallInLocation(locationId: Int): Flow<NetworkResult<List<RainfallData>>> =
+    override fun getRainfallInLocation(locationId: UUID): Flow<NetworkResult<List<RainfallData>>> =
         rainfallDao.getRainDataByLocation(locationId)
             .map { rainfall -> rainfall.map(toRainfallData) }.transform { rainfall ->
                 emit(NetworkResult.Success(rainfall))
@@ -36,10 +36,10 @@ class RainfallLocalRepo @Inject constructor(
         }
 
 
-    private fun toRainfallEntity(rainfallData: RainfallData, locId: Int): RainfallEntity {
+    private fun toRainfallEntity(rainfallData: RainfallData, locId: UUID): RainfallEntity {
         return RainfallEntity(
             locId,
-            rainfallData.date.time,
+            rainfallData.date,
             rainfallData.endTime,
             rainfallData.startTime,
             rainfallData.mm,
@@ -47,19 +47,22 @@ class RainfallLocalRepo @Inject constructor(
         )
     }
 
-    override suspend fun getRainDataBuId(rainfallId: Int): NetworkResult<RainfallData> {
-        TODO("Not yet implemented")/*  val rainfallEntity = rainfallDao.getRainDataById(rainfallId)
-          return NetworkResult.Success(
-              RainData(
-                  rainfallEntity.mm,
-                  rainfallEntity.startTime
-              )
-          )*/
+    override suspend fun getRainDataBuId(rainfallId: UUID): NetworkResult<RainfallData> {
+
+        TODO("Not yet implemented")/*
+                val rainfallEntity = rainfallDao.getRainDataById(rainfallId)
+                return NetworkResult.Success(
+                    RainData(
+                        rainfallEntity.mm,
+                        rainfallEntity.startTime
+                    )
+                )*/
     }
 
     override suspend fun addRainData(rainfallData: RainfallData): NetworkResult<String> {
+        //TODO: Add location id
         rainfallDao.addRainData(
-            toRainfallEntity(rainfallData, 1)
+            toRainfallEntity(rainfallData, UUID.randomUUID())
         )
         return NetworkResult.Success("Success")
     }
@@ -82,10 +85,7 @@ class RainfallLocalRepo @Inject constructor(
             }
 
     override suspend fun addLocation(locationModel: LocationModel): NetworkResult<String> {
-        locationDao.addLocation(
-            userId = 1,
-            name = locationModel.name
-        )
+        locationDao.addLocation(LocationEntity(name = locationModel.name))
         return NetworkResult.Success("Success")
     }
 
@@ -96,7 +96,7 @@ class RainfallLocalRepo @Inject constructor(
     }
     private val toRainfallData: (RainfallEntity) -> RainfallData = { rainfallEntity ->
         RainfallData(
-            Date(rainfallEntity.date),
+            rainfallEntity.date,
             rainfallEntity.startTime,
             rainfallEntity.endTime,
             rainfallEntity.mm,

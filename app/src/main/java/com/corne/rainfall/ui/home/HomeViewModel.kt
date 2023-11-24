@@ -11,6 +11,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,13 +23,13 @@ class HomeViewModel @Inject constructor(
     override val state: StateFlow<IHomeState> = stateStore.asStateFlow()
     private var currentJob: Job? = null
 
-    fun saveDefaultLocation(locationId: Int) {
+    fun saveDefaultLocation(locationId: UUID) {
         currentJob?.cancel()
         currentJob = viewModelScope.launch {
             rainfallPreference.setDefaultLocation(locationId)
-            setState {
+           /* setState {
                 defaultLocation = locationId - 1
-            }
+            }*/
 
         }
     }

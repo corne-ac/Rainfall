@@ -1,6 +1,7 @@
 package com.corne.rainfall.data.preference
 
 import kotlinx.coroutines.flow.Flow
+import java.util.UUID
 import javax.inject.Singleton
 
 /**
@@ -60,7 +61,7 @@ interface IRainfallPreference {
      * Observers can collect this [Flow] to receive updates when the default location changes.
      * The [Flow] emits [Int] values indicating the default location.
      */
-    val defaultLocationFlow: Flow<Int>
+    val defaultLocationFlow: Flow<UUID?>
 
     /**
      * Suspended function to set the application's default location preference.
@@ -68,7 +69,7 @@ interface IRainfallPreference {
      *
      * @param locationId An [Int] parameter indicating the default location to be set.
      */
-    suspend fun setDefaultLocation(locationId: Int)
+    suspend fun setDefaultLocation(locationId: UUID)
 
     /**
      * A [Flow] representing the current default graph preference.

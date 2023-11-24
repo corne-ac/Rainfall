@@ -6,13 +6,13 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
-import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import java.util.UUID
 import javax.inject.Inject
 
 val Context.rainPreferenceDataStore by preferencesDataStore("rain_preference")
@@ -58,14 +58,16 @@ class RainfallPreferenceImpl @Inject constructor(
     }
 
 
-    override val defaultLocationFlow: Flow<Int> = dataStore.data.catch {
+    override val defaultLocationFlow: Flow<UUID?> = dataStore.data.catch {
         it.printStackTrace()
         emit(emptyPreferences())
-    }.map { preference -> preference[DEFAULT_LOCATION] ?: -1 }
+    }.map { preference ->
+        return@map if (preference[DEFAULT_LOCATION] == null) null else UUID.fromString(preference[DEFAULT_LOCATION])
+    }
 
-    override suspend fun setDefaultLocation(locationId: Int) {
+    override suspend fun setDefaultLocation(locationId: UUID) {
         dataStore.edit { preferences ->
-            preferences[DEFAULT_LOCATION] = locationId
+            preferences[DEFAULT_LOCATION] = locationId.toString()
         }
     }
 
@@ -107,7 +109,7 @@ class RainfallPreferenceImpl @Inject constructor(
         val IS_DARK_MODE_ENABLED = booleanPreferencesKey("dark_mode")
         val IS_OFFLINE_MODE_ENABLED = booleanPreferencesKey("offline_mode")
         val LANGUAGE_MODE = stringPreferencesKey("language_mode")
-        val DEFAULT_LOCATION = intPreferencesKey("default_location")
+        val DEFAULT_LOCATION = stringPreferencesKey("default_location")
         val DEFAULT_GRAPH_TYPE = booleanPreferencesKey("default_graph_type")
         val LAST_UPDATED_CLOUD = longPreferencesKey("default_last_updated")
         val LAST_LOCAL_EXPORT_DATE = longPreferencesKey("last_local_export_date")

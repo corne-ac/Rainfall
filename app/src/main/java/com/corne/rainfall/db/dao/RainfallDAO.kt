@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.corne.rainfall.db.entity.RainfallEntity
 import kotlinx.coroutines.flow.Flow
+import java.util.UUID
 
 @Dao
 interface RainfallDAO {
@@ -13,10 +14,10 @@ interface RainfallDAO {
     fun getAllRainData(): Flow<List<RainfallEntity>>
 
     @Query("SELECT * FROM rainfall WHERE locationUID = :locationId")
-    fun getRainDataByLocation(locationId: Int): Flow<List<RainfallEntity>>
+    fun getRainDataByLocation(locationId: UUID): Flow<List<RainfallEntity>>
 
     @Query("SELECT * FROM rainfall WHERE uid = :rainfallId")
-    suspend fun getRainDataById(rainfallId: Int): RainfallEntity
+    suspend fun getRainDataById(rainfallId: UUID): RainfallEntity
 
     @Insert
     suspend fun addRainData(rainfallEntity: RainfallEntity)

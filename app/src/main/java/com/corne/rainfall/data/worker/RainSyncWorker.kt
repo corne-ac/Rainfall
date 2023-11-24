@@ -44,9 +44,9 @@ class RainSyncWorker @AssistedInject constructor(
                             rainfallPreference.setDarkMode(it.data.darkMode)
                             rainfallPreference.setLanguageMode(it.data.language)
                             rainfallPreference.setOfflineMode(it.data.offline)
-                            rainfallPreference.setDefaultLocation(it.data.location)
                             rainfallPreference.setDefaultGraph(it.data.graphType)
                             rainfallPreference.setLastUpdatedDate(it.data.lastUpdated!!)
+                            if (it.data.location != null) rainfallPreference.setDefaultLocation(it.data.location)
                         }
                     }
                 }

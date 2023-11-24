@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.corne.rainfall.db.dao.LocationDAO
 import com.corne.rainfall.db.dao.NotificationDAO
 import com.corne.rainfall.db.dao.RainfallDAO
@@ -12,14 +13,17 @@ import com.corne.rainfall.db.entity.LocationEntity
 import com.corne.rainfall.db.entity.NotificationEntity
 import com.corne.rainfall.db.entity.RainfallEntity
 import com.corne.rainfall.utils.Constants
+import com.corne.rainfall.utils.DateConverter
+import com.corne.rainfall.utils.UUIDConverter
 import java.io.File
 import java.io.IOException
 import kotlin.system.exitProcess
 
 @Database(
     entities = [RainfallEntity::class, LocationEntity::class, NotificationEntity::class],
-    version = 4,
+    version = 5,
 )
+@TypeConverters(DateConverter::class, UUIDConverter::class)
 abstract class RainfallDatabase : RoomDatabase() {
     abstract fun rainEntityDao(): RainfallDAO
     abstract fun locationDao(): LocationDAO

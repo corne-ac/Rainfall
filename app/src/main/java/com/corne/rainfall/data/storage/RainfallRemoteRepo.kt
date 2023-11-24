@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
+import java.util.UUID
 import javax.inject.Inject
 
 
@@ -62,11 +63,11 @@ class RainfallRemoteRepo @Inject constructor() : IRainRepository {
     }
 
 
-    override fun getRainfallInLocation(locationId: Int): Flow<NetworkResult<List<RainfallData>>> {
+    override fun getRainfallInLocation(locationId: UUID): Flow<NetworkResult<List<RainfallData>>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getRainDataBuId(rainfallId: Int): NetworkResult<RainfallData> {
+    override suspend fun getRainDataBuId(rainfallId: UUID): NetworkResult<RainfallData> {
         TODO("Not yet implemented")
     }
 

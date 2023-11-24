@@ -35,15 +35,19 @@ class GraphViewModel @Inject constructor(
 
             rainfallPreference.defaultLocationFlow.collect { locId ->
 
+                if (locId == null) return@collect
+
                 // TODO: What to do if the default location is not set?
                 // For now we will just use a default
-                val locIdNew = if (locId == -1) {
-                    1
-                } else {
-                    locId
-                }
+                /*   val locIdNew = if (locId == -1) {
+                       1
+                   } else {
+                       locId
+                   }*/
+
+
                 val flow1 = rainfallPreference.defaultGraphFlow
-                val flow2 = rain.getRainfallInLocation(locIdNew)
+                val flow2 = rain.getRainfallInLocation(locId)
                 flow1.combine(flow2) { isGraphBar, rainfallResult ->
                     Pair(isGraphBar, rainfallResult)
                 }.collect {

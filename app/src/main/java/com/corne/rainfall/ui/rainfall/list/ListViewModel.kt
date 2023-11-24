@@ -2,21 +2,22 @@ package com.corne.rainfall.ui.rainfall.list
 
 import androidx.lifecycle.viewModelScope
 import com.corne.rainfall.data.model.RainfallData
+import com.corne.rainfall.data.preference.IRainfallPreference
 import com.corne.rainfall.data.storage.IRainRepository
 import com.corne.rainfall.di.LocalRainfallRepository
 import com.corne.rainfall.ui.base.state.BaseStateViewModel
-import com.corne.rainfall.ui.map.IMapState
-import com.corne.rainfall.ui.map.mutable
 import com.corne.rainfall.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
     @LocalRainfallRepository private val rain: IRainRepository,
+    private val rainfallPreference: IRainfallPreference,
 ) : BaseStateViewModel<ListState>() {
     /*
         override val state: StateFlow<ListState> =
@@ -37,7 +38,9 @@ class ListViewModel @Inject constructor(
             // Set the state to loading.
             setState { it.isLoading = true }
             // Call the repository to get the rainfall data.
-            rain.getRainfallInLocation(1).collect(::processRainfallResult)
+            val uuid = rainfallPreference.defaultLocationFlow.first() ?: return@launch
+
+            rain.getRainfallInLocation(uuid).collect(::processRainfallResult)
         }
     }
 
