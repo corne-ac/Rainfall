@@ -96,6 +96,7 @@ class RainfallLocalRepo @Inject constructor(
     }
     private val toRainfallData: (RainfallEntity) -> RainfallData = { rainfallEntity ->
         RainfallData(
+            rainfallEntity.locationUID,
             rainfallEntity.date,
             rainfallEntity.startTime,
             rainfallEntity.endTime,

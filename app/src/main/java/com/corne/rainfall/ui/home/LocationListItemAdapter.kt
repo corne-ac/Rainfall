@@ -32,7 +32,10 @@ class LocationListItemAdapter(private val context: Context, private var items: L
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = convertView ?: LayoutInflater.from(context).inflate(R.layout.fragment_location_list_item, parent, false)
         val locationName: TextView = view.findViewById(R.id.location_name)
-        locationName.text = items[position]
+        var temp = position;
+        if (items.size <= position)
+            temp -= 1;
+        locationName.text = items[temp]
         return view
     }
 

@@ -1,10 +1,6 @@
 package com.corne.rainfall.ui.rainfall.capture
 
-import android.widget.Toast
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import com.corne.rainfall.R
 import com.corne.rainfall.data.model.RainfallData
 import com.corne.rainfall.data.preference.IRainfallPreference
 import com.corne.rainfall.data.storage.IRainRepository
@@ -18,9 +14,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,7 +41,11 @@ class CaptureViewModel @Inject constructor(
             val date = SimpleDateFormat(
                 "dd/MM/yyyy", Locale.ENGLISH
             ).parse(stateValue.formValues[CaptureForm.DATE]!!.getValue()!!)!!
+
+            //TODO: add location thing to top of page
+
             val r = RainfallData(
+                rainfallPreference.defaultLocationFlow.first()!!,
                 date,
                 stateValue.formValues[CaptureForm.START_TIME]!!.getValue()!!,
                 stateValue.formValues[CaptureForm.END_TIME]!!.getValue()!!,
@@ -51,7 +53,7 @@ class CaptureViewModel @Inject constructor(
                 stateValue.formValues[CaptureForm.NOTES]!!.getValue()!!
             )
 
-            val locId: Int = state.value.defaultLocation!!
+            val locId: UUID = state.value.defaultLocation!!
 
             rain.addRainData(r, locId).onSuccess {
                 onSuccess()

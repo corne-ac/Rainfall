@@ -1,6 +1,7 @@
 package com.corne.rainfall.data.model
 
 import java.util.Date
+import java.util.UUID
 
 /**
  * Data class representing information about rainfall data for a specific date and time range.
@@ -12,6 +13,7 @@ import java.util.Date
  * @property notes Additional notes or comments related to the rainfall data.
  */
 data class RainfallData(
+    val locId: UUID,
     val date: Date,
     val startTime: String,
     val endTime: String,
