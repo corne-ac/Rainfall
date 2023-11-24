@@ -2,7 +2,9 @@ package com.corne.rainfall.ui.location
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import androidx.navigation.fragment.findNavController
 import com.corne.rainfall.databinding.FragmentAddLocationBinding
 import com.corne.rainfall.ui.base.state.BaseStateFragment
 import com.corne.rainfall.ui.hiltMainNavGraphViewModels
@@ -23,7 +25,14 @@ class AddLocationFragment :
                 )
             }
         }
+
+        viewModel.setOnSuccessCallback {
+            findNavController().popBackStack()
+            Toast.makeText(requireContext(), "Successfully added Location!", Toast.LENGTH_SHORT).show()
+        }
     }
+
+
 
     private fun showError(errorMessage: Int?, valueInputLayout: TextInputLayout) {
         errorMessage?.let { errorMsg ->

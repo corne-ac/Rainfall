@@ -1,16 +1,23 @@
 package com.corne.rainfall.ui.rainfall.capture
 
+import android.widget.Toast
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import com.corne.rainfall.R
 import com.corne.rainfall.data.model.RainfallData
+import com.corne.rainfall.data.preference.IRainfallPreference
 import com.corne.rainfall.data.storage.IRainRepository
 import com.corne.rainfall.di.LocalRainfallRepository
 import com.corne.rainfall.ui.base.form.FormItem
 import com.corne.rainfall.ui.base.form.IKey
 import com.corne.rainfall.ui.base.state.BaseStateViewModel
 import com.corne.rainfall.utils.DataValidator
+import com.corne.rainfall.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -19,11 +26,13 @@ import javax.inject.Inject
 @HiltViewModel
 class CaptureViewModel @Inject constructor(
     @LocalRainfallRepository private val rain: IRainRepository,
+    private val rainfallPreference: IRainfallPreference,
 ) : BaseStateViewModel<CaptureState>() {
     private val stateStore = CaptureState.initialState.mutable()
     override val state: StateFlow<CaptureState> = stateStore.asStateFlow()
-
     private var currentJob: Job? = null
+    private var onSuccessCallback: (() -> Unit)? = null
+    private var onFailCallback: (() -> Unit)? = null
 
     fun add() {
         currentJob?.cancel()
@@ -42,7 +51,9 @@ class CaptureViewModel @Inject constructor(
                 stateValue.formValues[CaptureForm.NOTES]!!.getValue()!!
             )
 
-            rain.addRainData(r).onSuccess {
+            val locId: Int = state.value.defaultLocation!!
+
+            rain.addRainData(r, locId).onSuccess {
                 onSuccess()
             }.onError(::onError)
 
@@ -56,6 +67,7 @@ class CaptureViewModel @Inject constructor(
             isLoading = false
             error = errorMessage
         }
+        onFailCallback?.invoke()
     }
 
     private fun onSuccess() {
@@ -63,8 +75,16 @@ class CaptureViewModel @Inject constructor(
             isLoading = false
             error = null
         }
+        onSuccessCallback?.invoke()
     }
 
+    fun setOnSuccessCallback(callback: () -> Unit) {
+        onSuccessCallback = callback
+    }
+
+    fun setOnFailCallback(callback: () -> Unit) {
+        onFailCallback = callback
+    }
 
     fun setUpForm() {
         // @formatter:off
@@ -79,7 +99,8 @@ class CaptureViewModel @Inject constructor(
     }
 
     fun isFormValid(): Boolean {
-        return state.value.formValues.all { it.value.isValid }
+        return state.value.formValues.filter { it.key != CaptureForm.NOTES || it.value.isValid }
+            .all { it.value.isValid }
     }
 
     fun updateState(key: IKey, value: String) {
@@ -93,5 +114,37 @@ class CaptureViewModel @Inject constructor(
     }
 
     private fun setState(update: MutableCaptureState.() -> Unit) = stateStore.update(update)
+
+    suspend fun loadUserLocationData() {
+        currentJob?.cancel()
+        currentJob = viewModelScope.launch {
+
+            setState {
+                isLoading = true
+            }
+
+            val flow1 = rainfallPreference.defaultLocationFlow
+            val flow2 = rain.getAllLocations()
+
+
+            flow1.combine(flow2) { isGraphBar, rainfallResult ->
+                Pair(isGraphBar, rainfallResult)
+            }.collect {
+                when (val locResult = it.second) {
+                    is NetworkResult.Success -> setState {
+                        isLoading = false
+                        allLocationsList = locResult.data
+                        defaultLocation = it.first
+                    }
+
+                    is NetworkResult.Error -> setState {
+                        isLoading = false
+                        error = locResult.message
+                    }
+                }
+            }
+        }
+
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.corne.rainfall.ui.home
 
+import LocationListItemAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,9 +27,12 @@ class HomeStateFragment : BaseStateFragment<FragmentHomeBinding, IHomeState, Hom
 
         // Sample data for the spinner
         if (state.allLocationsList.isNotEmpty()) {
-            val adapter = ArrayAdapter(requireContext(),
-                android.R.layout.simple_spinner_item,
-                state.allLocationsList.map { it.name })
+//            val adapter = ArrayAdapter(requireContext(),
+//                android.R.layout.simple_spinner_item,
+//                state.allLocationsList.map { it.name })
+
+            val adapter = LocationListItemAdapter(requireContext(), state.allLocationsList.map { it.name })
+
             binding.locationsSpinner.adapter = adapter
 
             fun onItemSelectedListener() = object : AdapterView.OnItemSelectedListener {
@@ -86,3 +90,5 @@ class HomeStateFragment : BaseStateFragment<FragmentHomeBinding, IHomeState, Hom
         container: ViewGroup?,
     ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
 }
+
+data class LocationItem(val name: String)

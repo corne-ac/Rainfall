@@ -1,5 +1,6 @@
 package com.corne.rainfall.ui.map
 
+import android.widget.Toast
 import androidx.lifecycle.viewModelScope
 import com.corne.rainfall.api.WeatherApiService
 import com.corne.rainfall.data.api.IFireApiProvider
@@ -51,6 +52,12 @@ class MapViewModel @Inject constructor(
         }
     }
 
+    fun setEmptyItems() {
+        setState {
+            items = emptyList()
+        }
+    }
+
     fun getWeatherApiService(): WeatherApiService {
         return weatherApiService
     }
@@ -80,6 +87,7 @@ class MapViewModel @Inject constructor(
                         items = itemList
                         googleMap = map
                     }
+
                 }.onError { errorMsg ->
                     setState {
                         isLoading = false

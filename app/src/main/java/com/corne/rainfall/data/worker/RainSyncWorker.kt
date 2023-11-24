@@ -56,7 +56,7 @@ class RainSyncWorker @AssistedInject constructor(
                 }
                 // Add all the rain data to the local sources
                 remoteRepo.getAllRainfallData().collect { rain ->
-                    if (rain is NetworkResult.Success) rain.data.forEach { localRepo.addRainData(it) }
+                    if (rain is NetworkResult.Success) rain.data.forEach { localRepo.addRainData(it, 1) } //TODO: Pass correct location
                 }
 
                 // Add all the rain data to the local source
@@ -77,7 +77,7 @@ class RainSyncWorker @AssistedInject constructor(
 
             // TODO: Bulk upload data
             localRepo.getAllRainfallData().collect { rain ->
-                if (rain is NetworkResult.Success) rain.data.forEach { remoteRepo.addRainData(it) }
+                if (rain is NetworkResult.Success) rain.data.forEach { remoteRepo.addRainData(it, 1) } //TODO: Pass correct location
             }
             localRepo.getAllLocations().collect { loc ->
                 if (loc is NetworkResult.Success) loc.data.forEach { remoteRepo.addLocation(it) }

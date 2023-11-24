@@ -1,11 +1,16 @@
 package com.corne.rainfall.ui.rainfall.capture
 
+import LocationListItemAdapter
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import androidx.navigation.fragment.findNavController
 import com.corne.rainfall.databinding.FragmentCaptureBinding
 import com.corne.rainfall.ui.base.state.BaseStateFragment
 import com.corne.rainfall.ui.hiltMainNavGraphViewModels
@@ -21,14 +26,24 @@ class CaptureFragment :
     override val viewModel: CaptureViewModel by hiltMainNavGraphViewModels()
     private var count = 0
     private val calendar: Calendar = Calendar.getInstance()
+    private lateinit var locationAdapter: LocationListItemAdapter
+    private var firstRun = true
+
 
     override fun updateState(state: CaptureState) {
         count++
-        binding.saveBtn.text = count.toString()
         println("We have set the state to loading$count")
 
         binding.saveBtn.isEnabled = viewModel.isFormValid()
 
+        viewModel.setOnSuccessCallback {
+            findNavController().popBackStack()
+            Toast.makeText(requireContext(), "Successfully added Rain Log!", Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.setOnFailCallback {
+            Toast.makeText(requireContext(), "Something went wrong. ${viewModel.state.value.error}", Toast.LENGTH_SHORT).show()
+        }
 
         state.formValues.forEach {
             val value = it.value
@@ -66,6 +81,49 @@ class CaptureFragment :
         binding.endTimeInput.binding.value.inputType = 0
         binding.endTimeInput.binding.value.isFocusable = false
         binding.endTimeInput.binding.value.setOnClickListener { showTimePicker(binding.endTimeInput.binding.value) }
+
+        //Spinner
+        if (state.allLocationsList.isNotEmpty()) {
+//            val adapter = ArrayAdapter(requireContext(),
+//                android.R.layout.simple_spinner_item,
+//                state.allLocationsList.map { it.name })
+
+            val adapter = LocationListItemAdapter(requireContext(), state.allLocationsList.map { it.name })
+
+            binding.locationSpinner.adapter = adapter
+
+            fun onItemSelectedListener() = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    //Set one to user for rainfall saving?
+//                    viewModel.saveDefaultLocation(state.allLocationsList[position].locationUID)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+            }
+
+            binding.locationSpinner.onItemSelectedListener = onItemSelectedListener()
+
+            if (state.defaultLocation != null) {
+                state.allLocationsList.find { it.locationUID == state.defaultLocation!! }?.let {
+                    binding.locationSpinner.onItemSelectedListener = null
+                    var add = 1
+                    if (firstRun) {
+                        add = 0
+                        firstRun = false
+                    }
+                    binding.locationSpinner.setSelection(adapter.getPosition(it.name) + add)
+                    binding.locationSpinner.onItemSelectedListener = onItemSelectedListener()
+
+                }
+            }
+        }
 
     }
 
@@ -137,6 +195,7 @@ class CaptureFragment :
 
     override suspend fun addContentToView() {
         viewModel.setUpForm()
+        viewModel.loadUserLocationData()
 
         binding.dateInput.binding.value.doAfterTextChanged {
             viewModel.updateState(CaptureForm.DATE, it.toString())
@@ -154,7 +213,11 @@ class CaptureFragment :
             viewModel.updateState(CaptureForm.NOTES, it.toString())
         }
         binding.saveBtn.setOnClickListener { viewModel.add() }
+
+
     }
+
+
 
     override fun createViewBinding(
         inflater: LayoutInflater,

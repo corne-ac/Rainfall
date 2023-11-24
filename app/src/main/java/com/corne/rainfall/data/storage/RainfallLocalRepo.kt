@@ -57,7 +57,7 @@ class RainfallLocalRepo @Inject constructor(
           )*/
     }
 
-    override suspend fun addRainData(rainfallData: RainfallData): NetworkResult<String> {
+    override suspend fun addRainData(rainfallData: RainfallData, locId: Int): NetworkResult<String> {
         rainfallDao.addRainData(
             toRainfallEntity(rainfallData, 1)
         )
@@ -100,7 +100,7 @@ class RainfallLocalRepo @Inject constructor(
             rainfallEntity.startTime,
             rainfallEntity.endTime,
             rainfallEntity.mm,
-            rainfallEntity.startTime
+            rainfallEntity.notes
         )
     }
 }

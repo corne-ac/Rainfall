@@ -70,7 +70,7 @@ class RainfallRemoteRepo @Inject constructor() : IRainRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addRainData(rainfallData: RainfallData): NetworkResult<String> {
+    override suspend fun addRainData(rainfallData: RainfallData, locId: Int): NetworkResult<String> {
         TODO("Not yet implemented")
     }
 
