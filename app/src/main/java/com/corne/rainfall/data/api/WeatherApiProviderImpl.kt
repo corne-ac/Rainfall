@@ -21,31 +21,18 @@ class WeatherAlertApiProviderImpl @Inject constructor(
         days: String,
     ): Flow<NetworkResult<AlertResponseModel.AlertsMain>> = flow {
 
-        Log.d("this is the before ", "before")
-        //TODO: this call is not working
         val alertData =
             weatherAlertApiService.getWeatherAlerts(apiKey, "iata:JNB", days, "no", "yes")
-        Log.d("this is the result ", "$alertData")
 
         if (!alertData.isSuccessful) {
             Log.d("Error here ", "$alertData")
             emit(NetworkResult.Error(alertData.code()))
             return@flow
         }
-        /* val alertString = alertData.body()?.toString()
-         if (alertString == null) {
-             //TODO: error message
-
-             emit(NetworkResult.Error(1))
-             return@flow
-         }*/
         if (alertData.body() == null) {
             Log.d("Error here ", "$alertData")
-
-            emit(NetworkResult.Error(1))
+            emit(NetworkResult.Error(-1))
         } else {
-            Log.d("All good  ", "${alertData.body()}")
-
             emit(NetworkResult.success(alertData.body()!!))
         }
     }.catch {
