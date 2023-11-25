@@ -1,5 +1,6 @@
 package com.corne.rainfall.ui.notification.list
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.corne.rainfall.data.api.IFireApiProvider
 import com.corne.rainfall.data.api.IWeatherAlertApiProvider
@@ -27,7 +28,10 @@ class NotificationListViewModel @Inject constructor(private val alertApi: IWeath
             setState { stateStore.isLoading = true }
 
             val alertsData = alertApi.getAlerts("9f9a9d1b7bed4c0fa3a120250232511", "iata:JNB", "1")
+
             alertsData.collect { resp ->
+                Log.d("NotificationListViewModel", "getAlerts: $resp")
+
                 resp.onSuccess { networkResultList ->
                     val itemList = networkResultList.mapNotNull {
                         when (it) {

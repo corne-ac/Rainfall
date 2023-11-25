@@ -25,6 +25,9 @@
             android:id="@+id/action_navigation_home_to_navigation_add_location"
             app:destination="@id/navigation_add_location" />
 
+
+
+
     </fragment>
 
     <fragment
