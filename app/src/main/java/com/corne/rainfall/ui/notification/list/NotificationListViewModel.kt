@@ -23,7 +23,7 @@ class NotificationListViewModel @Inject constructor(private val alertApi: IWeath
         currentJob?.cancel()
 
         currentJob = viewModelScope.launch {
-            setState { stateStore.isLoading = true }
+            setState { isLoading = true }
 
             val alertsData = alertApi.getAlerts("9f9a9d1b7bed4c0fa3a120250232511", "iata:JNB", "1")
 
@@ -32,20 +32,20 @@ class NotificationListViewModel @Inject constructor(private val alertApi: IWeath
                     val itemList = networkResultList.alertsMain?.alert
                     if (itemList == null) {
                         setState {
-                            stateStore.isLoading = false
-                            stateStore.error = R.string.NoAllertsFound
+                            isLoading = false
+                            error = R.string.NoAllertsFound
                         }
                         return@collect
                     } else
                         setState {
-                            stateStore.isLoading = false
-                            stateStore.items = itemList
+                            isLoading = false
+                            items = itemList
                         }
 
                 }.onError { errorMsg ->
                     setState {
-                        stateStore.isLoading = false
-                        stateStore.error = errorMsg
+                        isLoading = false
+                        error = errorMsg
                     }
                 }
             }
@@ -56,16 +56,16 @@ class NotificationListViewModel @Inject constructor(private val alertApi: IWeath
     private fun processAlertsResult(result: NetworkResult<List<AlertModel>>) {
         when (result) {
             is NetworkResult.Success -> setState {
-                it.isLoading = false
-                it.items = result.data
+                isLoading = false
+                items = result.data
             }
 
             is NetworkResult.Error -> setState {
-                it.isLoading = false
-                it.error = result.message
+                isLoading = false
+                error = result.message
             }
         }
     }
 
-    private fun setState(update: (MutableNotificationsState) -> Unit) = stateStore.update(update)
+    private fun setState(update: MutableNotificationsState.() -> Unit) = stateStore.update(update)
 }
