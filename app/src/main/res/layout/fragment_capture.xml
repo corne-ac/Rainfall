@@ -32,14 +32,6 @@
 
 
         <!-- Consider making adapter for spinner items added to have bigger text + bold -->
-        <Spinner
-            android:id="@+id/location_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:textSize="22sp"
-            android:textStyle="bold"/>
 
 
         <!--Text fields-->
@@ -48,6 +40,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginHorizontal="50dp">
+
+            <Spinner
+                android:id="@+id/location_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:listitem="@layout/fragment_location_list_item"/>
+
 
             <com.corne.rainfall.ui.components.TextInput
                 android:id="@+id/date_input"
