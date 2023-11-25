@@ -3,6 +3,7 @@ package com.corne.rainfall.data.api
 import android.util.Log
 import com.corne.rainfall.api.WeatherAlertApiService
 import com.corne.rainfall.data.model.AlertModel
+import com.corne.rainfall.data.model.AlertResponseModel
 import com.corne.rainfall.utils.NetworkResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -10,39 +11,48 @@ import kotlinx.coroutines.flow.flow
 import org.json.JSONObject
 import javax.inject.Inject
 
-class WeatherAlertApiProviderImpl@Inject constructor(
+class WeatherAlertApiProviderImpl @Inject constructor(
     private val weatherAlertApiService: WeatherAlertApiService,
 ) : IWeatherAlertApiProvider {
 
     override fun getAlerts(
         apiKey: String,
         location: String,
-        days: String
-    ): Flow<NetworkResult<List<NetworkResult<AlertModel>>>> = flow {
+        days: String,
+    ): Flow<NetworkResult<AlertResponseModel.AlertsMain>> = flow {
 
+        Log.d("this is the before ", "before")
         //TODO: this call is not working
-        val alertData = weatherAlertApiService.getWeatherAlerts(apiKey, "iata:JNB", days, "no", "yes")
+        val alertData =
+            weatherAlertApiService.getWeatherAlerts(apiKey, "iata:JNB", days, "no", "yes")
+        Log.d("this is the result ", "$alertData")
 
         if (!alertData.isSuccessful) {
+            Log.d("Error here ", "$alertData")
             emit(NetworkResult.Error(alertData.code()))
             return@flow
         }
-        val alertString = alertData.body()?.toString()
-        if (alertString == null) {
-            //TODO: error message
-            emit(NetworkResult.Error(0))
-            return@flow
+        /* val alertString = alertData.body()?.toString()
+         if (alertString == null) {
+             //TODO: error message
+
+             emit(NetworkResult.Error(1))
+             return@flow
+         }*/
+        if (alertData.body() == null) {
+            Log.d("Error here ", "$alertData")
+
+            emit(NetworkResult.Error(1))
+        } else {
+            Log.d("All good  ", "${alertData.body()}")
+
+            emit(NetworkResult.success(alertData.body()!!))
         }
-
-        val jsondata = JSONObject(alertData.body().toString())
-        val alertList = parseAlerts(jsondata)
-
-        emit(NetworkResult.Success(alertList))
-
     }.catch {
+        Log.d("Weather api error", "getAlerts: ${it.message}")
         emit(NetworkResult.Error(0))
     }.catch {
-        Log.d("WeatherAlertApiProviderImpl", "getAlerts: ${it.message}")
+        Log.d("Weather api error", "getAlerts: ${it.message}")
     }
 
     private fun parseAlerts(jsonObject: JSONObject): List<NetworkResult<AlertModel>> {

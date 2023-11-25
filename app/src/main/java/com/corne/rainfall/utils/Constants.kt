@@ -22,7 +22,7 @@ object Constants {
     /**
      * The base URL for the Weather Alerts API.
      */
-    const val WEATHER_ALERTS_BASE_URL = "http://api.weatherapi.com/v1/"
+    const val WEATHER_ALERTS_BASE_URL = "https://api.weatherapi.com/v1/"
 
     const val MAP_TILE_SIZE_IN_DP = 256
 
