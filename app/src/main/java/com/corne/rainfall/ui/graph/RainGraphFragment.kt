@@ -38,7 +38,8 @@ class RainGraphFragment : BaseStateFragment<FragmentGraphBinding, IGraphState, G
             //TODO: show error
         }
 
-        if (state.rainDataList.isNotEmpty()) {
+        if (state.rainDataList.isNotEmpty() && state.rainDataList.count() > 1) {
+            binding.addrainMessage.visibility = View.GONE
             val icon = if (state.isGraphBar) R.drawable.line_chart_24 else R.drawable.bar_chart_24
             binding.switchGraph.icon = AppCompatResources.getDrawable(requireContext(), icon)
             // TODO: not too sure if this should be done in the VM or here
@@ -46,6 +47,10 @@ class RainGraphFragment : BaseStateFragment<FragmentGraphBinding, IGraphState, G
             setUpGraph(state, list)
             binding.downloadGraph.visibility = View.VISIBLE
             binding.switchGraph.visibility = View.VISIBLE
+        } else {
+            //Show dialog thing
+            binding.addrainMessage.visibility = View.VISIBLE
+
         }
 
     }

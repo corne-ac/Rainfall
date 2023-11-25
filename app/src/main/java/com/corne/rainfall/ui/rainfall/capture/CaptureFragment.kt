@@ -224,8 +224,20 @@ class CaptureFragment :
             viewModel.updateState(CaptureForm.NOTES, it.toString())
         }
         binding.saveBtn.setOnClickListener { viewModel.add() }
-    }
 
+        //Set default values
+        //These fields should be populated by todays date and current time, the enddate should be 1 hours from now
+
+        val currentDate = java.text.SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+        binding.dateInput.binding.value.setText(currentDate.format(Date()))
+
+        val currentTime = java.text.SimpleDateFormat("HH:mm", Locale.ENGLISH)
+        binding.startTimeInput.binding.value.setText(currentTime.format(Date()))
+
+        val timeCal = Calendar.getInstance()
+        timeCal.add(Calendar.HOUR, 1)
+        binding.endTimeInput.binding.value.setText(currentTime.format(timeCal.time))
+    }
 
     override fun createViewBinding(
         inflater: LayoutInflater,

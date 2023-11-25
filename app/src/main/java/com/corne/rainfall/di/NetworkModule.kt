@@ -1,6 +1,7 @@
 package com.corne.rainfall.di
 
 import com.corne.rainfall.api.FirmsApiService
+import com.corne.rainfall.api.WeatherAlertApiService
 import com.corne.rainfall.api.WeatherApiService
 import com.corne.rainfall.utils.Constants
 import com.squareup.moshi.Moshi.*
@@ -54,6 +55,17 @@ class NetworkModule {
     @Singleton
     fun providesWeatherApiService(): WeatherApiService {
         return weatherRetrofitInstance.create(WeatherApiService::class.java)
+    }
+
+    private val weatherAlertRetrofitInstance: Retrofit = Retrofit.Builder()
+        .baseUrl(Constants.WEATHER_ALERTS_BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    @Provides
+    @Singleton
+    fun providesWeatherAlertApiService(): WeatherAlertApiService {
+        return weatherAlertRetrofitInstance.create(WeatherAlertApiService::class.java)
     }
 
 }
