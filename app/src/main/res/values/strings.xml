@@ -30,4 +30,5 @@
     <string name="online_mode">Online Mode</string>
     <string name="offline_mode">Offline Mode</string>
     <string name="current_location">Current Location:</string>
+    <string name="NoAllertsFound">No alerts found</string>
 </resources>

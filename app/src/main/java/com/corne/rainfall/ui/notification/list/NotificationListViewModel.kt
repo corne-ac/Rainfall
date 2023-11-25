@@ -1,22 +1,20 @@
 package com.corne.rainfall.ui.notification.list
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.corne.rainfall.data.api.IFireApiProvider
+import com.corne.rainfall.R
 import com.corne.rainfall.data.api.IWeatherAlertApiProvider
 import com.corne.rainfall.data.model.AlertModel
 import com.corne.rainfall.ui.base.state.BaseStateViewModel
 import com.corne.rainfall.utils.NetworkResult
-import com.google.android.gms.maps.GoogleMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NotificationListViewModel @Inject constructor(private val alertApi: IWeatherAlertApiProvider) : BaseStateViewModel<NotificationsState>() {
+class NotificationListViewModel @Inject constructor(private val alertApi: IWeatherAlertApiProvider) :
+    BaseStateViewModel<NotificationsState>() {
     private val stateStore = NotificationsState.initialState.mutable()
     override val state: StateFlow<NotificationsState> = stateStore.asStateFlow()
     private var currentJob: Job? = null
@@ -30,20 +28,19 @@ class NotificationListViewModel @Inject constructor(private val alertApi: IWeath
             val alertsData = alertApi.getAlerts("9f9a9d1b7bed4c0fa3a120250232511", "iata:JNB", "1")
 
             alertsData.collect { resp ->
-                Log.d("NotificationListViewModel", "getAlerts: $resp")
-
                 resp.onSuccess { networkResultList ->
-                    val itemList = networkResultList.mapNotNull {
-                        when (it) {
-                            is NetworkResult.Success -> it.data
-                            is NetworkResult.Error -> null
+                    val itemList = networkResultList.alertsMain?.alert
+                    if (itemList == null) {
+                        setState {
+                            stateStore.isLoading = false
+                            stateStore.error = R.string.NoAllertsFound
                         }
-                    }
-
-                    setState {
-                        stateStore.isLoading = false
-                        stateStore.items = itemList
-                    }
+                        return@collect
+                    } else
+                        setState {
+                            stateStore.isLoading = false
+                            stateStore.items = itemList
+                        }
 
                 }.onError { errorMsg ->
                     setState {

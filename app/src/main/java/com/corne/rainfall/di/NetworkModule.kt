@@ -59,6 +59,7 @@ class NetworkModule {
 
     private val weatherAlertRetrofitInstance: Retrofit = Retrofit.Builder()
         .baseUrl(Constants.WEATHER_ALERTS_BASE_URL)
+        .client(okHttpClientBuilder.build())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

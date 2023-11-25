@@ -1,5 +1,6 @@
 package com.corne.rainfall.ui.notification.list
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.corne.rainfall.databinding.FragmentNotificationListBinding
@@ -11,6 +12,7 @@ class notificationListFragment :
     override val viewModel: NotificationListViewModel by hiltMainNavGraphViewModels()
 
     override fun updateState(state: NotificationsState) {
+        Log.d("TAG", "updateState: " + state.items.size)
         if (state.items.isNotEmpty()) {
             val adapter = NotificationListAdapter(state.items)
             binding.notificationList.adapter = adapter
@@ -19,6 +21,12 @@ class notificationListFragment :
     }
 
     override suspend fun addContentToView() {
+        binding.notificationList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            requireContext(),
+            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+            false
+        )
+
         viewModel.getAlerts()
 
         binding.clearBtn.setOnClickListener {
