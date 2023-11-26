@@ -3,6 +3,7 @@ package com.corne.rainfall.ui.notification.list
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.corne.rainfall.data.model.AlertModel
 import com.corne.rainfall.databinding.FragmentNotificationListBinding
 import com.corne.rainfall.ui.base.state.BaseStateFragment
 import com.corne.rainfall.ui.hiltMainNavGraphViewModels
@@ -27,12 +28,10 @@ class notificationListFragment :
             false
         )
 
-        viewModel.getAlerts()
+        viewModel.getAllAlerts()
 
         binding.clearBtn.setOnClickListener {
-
             val data = viewModel.state.value.items
-
         }
     }
 

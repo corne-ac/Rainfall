@@ -48,7 +48,7 @@ class CaptureViewModel @Inject constructor(
                 stateValue.formValues[CaptureForm.START_TIME]!!.getValue()!!,
                 stateValue.formValues[CaptureForm.END_TIME]!!.getValue()!!,
                 stateValue.formValues[CaptureForm.RAIN_MM]!!.getValue()!!.toDouble(),
-                stateValue.formValues[CaptureForm.NOTES]!!.getValue()!!
+                stateValue.formValues[CaptureForm.NOTES]?.getValue()
             )
 
 

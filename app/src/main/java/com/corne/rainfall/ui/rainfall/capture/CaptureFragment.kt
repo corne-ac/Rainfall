@@ -141,7 +141,7 @@ class CaptureFragment :
             calendar.set(Calendar.MONTH, month)
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             //set text of textinput
-            val format = "dd/mm/yyyy"
+            val format = "dd/MM/yyyy"
             val sdf = SimpleDateFormat(format, Locale.getDefault())
             binding.dateInput.binding.value.setText(sdf.format(calendar.time))
         }
@@ -225,7 +225,6 @@ class CaptureFragment :
         binding.saveBtn.setOnClickListener { viewModel.add() }
 
         //Set default values
-        //These fields should be populated by todays date and current time, the enddate should be 1 hours from now
 
         val currentDate = java.text.SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
         binding.dateInput.binding.value.setText(currentDate.format(Date()))

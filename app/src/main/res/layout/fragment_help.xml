@@ -8,11 +8,28 @@
     android:orientation="vertical">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="FAQ"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/light_blue_400"
+        android:layout_marginHorizontal="50dp"/>
+
+    <TextView
         android:id="@+id/q1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="How to view my rain logs?"
-        android:textSize="16sp"
+        android:text="@string/how_to_add_a_rain_log"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:padding="10dp"
         />
@@ -22,7 +39,8 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:id="@+id/a1"
-        android:text="simply do this and that then boom tyoure there."
+        android:textSize="15sp"
+        android:text="@string/add_rain_log_nswer"
         android:visibility="gone"/>
 
     <View
@@ -35,8 +53,8 @@
         android:id="@+id/q2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="How to view my rain logs?"
-        android:textSize="16sp"
+        android:text="What does the Graph do?"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:padding="10dp"
         />
@@ -46,8 +64,84 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:id="@+id/a2"
+        android:textSize="15sp"
         android:visibility="gone"
-        android:text="simply do this and that then boom tyoure there."/>
+        android:text="@string/graph_answer"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_400"
+        android:layout_marginHorizontal="10dp"/>
+
+    <TextView
+        android:id="@+id/q3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/what_does_the_map_do"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/a3"
+        android:textSize="15sp"
+        android:visibility="gone"
+        android:text="@string/map_answer"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_400"
+        android:layout_marginHorizontal="10dp"/>
+
+    <TextView
+        android:id="@+id/q4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/online_features"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/a4"
+        android:textSize="15sp"
+        android:visibility="gone"
+        android:text="@string/online_features_answer"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_400"
+        android:layout_marginHorizontal="10dp"/>
+
+    <TextView
+        android:id="@+id/q5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/how_to_cloud_backup_my_data"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/a5"
+        android:textSize="15sp"
+        android:visibility="gone"
+        android:text="@string/cloud_backup_answer"/>
 
     <View
         android:layout_width="match_parent"

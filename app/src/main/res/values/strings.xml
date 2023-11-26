@@ -44,4 +44,17 @@
     <string name="logout">Logout</string>
     <string name="not_loggend_in">Not loggend in</string>
     <string name="login_create_account">Login/Create Account</string>
+    <string name="how_to_add_a_rain_log">How to Add a Rain Log?</string>
+    <string name="add_rain_log_nswer">Click the Green Plus button at the bottom, on the new screen, select the Date, start- and end times, then leave a note if needed. Finally, click the Green Add button below the fields.</string>
+    <string name="graph_answer">The Graph is a visual representation of the rainfall over a certain time. It can be exported as an image by clicking the Image button, at the lower right. It can also be switched between a Line- And BarGraph using the button at the lower right.\n The Graph can be filtered between two dates, this is useful if you have different rain seasons. Alternatively, it can be filtered according to this year, this month, this week.\nThe saved image can later be found in your image gallery.</string>
+    <string name="what_does_the_map_do">What does the Map do?</string>
+    <string name="map_answer">The map is an Online only feature.\nThe map can display potential fires in the selected area. This data is recevied from NASA FIRMS.\nThe confidence of each fire is determined using AI. To view fire locations, and toggle the clouds overlay, use the buttons at the bottom right.\nClick on a fire icon on the map to view the confidence of it.</string>
+    <string name="online_features">How to use online features?</string>
+    <string name="online_features_answer">In the settings tab, thre is a toggle to enable/disable online features. This ensures the app can be optionally used offline-only.</string>
+    <string name="how_to_cloud_backup_my_data">How to Cloud backup my data?</string>
+    <string name="cloud_backup_answer">TO bakcup data to cloud, start by clicking the toggle for Clohd Backup inside Settings, after that, Click login/create an account and follow the forms. After registering, login with your account and click export.\nWhen you want to restore your cloud data, login on the device, and click import.</string>
+    <string name="fire_prevention_farm">Fire Prevention and Safety Measures Around the Farm</string>
+    <string name="fire_a1h1">Highly Flammable or Combustible Materials</string>
+    <string name="fire_a1b1">If at all possible, hay, straw, and other types of bedding should not be stored in the same building in which livestock is housed. Care should be taken that these materials are not stored with machinery or near any type of electrical or heat source. Highly flammable materials may include:\n\n    Hay and straw\n    Bedding material (especially sawdust and shredded newspaper)\n    Cobwebs, dust, and grain dust\n    Horse blankets\n    Paint\n    Fertilizer\n    Pesticides and herbicides\n\nOnce hay is stored, it is important to monitor the temperature to determine if the hay is at risk for spontaneous combustion. The Humane Society of the United States suggests inserting a thermometer into the middle of the stack to check the temperature of the hay. If it reads higher than 150 °Fahrenheit, the hay needs to be checked regularly, and stacked bales should be disassembled to promote air circulation to cool the hay. If the temperature climbs to 175 °Fahrenheit or higher, call the fire department; with the assistance of the fire department, remove the hot hay from the storage structure.</string>
+    <string name="south_africa_fire_danger_index">South Africa Fire Danger Index</string>
 </resources>

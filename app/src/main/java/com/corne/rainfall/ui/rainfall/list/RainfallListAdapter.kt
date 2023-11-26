@@ -61,9 +61,8 @@ class RainfallListAdapter(
         val formattedDate = dateFormatter.format(item.date)
 
         holder.dateTime.text = "${formattedDate}  ${item.startTime} -> ${item.endTime}"
-        holder.note.text = "Note: ${item.notes}" //TODO: Extract strings, giving issues with context
-//        holder.heading.setOnClickListener { onClickFunction(item) }
-//        binding.rainfallList.adapter?.notifyDataSetChanged()
+        if (item.notes == null)  holder.note.text = ""
+        else holder.note.text = "Note: ${item.notes}" //TODO: Extract strings, giving issues with context
     }
 
 }

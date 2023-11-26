@@ -21,6 +21,9 @@ class helpFragment : BaseFragment<FragmentHelpBinding>() {
 
         binding.q1.setOnClickListener { setVisibility(binding.a1) }
         binding.q2.setOnClickListener { setVisibility(binding.a2) }
+        binding.q3.setOnClickListener { setVisibility(binding.a3) }
+        binding.q4.setOnClickListener { setVisibility(binding.a4) }
+        binding.q5.setOnClickListener { setVisibility(binding.a5) }
 
     }
 
@@ -33,6 +36,9 @@ class helpFragment : BaseFragment<FragmentHelpBinding>() {
         //Set all answers to gone
         binding.a1.visibility = View.GONE
         binding.a2.visibility = View.GONE
+        binding.a3.visibility = View.GONE
+        binding.a4.visibility = View.GONE
+        binding.a5.visibility = View.GONE
         //Then set selected to visible
         if (a.visibility == View.VISIBLE) {
             a.visibility = View.GONE

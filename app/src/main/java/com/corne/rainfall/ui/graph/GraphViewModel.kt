@@ -1,6 +1,8 @@
 package com.corne.rainfall.ui.graph
 
 import androidx.lifecycle.viewModelScope
+import com.anychart.chart.common.dataentry.ValueDataEntry
+import com.corne.rainfall.data.model.RainfallData
 import com.corne.rainfall.data.preference.IRainfallPreference
 import com.corne.rainfall.data.storage.IRainRepository
 import com.corne.rainfall.di.LocalRainfallRepository
@@ -24,6 +26,10 @@ class GraphViewModel @Inject constructor(
 
     fun updateGraphType() {
         setState { isGraphBar = !isGraphBar }
+    }
+
+    fun setNewRainData(list: List<RainfallData>) {
+        setState { rainDataList = list }
     }
 
     fun getDataForGraph() {
@@ -69,5 +75,5 @@ class GraphViewModel @Inject constructor(
 
     }
 
-    private fun setState(update: MutableIGraphState.() -> Unit) = stateStore.update(update)
+    fun setState(update: MutableIGraphState.() -> Unit) = stateStore.update(update)
 }
