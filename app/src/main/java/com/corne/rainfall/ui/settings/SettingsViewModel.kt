@@ -3,9 +3,12 @@ package com.corne.rainfall.ui.settings
 import android.content.Context
 import androidx.lifecycle.viewModelScope
 import com.corne.rainfall.data.preference.IRainfallPreference
+import com.corne.rainfall.data.storage.IRainRepository
 import com.corne.rainfall.data.task.IRainTaskManager
 import com.corne.rainfall.data.worker.RainSyncWorker
 import com.corne.rainfall.db.RainfallDatabase
+import com.corne.rainfall.di.LocalRainfallRepository
+import com.corne.rainfall.di.RemoteRainfallRepository
 import com.corne.rainfall.ui.base.state.BaseStateViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel

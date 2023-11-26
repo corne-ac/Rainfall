@@ -26,7 +26,6 @@ import java.util.UUID
 class CaptureFragment :
     BaseStateFragment<FragmentCaptureBinding, CaptureState, CaptureViewModel>() {
     override val viewModel: CaptureViewModel by hiltMainNavGraphViewModels()
-    private var currentlySelected: UUID? = null
     private val calendar: Calendar = Calendar.getInstance()
     private lateinit var locationAdapter: LocationListItemAdapter
     private var firstRun = true

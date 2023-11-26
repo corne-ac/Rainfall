@@ -15,8 +15,17 @@ import kotlinx.coroutines.flow.map
 import java.util.UUID
 import javax.inject.Inject
 
+/**
+ * This extension property provides a DataStore of Preferences with the name "rain_preference".
+ */
 val Context.rainPreferenceDataStore by preferencesDataStore("rain_preference")
 
+/**
+ * This class is an implementation of the IRainfallPreference interface.
+ * It provides the functionality to get and set user preferences using a DataStore of Preferences.
+ *
+ * @property dataStore The DataStore of Preferences used to store the user preferences.
+ */
 class RainfallPreferenceImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>,
 ) : IRainfallPreference {
@@ -37,7 +46,6 @@ class RainfallPreferenceImpl @Inject constructor(
     }.map { preference ->
         preference[LANGUAGE_MODE] ?: "Default"
     }
-
 
     override suspend fun setDarkMode(enable: Boolean) {
         dataStore.edit { preferences ->
@@ -105,6 +113,9 @@ class RainfallPreferenceImpl @Inject constructor(
         }
     }
 
+    /**
+     * These are the keys used to store and retrieve the user preferences from the DataStore.
+     */
     companion object {
         val IS_DARK_MODE_ENABLED = booleanPreferencesKey("dark_mode")
         val IS_OFFLINE_MODE_ENABLED = booleanPreferencesKey("offline_mode")

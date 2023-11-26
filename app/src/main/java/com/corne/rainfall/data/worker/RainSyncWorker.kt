@@ -26,12 +26,26 @@ class RainSyncWorker @AssistedInject constructor(
     private val rainfallPreference: IRainfallPreference,
     private val rainTaskManager: IRainTaskManager,
 ) : CoroutineWorker(appContext, workerParams) {
+    /**
+     * This method is called when the worker starts.
+     * It calls the syncRainData method to perform the sync operation.
+     *
+     * @return A Result object indicating the result of the worker operation.
+     */
+
     override suspend fun doWork(): Result {
         return syncRainData()
     }
 
 
-    suspend fun syncRainData(): Result {
+    /**
+     * This method syncs rainfall data between the local and remote repositories.
+     * If the data has never been synced before, it fetches all data from the remote repository and saves it to the local repository.
+     * If the data has been synced before, it pushes all local data to the remote repository.
+     *
+     * @return A Result object indicating the result of the sync operation.
+     */
+    private suspend fun syncRainData(): Result {
         return try {
             val lastUpdated = rainfallPreference.lastUpdatedDateFlow.first()
             if (lastUpdated == null) {

@@ -10,6 +10,7 @@ plugins {
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("org.jetbrains.dokka")
     id("com.google.gms.google-services")
+    id("com.guardsquare.appsweep") version "latest.release"
 }
 
 
