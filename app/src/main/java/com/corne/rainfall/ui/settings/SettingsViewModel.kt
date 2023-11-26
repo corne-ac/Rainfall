@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.lifecycle.viewModelScope
 import com.corne.rainfall.data.preference.IRainfallPreference
 import com.corne.rainfall.data.task.IRainTaskManager
+import com.corne.rainfall.data.worker.RainSyncWorker
 import com.corne.rainfall.db.RainfallDatabase
 import com.corne.rainfall.ui.base.state.BaseStateViewModel
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
@@ -43,6 +45,14 @@ class SettingsViewModel @Inject constructor(
      */
     suspend fun isDarkModeEnabled() = preferenceManager.uiModeFlow.first()
 
+    fun isLoggedIn() = FirebaseAuth.getInstance().currentUser != null
+
+    fun checkLoggedIn() {
+        currentJob?.cancel()
+        currentJob = viewModelScope.launch {
+            setState { loggedIn = FirebaseAuth.getInstance().currentUser != null }
+        }
+    }
 
     /**
      * Sets the dark mode setting.
@@ -98,7 +108,11 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun exportDataCloud() {
-        rainTaskManager.exportData()
+//        rainTaskManager.exportData()
+//        currentJob?.cancel()
+//        currentJob = viewModelScope.launch {
+//            rainSyncWorker.syncRainData()
+//        }
     }
 
     fun importData() {

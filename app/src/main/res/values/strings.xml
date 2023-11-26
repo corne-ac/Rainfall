@@ -2,7 +2,14 @@
     <string name="add">Add rainfall data</string>
     <string name="app_name">Rainfall</string>
     <string name="empty_date">Date needs a value</string>
+    <string name="empty_email">Email needs a value</string>
+    <string name="empty_password">Password needs a value</string>
+    <string name="empty_confirm_password">Confirm Password needs a value</string>
+    <string name="confirm_no_match">Passwords do not match</string>
     <string name="empty_end_time">End Time needs a value</string>
+    <string name="login_error_not_found">Login failed: User not found</string>
+    <string name="login_error_invalid_creds">Login failed: Invalid credentials</string>
+    <string name="login_error">Something went wrong.</string>
     <string name="empty_start_time">Start time needs a value</string>
     <string name="fire_loading">Fire risks data is loading.</string>
     <string name="graph">Rainfall Graph</string>
@@ -34,4 +41,7 @@
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="logout">Logout</string>
+    <string name="not_loggend_in">Not loggend in</string>
+    <string name="login_create_account">Login/Create Account</string>
 </resources>

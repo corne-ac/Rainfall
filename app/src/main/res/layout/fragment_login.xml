@@ -28,10 +28,10 @@
         android:layout_marginBottom="30dp"/>
 
     <com.corne.rainfall.ui.components.TextInput
-        android:id="@+id/username"
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:hint="Username" />
+        app:hint="Email" />
 
     <com.corne.rainfall.ui.components.TextInput
         android:id="@+id/password"
@@ -40,7 +40,7 @@
         app:hint="Password" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/register_btn"
+        android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:iconGravity="textStart"

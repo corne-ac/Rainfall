@@ -31,7 +31,7 @@ class RainSyncWorker @AssistedInject constructor(
     }
 
 
-    private suspend fun syncRainData(): Result {
+    suspend fun syncRainData(): Result {
         return try {
             val lastUpdated = rainfallPreference.lastUpdatedDateFlow.first()
             if (lastUpdated == null) {

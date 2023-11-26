@@ -17,11 +17,13 @@ import javax.annotation.concurrent.Immutable
 interface ISettingsState : IBaseState {
     val isLoading: Boolean
     val error: String?
+    val loggedIn: Boolean
 
     companion object {
         val initialState = ISettingsState(
             isLoading = false,
             error = null,
+            loggedIn = false
         )
     }
 

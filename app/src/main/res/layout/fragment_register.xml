@@ -27,7 +27,7 @@
         android:layout_marginBottom="30dp"/>
 
     <com.corne.rainfall.ui.components.TextInput
-        android:id="@+id/username"
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hint="Username" />
@@ -39,7 +39,7 @@
         app:hint="Password" />
 
     <com.corne.rainfall.ui.components.TextInput
-        android:id="@+id/end_time_input"
+        android:id="@+id/confirm_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:hint="Confirm Password" />

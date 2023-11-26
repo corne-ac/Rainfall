@@ -30,6 +30,31 @@ object DataValidator {
         }
     }
 
+    fun emailConfirmation(it: String?): Int? {
+        return when {
+            it == null -> null
+            isEmpty(it) -> R.string.empty_email
+            else -> null
+        }
+    }
+
+    fun passwordValidation(it: String?): Int? {
+        return when {
+            it == null -> null
+            isEmpty(it) -> R.string.empty_password
+            else -> null
+        }
+    }
+
+    fun confirmPasswordValidation(it: String?, confirm: String): Int? {
+        return when {
+            it == null -> null
+            isEmpty(it) -> R.string.empty_confirm_password
+            it != confirm -> R.string.confirm_no_match
+            else -> null
+        }
+    }
+
     fun startTimeValidation(it: String?): Int? {
         return when {
             it == null -> null

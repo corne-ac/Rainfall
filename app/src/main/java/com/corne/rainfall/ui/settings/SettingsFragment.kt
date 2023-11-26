@@ -3,9 +3,12 @@ package com.corne.rainfall.ui.settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.corne.rainfall.R
 import com.corne.rainfall.databinding.FragmentSettingsBinding
 import com.corne.rainfall.ui.base.state.BaseStateFragment
 import com.corne.rainfall.ui.hiltMainNavGraphViewModels
+import com.google.firebase.auth.FirebaseAuth
 import java.util.Locale
 
 /**
@@ -32,16 +35,23 @@ class SettingsFragment :
      * @param state The new state.
      */
     override fun updateState(state: ISettingsState) {
+        if (state.loggedIn) {
+            binding.onlineBackupToggle.isChecked = true
+            binding.cloudBackupLayout.visibility = View.VISIBLE
+            binding.email.text = FirebaseAuth.getInstance().currentUser?.email
 
-        /*   if (state.isLoading) {
-               binding.loadingLayout.visibility = View.VISIBLE
-               binding.settingsLayout.visibility = View.GONE
-           } else {
-               binding.loadingLayout.visibility = View.GONE
-               binding.settingsLayout.visibility = View.VISIBLE
-           }
-           */
-
+            binding.LoginRegisterBtn.text = getString(R.string.logout)
+            binding.LoginRegisterBtn.setOnClickListener {
+                FirebaseAuth.getInstance().signOut()
+                viewModel.checkLoggedIn()
+            }
+        } else {
+            binding.email.text = getString(R.string.not_loggend_in)
+            binding.LoginRegisterBtn.text = getString(R.string.login_create_account)
+            binding.LoginRegisterBtn.setOnClickListener  {
+                findNavController().navigate(R.id.action_navigation_settings_to_loginFragment)
+            }
+        }
     }
 
     /**
@@ -56,8 +66,11 @@ class SettingsFragment :
         runLanguageUpdate()
         runBackupUpdate()
 
+        viewModel.checkLoggedIn()
+
         binding.exportCloudBtn.setOnClickListener {
             viewModel.exportDataCloud()
+
         }
         binding.importLocalBtn.setOnClickListener {
             // Here we will import the database file
@@ -69,7 +82,9 @@ class SettingsFragment :
             viewModel.exportDataLocal(requireContext())
         }
 
-
+        binding.LoginRegisterBtn.setOnClickListener  {
+            findNavController().navigate(R.id.action_navigation_settings_to_loginFragment)
+        }
     }
 
     /**
