@@ -19,6 +19,15 @@ import java.io.File
 import java.io.IOException
 import kotlin.system.exitProcess
 
+/**
+ * This abstract class represents the Rainfall database.
+ * It extends RoomDatabase and is annotated with @Database to define the entities and version of the database.
+ * It is also annotated with @TypeConverters to specify the converters used for the database.
+ *
+ * @property rainEntityDao The DAO for the RainfallEntity.
+ * @property locationDao The DAO for the LocationEntity.
+ * @property notificationDAO The DAO for the NotificationEntity.
+ */
 @Database(
     entities = [RainfallEntity::class, LocationEntity::class, NotificationEntity::class],
     version = 5,
@@ -31,6 +40,14 @@ abstract class RainfallDatabase : RoomDatabase() {
 
     //https://stackoverflow.com/questions/73197105/how-to-export-room-database-as-a-db-to-download-file-so-i-can-use-it-later
     //TODO: sort of works maybe want some message for success and maybe save to downloads folder??
+
+    /**
+     * This method backs up the database.
+     * It creates a copy of the database and its associated files (WAL and SHM) with a backup suffix.
+     *
+     * @param context The context used to get the database path.
+     * @return An integer indicating the result of the backup operation. -1 indicates an error.
+     */
     fun backupDatabase(context: Context): Int {
         var result = -1
         if (INSTANCE == null) return result
@@ -56,6 +73,13 @@ abstract class RainfallDatabase : RoomDatabase() {
         return result
     }
 
+    /**
+     * This method restores the database from a backup.
+     * It replaces the current database and its associated files (WAL and SHM) with the backup files.
+     *
+     * @param context The context used to get the database path.
+     * @param restart A Boolean indicating whether to restart the application after restoring the database. Default is true.
+     */
     fun restoreDatabase(context: Context, restart: Boolean = true) {
         if (!File(context.getDatabasePath(Constants.DATABASE_NAME).path + Constants.BACKUP_SUFFIX).exists()) {
             return
@@ -85,6 +109,10 @@ abstract class RainfallDatabase : RoomDatabase() {
     }
 
 
+    /**
+     * This method performs a checkpoint operation on the database.
+     * It forces the database to write all changes in the WAL file to the main database file and then truncates the WAL file.
+     */
     private fun checkpoint() {
         val db = this.openHelper.writableDatabase
         db.query("PRAGMA wal_checkpoint(FULL);")
@@ -95,6 +123,10 @@ abstract class RainfallDatabase : RoomDatabase() {
     // In order to keep ensure this thread synchronization is needed.
     // This is a slightly modified version of the code from this example:
     // https://github.com/JeremyLeyvraz/WorkersKotlinExample/blob/43fb582a3740e4bfa474cf72881ecde07cc51dfb/libraryExample/src/main/java/com/lj/libraryExample/AppDatabase.kt#L13C23-L29
+    /**
+     * This companion object provides a singleton instance of the RainfallDatabase.
+     * It ensures that multiple instances of the database are not opened at the same time.
+     */
     companion object {
         var INSTANCE: RainfallDatabase? = null
         fun getInstance(context: Context): RainfallDatabase {
