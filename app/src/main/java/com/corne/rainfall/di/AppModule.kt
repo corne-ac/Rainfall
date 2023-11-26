@@ -8,6 +8,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * This companion object provides a singleton instance of the RainfallDatabase.
+ * It ensures that multiple instances of the database are not opened at the same time.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {

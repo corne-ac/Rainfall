@@ -11,10 +11,22 @@ import kotlinx.coroutines.flow.flow
 import org.json.JSONObject
 import javax.inject.Inject
 
+/**
+ * This class is an implementation of the IWeatherAlertApiProvider interface.
+ * It provides the functionality to fetch weather alerts from the WeatherAlertApiService.
+ */
 class WeatherAlertApiProviderImpl @Inject constructor(
     private val weatherAlertApiService: WeatherAlertApiService,
 ) : IWeatherAlertApiProvider {
 
+    /**
+     * This method fetches alerts from the WeatherAlertApiService.
+     *
+     * @param apiKey The API key used for authentication.
+     * @param location The location for which alerts are to be fetched.
+     * @param days The number of days for which alerts are to be fetched.
+     * @return A Flow of NetworkResult containing AlertResponseModel.AlertsMain.
+     */
     override fun getAlerts(
         apiKey: String,
         location: String,
@@ -42,6 +54,12 @@ class WeatherAlertApiProviderImpl @Inject constructor(
         Log.d("Weather api error", "getAlerts: ${it.message}")
     }
 
+    /**
+     * This method parses the JSON response from the WeatherAlertApiService into a list of AlertModel.
+     *
+     * @param jsonObject The JSON object containing the alerts data.
+     * @return A list of NetworkResult containing AlertModel.
+     */
     private fun parseAlerts(jsonObject: JSONObject): List<NetworkResult<AlertModel>> {
         val alertList = mutableListOf<NetworkResult<AlertModel>>()
 

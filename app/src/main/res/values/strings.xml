@@ -44,4 +44,5 @@
     <string name="logout">Logout</string>
     <string name="not_loggend_in">Not loggend in</string>
     <string name="login_create_account">Login/Create Account</string>
+    <string name="NoAllertsFound">No alerts found</string>
 </resources>

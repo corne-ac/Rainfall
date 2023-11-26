@@ -13,12 +13,19 @@ import kotlinx.coroutines.tasks.await
 import java.util.UUID
 import javax.inject.Inject
 
-
-// This class is set up in such a manner that we could easily switch between local and remote data storage if we wanted to.
-// For now we just want a sync function so many of the functions are not implemented.
+/**
+ * This class is an implementation of the IRainRepository interface.
+ * It provides the functionality to get and manipulate rainfall data and locations using Firebase.
+ * It is set up in such a manner that we could easily switch between local and remote data storage if we wanted to.
+ * For now we just want a sync function so many of the functions are not implemented.
+ */
 class RainfallRemoteRepo @Inject constructor() : IRainRepository {
 
-    // Extra method to sync preferences
+    /**
+     * This method syncs user preferences with Firebase.
+     *
+     * @param prefs The PrefModel containing the user preferences.
+     */
     fun syncPreferences(
         prefs: PrefModel,
     ) {
@@ -27,6 +34,11 @@ class RainfallRemoteRepo @Inject constructor() : IRainRepository {
         // Save these values
     }
 
+    /**
+     * This method fetches user preferences from Firebase.
+     *
+     * @return A Flow of NetworkResult containing the PrefModel.
+     */
     fun downloadPreferences(): Flow<NetworkResult<PrefModel>> = flow {
         // Get the user
         val value: NetworkResult<PrefModel> = NetworkResult.Success(
@@ -38,6 +50,11 @@ class RainfallRemoteRepo @Inject constructor() : IRainRepository {
         emit(NetworkResult.error(R.string.preferences_error))
     }
 
+    /**
+     * This method fetches all rainfall data from Firebase.
+     *
+     * @return A Flow of NetworkResult containing a list of RainfallData.
+     */
     override fun getAllRainfallData(): Flow<NetworkResult<List<RainfallData>>> = flow {
         val docs = FirebaseHelper.currentUserRainDataDocRef.get().await()
         val rainData = mutableListOf<RainfallData>()
@@ -50,6 +67,11 @@ class RainfallRemoteRepo @Inject constructor() : IRainRepository {
         emit(NetworkResult.success(emptyList()))
     }
 
+    /**
+     * This method fetches all locations from Firebase.
+     *
+     * @return A Flow of NetworkResult containing a list of LocationModel.
+     */
     override fun getAllLocations(): Flow<NetworkResult<List<LocationModel>>> = flow {
         val docs = FirebaseHelper.currentUserRainDataDocRef.get().await()
         val rainData = mutableListOf<LocationModel>()
@@ -62,6 +84,7 @@ class RainfallRemoteRepo @Inject constructor() : IRainRepository {
         emit(NetworkResult.success(emptyList()))
     }
 
+    // The following methods are not yet implemented.
 
     override fun getRainfallInLocation(locationId: UUID): Flow<NetworkResult<List<RainfallData>>> {
         TODO("Not yet implemented")
@@ -91,7 +114,6 @@ class RainfallRemoteRepo @Inject constructor() : IRainRepository {
         TODO("Not yet implemented")
     }
 
-
     override suspend fun addLocation(locationModel: LocationModel): NetworkResult<String> {
         return try {
             FirebaseHelper.currentUserLocationDocRef.add(locationModel).await()
@@ -111,9 +133,12 @@ class RainfallRemoteRepo @Inject constructor() : IRainRepository {
         FirebaseHelper.currentUserPreferencesDocRef.delete()
     }
 
+    /**
+     * This method uploads user preferences to Firebase.
+     *
+     * @param prefModel The PrefModel containing the user preferences.
+     */
     fun uploadPreferences(prefModel: PrefModel) {
         FirebaseHelper.currentUserPreferencesDocRef.set(prefModel)
     }
-
-
 }
