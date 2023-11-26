@@ -14,7 +14,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -29,10 +28,6 @@ class CaptureViewModel @Inject constructor(
     private val stateStore = CaptureState.initialState.mutable()
     override val state: StateFlow<CaptureState> = stateStore.asStateFlow()
     private var currentJob: Job? = null
-
-    suspend fun getDefaultLocation() = rainfallPreference.defaultLocationFlow.first()
-
-
 
     private var onSuccessCallback: (() -> Unit)? = null
     private var onFailCallback: (() -> Unit)? = null

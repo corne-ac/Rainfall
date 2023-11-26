@@ -98,7 +98,12 @@ class RainfallRemoteRepo @Inject constructor() : IRainRepository {
         rainfallData: RainfallData,
         locId: UUID,
     ): NetworkResult<String> {
-        TODO("Not yet implemented")
+        return try {
+            FirebaseHelper.currentUserRainDataDocRef.add(rainfallData).await()
+            NetworkResult.Success("Success")
+        } catch (e: Exception) {
+            NetworkResult.Error(-1)
+        }
     }
 
     override fun deleteRainData(rainfallData: RainfallData) {
@@ -110,7 +115,22 @@ class RainfallRemoteRepo @Inject constructor() : IRainRepository {
     }
 
     override suspend fun addLocation(locationModel: LocationModel): NetworkResult<String> {
-        TODO("Not yet implemented")
+        return try {
+            FirebaseHelper.currentUserLocationDocRef.add(locationModel).await()
+            NetworkResult.Success("Success")
+        } catch (e: Exception) {
+            NetworkResult.Error(-1)
+        }
+    }
+
+    suspend fun clear() {
+        FirebaseHelper.currentUserRainDataDocRef.get().await().forEach {
+            it.reference.delete()
+        }
+        FirebaseHelper.currentUserLocationDocRef.get().await().forEach {
+            it.reference.delete()
+        }
+        FirebaseHelper.currentUserPreferencesDocRef.delete()
     }
 
     /**
