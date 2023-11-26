@@ -58,42 +58,6 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             }
-
-            /*     flow1.collect { locId ->
-                     setState {
-                         isLoading = false
-                         defaultLocation = locId
-                     }
-                 }
-
-                 flow1.combine(rain.getAllLocations()) { locId, locResult ->
-                     when (locResult) {
-                         is NetworkResult.Success -> setState {
-                             isLoading = false
-                             allLocationsList = locResult.data
-                             defaultLocation = locId
-                         }
-
-                         is NetworkResult.Error -> setState {
-                             isLoading = false
-                             error = locResult.message
-                         }
-                     }
-                 }*/
-
-            /* rain.getAllLocations().collect { locResult ->
-                 when (locResult) {
-                     is NetworkResult.Success -> setState {
-                         isLoading = false
-                         allLocationsList = locResult.data
-                     }
-
-                     is NetworkResult.Error -> setState {
-                         isLoading = false
-                         error = locResult.message
-                     }
-                 }
-             }*/
         }
 
     }

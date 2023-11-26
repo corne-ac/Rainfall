@@ -31,4 +31,7 @@
     <string name="offline_mode">Offline Mode</string>
     <string name="current_location">Current Location:</string>
     <string name="NoAllertsFound">No alerts found</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
 </resources>
