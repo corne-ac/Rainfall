@@ -65,13 +65,16 @@ class SettingsFragment :
         runOfflineUpdate()
         runLanguageUpdate()
         runBackupUpdate()
-
         viewModel.checkLoggedIn()
 
         binding.exportCloudBtn.setOnClickListener {
-            viewModel.exportDataCloud()
-
+            viewModel.uploadData()
         }
+
+        binding.importCloudBtn.setOnClickListener {
+            viewModel.downloadData()
+        }
+
         binding.importLocalBtn.setOnClickListener {
             // Here we will import the database file
             viewModel.importDataLocal(requireContext())
@@ -85,6 +88,8 @@ class SettingsFragment :
         binding.LoginRegisterBtn.setOnClickListener  {
             findNavController().navigate(R.id.action_navigation_settings_to_loginFragment)
         }
+
+
     }
 
     /**
@@ -149,7 +154,7 @@ class SettingsFragment :
      * This function is called to update the backup setting.
      * It is a suspend function, so it can perform long-running operations.
      */
-    private suspend fun runBackupUpdate() {
+    private fun runBackupUpdate() {
         //Guess have to add some stuff to view-model to check
         //backup last date local and online, also check account
 

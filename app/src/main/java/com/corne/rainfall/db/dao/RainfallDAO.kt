@@ -2,6 +2,7 @@ package com.corne.rainfall.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.corne.rainfall.db.entity.RainfallEntity
 import kotlinx.coroutines.flow.Flow
@@ -19,7 +20,7 @@ interface RainfallDAO {
     @Query("SELECT * FROM rainfall WHERE uid = :rainfallId")
     suspend fun getRainDataById(rainfallId: UUID): RainfallEntity
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addRainData(rainfallEntity: RainfallEntity)
 
 }
