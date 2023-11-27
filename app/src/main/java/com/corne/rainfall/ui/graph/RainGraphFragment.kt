@@ -11,7 +11,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.navigation.fragment.findNavController
 import com.anychart.AnyChart
 import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.ValueDataEntry
@@ -195,6 +197,13 @@ class RainGraphFragment : BaseStateFragment<FragmentGraphBinding, IGraphState, G
         binding.endDate.binding.value.setText(currentDate.format(calendar.time))
 
         calendar.time = Date()
+
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                }
+            })
     }
 
     fun saveChartAsImage(chartView: View, fileName: String) {

@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
 import com.corne.rainfall.databinding.FragmentHelpBinding
 import com.corne.rainfall.ui.base.BaseFragment
 
@@ -24,6 +26,13 @@ class helpFragment : BaseFragment<FragmentHelpBinding>() {
         binding.q3.setOnClickListener { setVisibility(binding.a3) }
         binding.q4.setOnClickListener { setVisibility(binding.a4) }
         binding.q5.setOnClickListener { setVisibility(binding.a5) }
+
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                }
+            })
 
     }
 

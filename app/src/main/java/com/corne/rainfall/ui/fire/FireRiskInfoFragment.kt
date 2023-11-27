@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.corne.rainfall.R
 
 
@@ -22,6 +24,13 @@ class fireRiskInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_fire_risk_info, container, false)
+
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                }
+            })
 
         //Doesnt quite work, donno why
         //Only first card (article1card) works, but links to the third card's link

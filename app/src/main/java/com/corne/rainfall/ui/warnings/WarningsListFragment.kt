@@ -3,6 +3,8 @@ package com.corne.rainfall.ui.warnings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
 import com.corne.rainfall.databinding.FragmentNotificationListBinding
 import com.corne.rainfall.databinding.FragmentWarningsListBinding
 import com.corne.rainfall.ui.base.state.BaseStateFragment
@@ -27,6 +29,13 @@ class WarningsListFragment :
             androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
             false
         )
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                }
+            })
+
 
         viewModel.getAllAlerts()
 

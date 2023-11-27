@@ -1,6 +1,7 @@
 package com.corne.rainfall.ui.account.login
 
 import android.os.Bundle
+import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,8 @@ class LoginFragment : BaseStateFragment<FragmentLoginBinding, ILoginState, Login
     override suspend fun addContentToView() {
 
         viewModel.setUpForm()
+
+        binding.password.binding.value.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
 
         binding.email.binding.value.doAfterTextChanged {
             viewModel.updateState(LoginForm.EMAIL, it.toString())

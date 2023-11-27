@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
 import com.corne.rainfall.data.model.RainfallData
 import com.corne.rainfall.databinding.FragmentRainfallListBinding
 import com.corne.rainfall.ui.base.state.BaseStateFragment
@@ -61,6 +63,13 @@ class ListFragment :
             androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
             false
         )
+
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                }
+            })
 
         viewModel.getRainfallData()
 

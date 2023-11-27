@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import com.corne.rainfall.BuildConfig
 import com.corne.rainfall.R
 import com.corne.rainfall.data.model.FireLocationItemModel
@@ -120,6 +122,13 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
     override suspend fun addContentToView() {
         googleMap = binding.map.getFragment()
         viewModel.updateForMap()
+
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                }
+            })
     }
 
     //The below marker code was derived from Google Maps Platform

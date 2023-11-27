@@ -3,6 +3,7 @@ package com.corne.rainfall.ui.settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.corne.rainfall.R
 import com.corne.rainfall.databinding.FragmentSettingsBinding
@@ -88,6 +89,13 @@ class SettingsFragment :
         binding.LoginRegisterBtn.setOnClickListener  {
             findNavController().navigate(R.id.action_navigation_settings_to_loginFragment)
         }
+
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                }
+            })
 
 
     }

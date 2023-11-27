@@ -3,6 +3,7 @@ package com.corne.rainfall.ui.location
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
 import com.corne.rainfall.databinding.FragmentAddLocationBinding
@@ -53,6 +54,13 @@ class AddLocationFragment :
 
     override suspend fun addContentToView() {
         viewModel.setUpForm()
+
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                }
+            })
 
         binding.locationName.binding.value.doAfterTextChanged {
             viewModel.updateState(ILocationForm.NAME, it.toString())

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
 import com.corne.rainfall.data.model.LocationModel
@@ -205,7 +206,12 @@ class CaptureFragment :
         viewModel.setUpForm()
         viewModel.loadUserLocationData()
 
-
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                }
+            })
 
         binding.dateInput.binding.value.doAfterTextChanged {
             viewModel.updateState(CaptureForm.DATE, it.toString())
