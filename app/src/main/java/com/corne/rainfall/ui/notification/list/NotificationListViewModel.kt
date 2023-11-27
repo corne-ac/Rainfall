@@ -13,6 +13,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.corne.rainfall.BuildConfig
 
 @HiltViewModel
 class NotificationListViewModel @Inject constructor(private val alertApi: IWeatherAlertApiProvider) :
@@ -31,7 +32,7 @@ class NotificationListViewModel @Inject constructor(private val alertApi: IWeath
             val results = mutableListOf<List<AlertModel>>()
 
             for (iataCode in iataCodes) {
-                val alertsData = alertApi.getAlerts("9f9a9d1b7bed4c0fa3a120250232511", "iata:$iataCode", "1")
+                val alertsData = alertApi.getAlerts(BuildConfig.WEATHER_ALERT_API_KEY, "iata:$iataCode", "1")
 
                 alertsData.collect { resp ->
                     resp.onSuccess { networkResultList ->
