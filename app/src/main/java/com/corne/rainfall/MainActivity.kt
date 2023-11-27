@@ -19,6 +19,7 @@ import javax.inject.Inject
  * the navigation graph and sets up the navigation controller for the app.
  *
  * The activity is annotated with [AndroidEntryPoint], enabling Hilt for dependency injection.
+ * Test appsweep
  */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
