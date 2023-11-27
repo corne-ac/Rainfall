@@ -15,16 +15,37 @@ import java.util.UUID
 @Dao
 interface RainfallDAO {
 
+    /**
+     * This method fetches all rainfall data from the database.
+     *
+     * @return A Flow of a list of RainfallEntity.
+     */
     @Query("SELECT * FROM rainfall")
     fun getAllRainData(): Flow<List<RainfallEntity>>
 
+    /**
+     * This method fetches rainfall data for a specific location from the database.
+     *
+     * @param locationId The UUID of the location.
+     * @return A Flow of a list of RainfallEntity.
+     */
     @Query("SELECT * FROM rainfall WHERE locationUID = :locationId")
     fun getRainDataByLocation(locationId: UUID): Flow<List<RainfallEntity>>
 
+    /**
+     * This method fetches a specific rainfall data by its ID from the database.
+     *
+     * @param rainfallId The UUID of the rainfall data.
+     * @return A RainfallEntity object.
+     */
     @Query("SELECT * FROM rainfall WHERE uid = :rainfallId")
     suspend fun getRainDataById(rainfallId: UUID): RainfallEntity
 
+    /**
+     * This method adds a new rainfall data to the database.
+     *
+     * @param rainfallEntity The RainfallEntity to be added.
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addRainData(rainfallEntity: RainfallEntity)
-
 }
