@@ -15,8 +15,13 @@ plugins {
 
 
 val localProperties = Properties()
-localProperties.load(FileInputStream(rootProject.file("local.properties")))
-
+//localProperties.load(FileInputStream(rootProject.file("local.properties")))
+try {
+    localProperties.load(FileInputStream(rootProject.file("local.properties")))
+} catch (e: FileNotFoundException) {
+    // Handle the file not found error, use default values or print a message.
+    println("Local properties file not found. Using default values.")
+}
 android {
     namespace = "com.corne.rainfall"
     compileSdk = 34
@@ -44,7 +49,13 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "FIRE_API_KEY", localProperties.getProperty("FIRE_API_KEY"))
+            try {
+                buildConfigField("String", "FIRE_API_KEY", localProperties.getProperty("FIRE_API_KEY"))
+            } catch (e: Exception) {
+                // Handle the file not found error, use default values or print a message.
+                println("No API KEY.")
+            }
+
 
         }
     }
