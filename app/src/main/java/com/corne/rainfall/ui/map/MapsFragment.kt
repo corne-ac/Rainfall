@@ -122,6 +122,9 @@ class MapsFragment : BaseStateFragment<FragmentMapsBinding, IMapState, MapViewMo
         viewModel.updateForMap()
     }
 
+    //The below marker code was derived from Google Maps Platform
+    //https://developers.google.com/maps/documentation/android-sdk/marker
+
     private fun addMarkersToMap(
         fireList: MutableList<NetworkResult<FireLocationItemModel>>,
         googleMap: GoogleMap,

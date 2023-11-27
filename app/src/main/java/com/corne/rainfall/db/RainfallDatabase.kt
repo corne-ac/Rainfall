@@ -28,6 +28,11 @@ import kotlin.system.exitProcess
  * @property locationDao The DAO for the LocationEntity.
  * @property notificationDAO The DAO for the NotificationEntity.
  */
+
+//The below code was derived from CopyProgramming
+//https://copyprogramming.com/howto/importing-android-database-sqlite-android-studio-code-example
+//Manuel Taylor
+
 @Database(
     entities = [RainfallEntity::class, LocationEntity::class, NotificationEntity::class],
     version = 5,

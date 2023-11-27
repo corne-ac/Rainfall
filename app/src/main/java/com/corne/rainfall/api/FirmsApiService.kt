@@ -22,6 +22,12 @@ interface FirmsApiService {
      * @return A [Response] containing the raw CSV data of fire-related information. Use [ResponseBody]
      * for handling the raw CSV data later.
      */
+
+    //The below interface code was derived from Medium
+    //https://medium.com/@imkuldeepsinghrai/api-calls-with-retrofit-in-android-kotlin-a-comprehensive-guide-e049e19deba9
+    //Kuldeep Singh Rai
+    //https://medium.com/@imkuldeepsinghrai
+
     @GET("api/country/csv/{apiKey}/{type}/{location}/{days}/{date}")
     suspend fun getFirmsData(
         @Path("apiKey") apiKey: String,

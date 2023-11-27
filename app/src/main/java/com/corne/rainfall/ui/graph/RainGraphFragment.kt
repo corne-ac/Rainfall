@@ -110,8 +110,8 @@ class RainGraphFragment : BaseStateFragment<FragmentGraphBinding, IGraphState, G
         return sortedList
     }
 
-    //DATE INPUTS SET DATE VERKEERD
-
+    //The Below graph code was derived from AnyChart
+    //https://www.anychart.com/products/anychart/overview/
 
     private fun setUpGraph(
         state: IGraphState,

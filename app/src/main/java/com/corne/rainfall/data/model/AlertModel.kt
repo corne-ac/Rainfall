@@ -7,6 +7,10 @@ import com.google.gson.annotations.SerializedName
  * It contains various properties related to a weather alert.
  * Each property is annotated with @SerializedName to map the JSON keys with the data class fields.
  */
+
+//The below code was derived from Javadoc
+//https://www.javadoc.io/doc/com.google.code.gson/gson/2.6.2/com/google/gson/annotations/SerializedName.html
+
 data class AlertModel(
     /**
      * The headline of the alert.

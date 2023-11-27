@@ -8,6 +8,10 @@ import javax.inject.Singleton
  * Defines a Singleton interface for managing user preferences related to the application's preferences.
  * Implementations of this interface should provide methods to retrieve and update preference modes.
  */
+
+//The below preferences implementation was derived from Android developers
+//https://developer.android.com/training/data-storage/shared-preferences
+
 @Singleton
 interface IRainfallPreference {
     /**

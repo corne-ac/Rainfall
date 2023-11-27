@@ -28,6 +28,9 @@ class LoginViewModel @Inject constructor() : BaseStateViewModel<ILoginState>(){
     private val auth = FirebaseAuth.getInstance()
     private var currentJob: Job? = null
 
+    //The below login code and the related register code was derived from firebase
+    //https://firebase.google.com/docs/auth
+
     fun signIn() {
         currentJob?.cancel()
         currentJob = viewModelScope.launch {

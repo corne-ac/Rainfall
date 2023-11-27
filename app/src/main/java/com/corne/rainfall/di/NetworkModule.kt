@@ -17,6 +17,12 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+
+//The Below network module code structure was derived from Medium
+//https://medium.com/codex/creating-the-network-module-with-hilt-3eefc54b72
+//Priyansh Kedia
+//https://medium.com/@priyansh-kedia
+
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
@@ -24,18 +30,6 @@ class NetworkModule {
         OkHttpClient.Builder().readTimeout(1, TimeUnit.MINUTES).writeTimeout(1, TimeUnit.MINUTES)
 
     private val moshi = Builder().add(KotlinJsonAdapterFactory()).build()
-
-    /*
-        private val weatherRetrofitInstance: Retrofit.Builder =
-            Retrofit.Builder().baseUrl(Constants.API_WEATHER_URL).client(okHttpClientBuilder.build())
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
-    */
-
-
-    /*   @Provides
-       fun providesWeatherApiService(): WeatherApiService {
-           return weatherRetrofitInstance.build().create(WeatherApiService::class.java)
-       }*/
 
     private val fireRetrofitInstance: Retrofit.Builder =
         Retrofit.Builder().baseUrl(Constants.FIRMS_BASE_URL).client(okHttpClientBuilder.build())

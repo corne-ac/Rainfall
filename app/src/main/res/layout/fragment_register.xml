@@ -30,7 +30,7 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:hint="Username" />
+        app:hint="Email" />
 
     <com.corne.rainfall.ui.components.TextInput
         android:id="@+id/password"

@@ -17,6 +17,11 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.first
 import java.util.Date
 
+//The below worker code was derived from DaniWeb
+//https://www.daniweb.com/programming/mobile-development/tutorials/537605/android-native-how-to-inject-dependencies-into-a-worker-with-hilt
+//Dimitrilc
+//https://www.daniweb.com/members/1216934/dimitrilc
+
 @HiltWorker
 class RainSyncWorker @AssistedInject constructor(
     @Assisted appContext: Context,

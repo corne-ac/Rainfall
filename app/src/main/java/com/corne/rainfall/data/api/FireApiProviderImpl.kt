@@ -17,6 +17,12 @@ import javax.inject.Inject
  *
  * @param fireService An instance of [FirmsApiService] used to make API requests.
  */
+
+//The below code was derived from Medium
+//https://medium.com/@sribanavasi/best-practice-for-handling-api-calls-using-retrofit-in-android-studio-36fb5e53c08
+//Sri Banavasi
+//https://medium.com/@sribanavasi
+
 class FireApiProviderImpl @Inject constructor(
     private val fireService: FirmsApiService,
 ) : IFireApiProvider {
