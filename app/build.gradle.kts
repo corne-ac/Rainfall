@@ -18,7 +18,7 @@ val localProperties = Properties()
 //localProperties.load(FileInputStream(rootProject.file("local.properties")))
 try {
     localProperties.load(FileInputStream(rootProject.file("local.properties")))
-} catch (e: FileNotFoundException) {
+} catch (e: Error) {
     // Handle the file not found error, use default values or print a message.
     println("Local properties file not found. Using default values.")
 }
