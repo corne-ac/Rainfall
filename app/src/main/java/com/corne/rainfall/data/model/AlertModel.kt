@@ -72,4 +72,6 @@ data class AlertModel(
      * Any instructions related to the alert.
      */
     @SerializedName("instruction") var instruction: String? = null,
+
+    var location: String? = null
 )

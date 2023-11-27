@@ -27,9 +27,6 @@ class HomeStateFragment : BaseStateFragment<FragmentHomeBinding, IHomeState, Hom
 
         // Sample data for the spinner
         if (state.allLocationsList.isNotEmpty()) {
-//            val adapter = ArrayAdapter(requireContext(),
-//                android.R.layout.simple_spinner_item,
-//                state.allLocationsList.map { it.name })
 
             val adapter = LocationListItemAdapter(requireContext(), state.allLocationsList.map { it.name })
 
@@ -76,10 +73,8 @@ class HomeStateFragment : BaseStateFragment<FragmentHomeBinding, IHomeState, Hom
         binding.rainfallCaptured.setOnClickListener { findNavController().navigate(R.id.action_homeFragment_to_rainfallListFragment) }
         binding.notifications.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_notifications_list) }
         binding.fireRisks.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_fire_risk_info) }
-        binding.weatherWarnings.setOnClickListener { }
-        binding.addLocation.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_home_to_navigation_add_location)
-        }
+        binding.weatherWarnings.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_warningsListFragment) }
+        binding.addLocation.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_add_location) }
         binding.helpButton.setOnClickListener { findNavController().navigate(R.id.action_navigation_home_to_navigation_help) }
 
 

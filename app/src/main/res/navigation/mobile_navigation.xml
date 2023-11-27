@@ -24,8 +24,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_add_location"
             app:destination="@id/navigation_add_location" />
-
-
+        <action
+            android:id="@+id/action_navigation_home_to_warningsListFragment"
+            app:destination="@id/warningsListFragment" />
 
 
     </fragment>
@@ -112,6 +113,11 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/warningsListFragment"
+        android:name="com.corne.rainfall.ui.warnings.WarningsListFragment"
+        android:label="WarningsListFragment"
+        tools:layout="@layout/fragment_warnings_list"/>
 
 
     <!--app:startDestination="@+id/navigation_home"-->
