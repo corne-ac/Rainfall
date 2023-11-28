@@ -3,6 +3,7 @@ package com.corne.rainfall.ui.settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.corne.rainfall.R
@@ -97,6 +98,18 @@ class SettingsFragment :
                 }
             })
 
+//        val lang: Array<String> = arrayOf("English", "Afrikaans")
+//
+//        ArrayAdapter.createFromResource(
+//            requireContext(),
+//            R.array.lang_array,
+//            android.R.layout.simple_spinner_item
+//        ).also { adapter ->
+//            // Specify the layout to use when the list of choices appears.
+//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//            // Apply the adapter to the spinner.
+//            spinner.adapter = adapter
+//        }
 
     }
 

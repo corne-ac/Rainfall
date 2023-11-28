@@ -132,6 +132,7 @@ class RainGraphFragment : BaseStateFragment<FragmentGraphBinding, IGraphState, G
         val base = if (state.isGraphBar) cartesian.column(list) else cartesian.line(list)
         cartesian.background().enabled(true);
 
+        //TODO: Add up same dates
 
         val primaryColor = getFromTheme(com.google.android.material.R.attr.colorPrimary)
         if (primaryColor != null) base.color(String.format("#%06X", 0xFFFFFF and primaryColor))
@@ -229,6 +230,7 @@ class RainGraphFragment : BaseStateFragment<FragmentGraphBinding, IGraphState, G
                 values.put(MediaStore.Images.Media.IS_PENDING, false)
                 requireContext().contentResolver.update(uri, values, null, null)
             }
+            Toast.makeText(context, "Saved Image!", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(context, "Error saving chart", Toast.LENGTH_SHORT).show()
         }
